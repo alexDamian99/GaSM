@@ -7,19 +7,18 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <script>
         function myFunction() {
-            var x = document.getElementById("navbar");
+            var x = document.getElementById("mobile-navbar");
             if(x.className === "responsive-navbar"){
                 x.className = "";
             }else{
                 x.className += "responsive-navbar";
             }
-           
         }
     </script>
     <title>GASM</title>
 </head>
 <body>
-    <header >
+    <header>
         <nav id ="navbar">
             <a id="logo-container" href="#">
                 <img id="logo" src="assets/images/14ea5727-2ee6-4832-9b5e-70bd2cb15b8a_200x200.png" alt="logo">
@@ -38,6 +37,15 @@
                     <div></div>
                 </span>
             </a>
+        </nav>
+        <nav id ="mobile-navbar">
+            <ul id="mobile-navbar-buttons">
+                <li><a href="#">Report event</a></li>
+                <li><a href="#">Statistics</a></li>
+                <li><a href="#">Campaigns</a></li>
+                <li><a href="#">Sign up</a></li>
+                <li><a href="#">Log in</a></li>
+            </ul>
         </nav>
         
         
