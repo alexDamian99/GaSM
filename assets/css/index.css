@@ -1,0 +1,80 @@
+body{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+#navbar{
+    height: 6em;
+    display: flex;
+    justify-content: space-around;
+    
+    background-color: #e6efec;
+}
+#logo-container{
+    display: flex;
+}
+#logo{
+    align-self: center;
+    height: 80%;
+}
+#navbar-buttons{
+    align-self: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    list-style: none;
+}
+#navbar-buttons > li{
+    margin-right: 1em;
+}
+#navbar-buttons > li > a{
+    text-decoration: none;
+    color: black;
+    font-size: 1.05em;
+    font-weight: 550;
+    padding: 2px;
+}
+#navbar-buttons > li > a:hover{
+    color:rgb(2,158,86);
+    border-bottom: 2px solid rgb(2,158,86);
+}
+#cheese-burger{    
+    display: none;
+}
+#cheese-burger div{
+    height: 3px;
+    width: 25px;
+    background-color: #3A3A3A;
+    margin: 5px 0;
+}
+#cheese-burger span{
+    border: 2px #3A3A3A solid;
+    border-radius: 10%;
+    padding: 3px 5px 3px 5px;
+}
+.responsive-navbar #navbar-buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;/**/
+    top:6em;
+    background-color: #e6efec;
+}
+.responsive-navbar #navbar-buttons > li{
+    margin-top: 0.5em;
+}
+
+@media screen and (max-width: 650px){
+    #navbar-buttons{
+        display: none;
+    }
+    #cheese-burger{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+}
+
