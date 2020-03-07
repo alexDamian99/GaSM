@@ -11,7 +11,7 @@ header{
     display: flex;
     justify-content: space-around;
 }
-#logo-container{
+.logo-container{
     display: flex;
 }
 #logo{
@@ -93,3 +93,126 @@ header{
     }
 }
 /*--------mobile top menu area---------*/
+
+
+
+/* ---------------footer--------------- */
+
+footer{
+    background-color: #3A3A3A;
+    color: #e6efec;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#top-footer{
+    border-bottom: 1px solid #e6efec;
+    margin: 1em 4em;
+    display: flex;
+    align-items: center;
+}
+
+#footer-title{
+    font-weight: bold;
+    font-size: 1em;
+    color: rgb(2,158,86);
+}
+
+#footer-info > span{
+    font-size: 0.8em;
+    font-weight: 575;
+    color: rgb(2,158,86)
+}
+
+#footer-contact{
+    font-size: 0.8em;
+    margin-top: 2px;
+    padding: 1px;
+}
+
+#footer-helpful {
+    font-size: 0.9em;
+    margin: 0 3em;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+}
+
+#footer-helpful > span {
+    font-weight: 575;
+    color: rgb(2,158,86);
+}
+
+#footer-helpful > ul{
+    margin-top: 3px;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+#footer-helpful > ul > li {
+    margin: 3px 0;
+}
+
+#footer-helpful > ul > li > a {
+    text-decoration: none;
+    color: #e6efec;
+}
+#footer-vision {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#footer-vision > span {
+    font-weight: 575;
+    color: rgb(2,158,86);
+}
+
+#footer-vision > p {
+    margin-top: 3px;
+    max-width: 30em;
+    font-size: 0.9em;
+}
+
+#low-footer {
+    margin: 1em 4.5em;
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+#footer-social {
+    margin: 0 2.5em;
+}
+
+#footer-social > span {
+    font-weight: 575;
+    color: rgb(2,158,86);
+}
+
+#footer-social > ul{
+    margin-top: 0.5em;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start
+}
+#footer-social > ul > li {
+    margin-right: 1em;
+}
+
+#footer-copyright{
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+
+#footer-logo {
+    align-self: center;
+    height: 5em;
+}
