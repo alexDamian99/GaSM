@@ -161,6 +161,11 @@ footer{
     text-decoration: none;
     color: #e6efec;
 }
+
+#footer-helpful > ul > li > a:hover{
+    border-bottom: 1px solid #e6efec;
+}
+
 #footer-vision {
     display: flex;
     flex-direction: column;
