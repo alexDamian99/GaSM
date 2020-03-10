@@ -1,0 +1,136 @@
+body {
+    background-image:  url('../images/green-background.jpg');
+    display: flex;
+    justify-content: center;
+    font-family: 'Roboto', 'sans-serif';
+    color: #3A3A3A;
+}
+
+form {
+    background-color: white;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    width: 500px;
+    margin-top: 2em;
+    border-radius: 1em;
+    padding: 2em;
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+label {
+    margin: 1.25em 0em;
+}
+
+.input {
+    outline: none;
+    border: none;
+    border-bottom: 1px #3A3A3A solid;
+    padding: 0.5em 1em 0.5em 0;
+    font-size: 1.15em;
+    width: 100%;
+    margin-top: 5px;
+    font-family: 'Roboto', 'FontAwesome';
+}
+
+a {
+    text-decoration: none;
+    color: #3A3A3A;
+    font-size: 0.8em;
+}
+
+a:hover {
+    border-bottom: 1px #3A3A3A solid;
+}
+
+#forgot-pass {
+    position: relative;
+    right: -6em;
+}
+
+button {
+    margin: 2em 0;
+    padding: 1em 5em;
+    border-radius: 0.5em;
+    border: 0;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    opacity: 0.7;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+button::after {
+    content: " ";
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    height: 2px;
+    background-color: #3A3A3A;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover::after {
+    transform: scaleX(1.75);
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#social-signin ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.fa {
+    padding: 1em;
+    width: 1em;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    margin: 0.5em;
+}
+  
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.fa-google {
+    background: #dd4b39;
+    color: white;
+}
+
+#not-acc > span {
+    font-size: 0.9em;
+    margin-bottom: 1em;
+}
+
+@media screen and (max-width: 600px){
+    form {
+        width: 250px;
+    }
+}
