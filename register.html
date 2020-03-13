@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./assets/css/register.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>GaSM</title>
+
+    <script>
+        function myFunction() {
+            var radio = document.getElementById("radioCompany");
+            var label = document.getElementById("company-id");
+            if (radio.checked == true){
+                label.style.display = "block";
+            } else {
+                label.style.display = "none";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <main>
+        <form>
+            <h1>Registration</h1>
+
+            <div class="account-type">
+                <input type="radio" id="radioPersonal" name="account" onclick="myFunction()" checked>
+                <label for="radioPersonal" class="radio">Personal</label>
+                <input type="radio" id="radioCompany" name="account" onclick="myFunction()">
+                <label for="radioCompany" class="radio">Company</label>
+            </div>
+
+            <div>
+                <label class="credentials" id="company-id" style="display:none">
+                    <i class="fa fa-id-card"></i>
+                    <input class="input" type="text" name="ID" placeholder="ID">
+                </label>
+
+                <label class="credentials">
+                    <i class="fa fa-user"></i>
+                    <input class="input" type="text" name="name" placeholder="Name">
+                </label>
+
+                <label class="credentials">
+                    <i class="fa fa-envelope"></i>
+                    <input class="input" type="email" name="email" placeholder="Email">
+                </label>
+
+                <label class="credentials">
+                    <i class="fa fa-user-plus"></i>
+                    <input class="input" type="text" name="username" placeholder="Username">
+                </label>
+
+                <label class="credentials">
+                    <i class="fa fa-lock"></i>
+                    <input class="input" type="password" name="password" placeholder="Password">
+                </label>
+            </div>
+
+
+            <button type="submit">Register</button>
+
+
+            <div id="having-acc">
+                <span>Already having an account?</span>
+                <a href="./signin.html">Sign in</a>
+            </div>
+        </form>
+    </main>
+
+</html>

@@ -1,0 +1,150 @@
+body {
+    background-image:  url('../images/green-background.jpg');
+    display: flex;
+    justify-content: center;
+    font-family: 'Roboto', 'sans-serif';
+    color: #3A3A3A;
+}
+
+form {
+    background-color: white;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    width: 500px;
+    border-radius: 1em;
+    padding: 2em;
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.account-type {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+label.radio {
+    cursor: pointer;
+    text-indent: 2em;
+    display: inline-block;
+    position: relative;
+}
+
+
+input[type=radio] {
+    visibility: hidden;
+}
+
+label.radio:before {
+  content:'';
+  position: absolute;
+  background-color: rgb(2,158,86);
+  width: 1.25em;
+  height: 1.25em;
+  border-radius: 50%;
+  left: 0;
+}
+
+label.radio:after {
+	opacity: 0;
+	content: '';
+    position: absolute;
+    background-color: #f1f1f1;
+	width: 7px;
+    height: 7px;
+    border-radius: 50%;
+	top: 6px;
+	left: 6px;
+}
+
+input[type=radio]:checked + label:after {
+	opacity: 1;
+}
+
+.credentials {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5em;
+}
+
+.fa {
+    cursor: pointer;
+    width: 2em;
+    height: 1.2em;
+    background-color: rgb(2,158,86);
+    padding: 5px 10px 5px 5px;
+    border-radius: 0.5em 0 0 0.5em;
+    color: #f1f1f1;
+    border: solid 1px #3A3A3A;
+    text-align: center;
+}
+
+.input {
+    outline: none;
+    border: none;
+    border-bottom: 1px #3A3A3A solid;
+    padding: 0.5em 1em 0.5em 0;
+    font-size: 1.15em;
+    margin-left: 0.5em;
+}
+
+button {
+    margin: 3em 0 2.5em 0;
+    padding: 1em 5em;
+    border-radius: 0.5em;
+    border: 0;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    font-size: 1em;
+    font-weight: bold;
+    opacity: 0.7;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+button::after {
+    content: " ";
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    height: 2px;
+    background-color: #3A3A3A;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover::after {
+    transform: scaleX(1.75);
+}
+
+#having-acc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#having-acc > span {
+    font-size: 0.9em;
+    margin-bottom: 1em;
+}
+
+a {
+    text-decoration: none;
+    color: #3A3A3A;
+    font-size: 0.8em;
+}
+
+a:hover {
+    border-bottom: 1px #3A3A3A solid;
+}
+  
+@media screen and (max-width: 600px){
+    form {
+        width: 250px;
+    }
+}
