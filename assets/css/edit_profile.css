@@ -1,0 +1,110 @@
+main {
+    display: flex;
+    justify-content: center;
+}
+
+#profile_container {
+    width: 60%;
+    height: 60vh;
+    padding: 1em;
+    background-image: radial-gradient(rgb(119, 201, 126), white);
+    display: flex;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-flow: column;
+    align-items: center;
+    scroll-behavior: smooth;
+}
+
+#profile_container__picture_container {
+    position: relative;
+}
+
+#profile_container__profile_picture {
+    width: 8em;
+    height: 8em;
+    margin: 1em;
+    opacity: 1;
+    border-radius: 50%;
+    display: block;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    position: relative;
+}
+
+.image_opacer {
+    transition: .5s ease;
+    opacity: 0;
+    text-align: center;
+}
+
+#profile_container__picture_container:hover #profile_container__profile_picture {
+    opacity: 0.3;
+}
+
+#profile_container__picture_container:hover .image_opacer {
+    opacity: 1;
+}
+
+.image_opacer {
+    top: 40%;
+    left: 7%;
+    color: rgb(19, 89, 180);
+    font-size: 16px;
+    padding: 16px 32px;
+    position: absolute;
+}
+
+#profile_container__menu {
+    height: 2em;
+    width: 100%;
+    padding: 0.5em;
+    margin: 0;
+    border: 1px solid rgb(51, 128, 58);
+    background: rgb(83, 177, 90);
+    list-style: none;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#profile_container__menu>li>a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.05em;
+    font-weight: 550;
+    padding: 2px;
+}
+
+#profile_container__menu>li>a:hover {
+    color: rgb(2, 158, 86);
+    font-size: 1.05em;
+    border-bottom: 2px solid rgb(2, 158, 86);
+}
+
+#profile_container__menu>li>button:hover {
+    color: rgb(2, 158, 86);
+    border-bottom: 2px solid rgb(2, 158, 86);
+}
+
+#profile_container__feed {
+    width: 100%;
+    margin: 1em;
+    padding: 1em;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile_container__feed>li {
+    width: 100%;
+    padding: 1em;
+    border: 1px solid red;
+    list-style: none;
+    word-wrap: break-word;
+}
