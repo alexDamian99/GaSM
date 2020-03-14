@@ -32,7 +32,7 @@ main {
     position: relative;
 }
 
-.middle {
+.image_opacer {
     transition: .5s ease;
     opacity: 0;
     text-align: center;
@@ -42,11 +42,11 @@ main {
     opacity: 0.3;
 }
 
-#profile_container__picture_container:hover .middle {
+#profile_container__picture_container:hover .image_opacer {
     opacity: 1;
 }
 
-.text {
+.image_opacer {
     top: 40%;
     left: 7%;
     color: rgb(19, 89, 180);
