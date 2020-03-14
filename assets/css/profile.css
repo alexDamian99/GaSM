@@ -6,6 +6,7 @@ main {
 #profile_container {
     width: 60%;
     height: 60vh;
+    padding: 1em;
     background-image: radial-gradient(rgb(119, 201, 126), white);
     display: flex;
     position: relative;
@@ -58,7 +59,7 @@ main {
 #profile_container__menu {
     height: 2em;
     width: 100%;
-    padding: 0;
+    padding: 0.5em;
     margin: 0;
     border: 1px solid rgb(51, 128, 58);
     background: rgb(83, 177, 90);
@@ -92,6 +93,8 @@ main {
 
 #profile_container__feed {
     width: 100%;
+    margin: 1em;
+    padding: 1em;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -99,9 +102,9 @@ main {
 }
 
 #profile_container__feed>li {
-    display: block;
     width: 100%;
     padding: 1em;
     border: 1px solid red;
     list-style: none;
+    word-wrap: break-word;
 }
