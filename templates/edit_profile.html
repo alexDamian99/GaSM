@@ -62,28 +62,22 @@
                     </label>
                 </div>
             </div>
-            <form action="submit">
+            <form action="submit" class="form">
                 <h1 class="text">
                     My profile details
                 </h1>
                 <label>
-                    <span class="text">Name</span>
+                    <span class="text">Name*</span>
                     <input type="text" name="input_name" id="input_name" placeholder="Andrei Ianau">
                 </label>
-                <br>
-                <br>
                 <label>
                     <span class="text">Email*</span>
-                    <input type="text" name="input_email" id="input_email">
+                    <input type="text" name="input_email" id="input_email" placeholder="andrei.ianauu@gmail.com">
                 </label>
-                <br>
-                <br>
                 <label>
                     <span class="text">Address*</span>
-                    <textarea></textarea>
+                    <textarea> Your address </textarea>
                 </label>
-                <br>
-                <br>
                 <label>
                     Payment method:
                     <select name="payment_method" id="payment_method">
@@ -92,25 +86,22 @@
                         <option value="card">Card</option>
                     </select>
                 </label>
-                <br>
-                <br>
-                <span>Gender</span>
-                <br>
-                <label>
-                    <span>Male</span>
-                    <input type="radio" name="button_gender" id="button_male">
-                </label>
-                <label>
-                    <span>Female</span>
-                    <input type="radio" name="button_gender" id="button_female">
-                </label>
-                <label>
-                    <span>Rather not say</span>
-                    <input type="radio" name="button_gender" id="button_female">
-                </label>
-                <br>
-                <br>
-                <button type="submit">Save</button>
+                <div id="button_gender">
+                    <span>Gender</span>
+                    <label>
+                        <span>Male</span>
+                        <input type="radio" name="button_gender" id="button_male">
+                    </label>
+                    <label>
+                        <span>Female</span>
+                        <input type="radio" name="button_gender" id="button_female">
+                    </label>
+                    <label>
+                        <span>Rather not say</span>
+                        <input type="radio" name="button_gender" id="button_female">
+                    </label>
+                </div>
+                <button type="submit" class="button">Save</button>
             </form>
         </div>
     </main>
