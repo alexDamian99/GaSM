@@ -156,7 +156,8 @@ main {
 #profile_container__feed>li {
     width: 100%;
     padding: 1em;
-    border: 1px solid red;
+    margin: 1px;
+    border: 1px solid rgb(81, 112, 69);
     list-style: none;
     word-wrap: break-word;
 }
