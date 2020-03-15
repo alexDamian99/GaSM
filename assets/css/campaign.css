@@ -113,96 +113,69 @@ header{
     color:white;
     text-shadow: 0 2px 5px 0 rgba(0,0,0,.16);
 }
-
-
-.campaigns{
-    padding: 2em 5em 2em 5em;
+.campaign{
+    display:flex;
+    flex-direction:row-reverse;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
     background: url("../images/gplaypattern.png");
 }
-.campaigns__search{
-    display:flex;
-    justify-content:space-around;
-    margin:1em 1em 1em 1em;
+.campaign__details{
+    padding-top:5em;
+    align-self:flex-start;
+    align-content:center;
+    list-style:none;
 }
-.campaigns__search__bar{
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);  
+.campaign__details li{
+    font-size:1.3em;
+    margin-top:2em;
+}
+.campaign__details img{
+    border-radius:50%;
+    box-shadow:0 2px 5px 5px rgba(0,0,0,.16);
+}
+.campaign__content{
+    padding:3em;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.campaign__content > img{
+    box-shadow:0 2px 5px 0 rgba(0,0,0,.16);
+}
+.campaign__content__description{
+    padding-top:2em;
+    font-size:1.3em;
+    width:25em;
+}
+.social-share{
+    list-style:none;
+}
+.social-share li{
     margin:0;
 }
 
-
-.campaigns__headers{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:space-around;
-    margin-bottom:3em;
-}
-.campaigns__headers__head{
-    background: white;
-    margin:1em 1em 1em 1em;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-    padding:0.5em 0.5em 1em 0.5em;
-}
-.campaigns__headers__head > a{
-    text-decoration:none;
-    color:#01B469;
-}
-.campaigns__headers__head > a:hover{
-    color:#009054;
-}
-.campaigns__headers__head__title{
-    text-align:left;
-}
-  
-  
-
-.search-bar{
-    background: white;
-    padding: 2em 3em 2em 3em;
-    border-radius:0.4em;
-}
-.search-bar__input{
-    background:rgba(255,255,255,0);
-    border:none;
-    border-bottom: 4px solid #e5e5e5;
-    color:#01b469;
-    transition: border-color 250ms ease-in;
-    font-size: inherit;
-}
-.search-bar__input{
-    outline:0;
-    margin-right:1em;
-    margin-left:0.5em;
-}
-.search-bar__input:focus{
-    border-color:#01b469;
-}
-  
-  
-.campaigns__pagination{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-.campaigns__pagination a{
-    background: white;
-    text-decoration:none;
-    border: 1px solid #ddd;
-    color: black;
-    border-radius:0.2em;
-    padding:0.2em 0.4em 0.2em 0.4em;
-    margin:0 0.5em 0 0.5em;
-}
-.page-active{
-    background:#01b469 !important;
-    color:white !important;
-}
-
-@media screen and (max-width:550px){
-    .search-bar__input{
-        margin-bottom: 1em;
-        
+@media screen and (max-width:600px){
+    .campaign__content__description{
+        padding-top:2em;
+        font-size:1.2em;
+        width:15em;
+    }
+    .campaign__content > img{
+        width: 250px;
+        height: 150px;
+    }
+    .campaign__content{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .campaign__details{
+        padding-top: 0;
     }
 }
+
+
 
 /* --------------buttons-------------- */
 .btn{
