@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/report.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <title>GASM</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/css/ol.css" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/build/ol.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav id="navbar">
+            <a class="logo-container" href="#">
+                <img id="logo" src="assets/images/navbar_logo.png" alt="logo" />
+            </a>
+            <ul id="navbar-buttons">
+                <li><a href="#">Report event</a></li>
+                <li><a href="#">Statistics</a></li>
+                <li><a href="#">Campaigns</a></li>
+                <li><a href="#">Sign up</a></li>
+                <li><a href="#">Log in</a></li>
+            </ul>
+            <a href="javascript:void(0);" id="cheese-burger" onclick="myFunction()">
+                <span>
+            <div></div>
+            <div></div>
+            <div></div>
+          </span>
+            </a>
+        </nav>
+        <nav id="mobile-navbar">
+            <ul id="mobile-navbar-buttons">
+                <li><a href="#">Report event</a></li>
+                <li><a href="#">Statistics</a></li>
+                <li><a href="#">Campaigns</a></li>
+                <li><a href="#">Sign up</a></li>
+                <li><a href="#">Log in</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="map" class="map"></div>
+        <script type="text/javascript">
+            var map = new ol.Map({
+                target: "map",
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([27.57, 47.17]),
+                    zoom: 13
+                })
+            });
+        </script>
+
+        <div id="report">
+            <button id="report-btn" onclick="reportForm()">
+                <span>Do a report</span>
+                <span class="icon"></span>
+            </button>
+
+            <form id="report-form">
+                <label class="input-location">
+            <span>Location</span> <br />
+            <input
+              class="input"
+              type="text"
+              name="location"
+              placeholder="Lon, Lat"
+            />
+            <a href="#"><i class="fa fa-map-marker" style="font-size:24px"></i></a>
+          </label>
+
+                <br />
+                <label>
+            <span>Type</span> <br />
+            <select name="type">
+              <option value="garbage-full">Garbage must be collected</option>
+              <option value="garbage-not-sorted"
+                >Waste sorting is not respected</option
+              >
+            </select>
+          </label>
+
+                <br />
+
+                <button type="submit" id="send">Send</button>
+            </form>
+
+            <script>
+                function reportForm() {
+                    var x = document.getElementById("report-form");
+                    if (x.className == "active-form") {
+                        x.className = "";
+                        x.style.display = "none";
+                    } else {
+                        x.className += "active-form";
+                        x.style.display = "block";
+                    }
+                }
+            </script>
+        </div>
+    </main>
+
+    <footer>
+        <div id="top-footer">
+            <div id="footer-info">
+                <p id="footer-title">GaSM<br />Garbage Smart Monitor</p>
+                <span>Contact us</span>
+                <p id="footer-contact">
+                    <i class="fa fa-envelope-o"></i> info@gasm.com<br />
+                    <i class="fa fa-phone"></i> +40000000000
+                </p>
+            </div>
+
+            <div id="footer-helpful">
+                <span>Helpful links</span>
+                <ul>
+                    <li>
+                        <a href="#">Why to recycle</a>
+                    </li>
+
+                    <li>
+                        <a href="#">How to recycle</a>
+                    </li>
+
+                    <li>
+                        <a href="#">Recycle impact</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="footer-vision">
+                <span>Our vison</span>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in arcu augue. Nulla enim mauris, aliquet ut lorem aliquet, vestibulum elementum est.
+                </p>
+            </div>
+        </div>
+
+        <div id="low-footer">
+            <div id="footer-social">
+                <span>Social</span>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-facebook-official" style="font-size:1.25em; color: #e6efec;"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-twitter-square" style="font-size:1.25em; color: #e6efec;"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-instagram" style="font-size:1.25em; color: #e6efec;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <p id="footer-copyright">©GaSM 2020</p>
+
+            <a class="footer-logo-container" href="#">
+                <img id="footer-logo" src="assets/images/logo_footer.png" alt="logo" />
+            </a>
+        </div>
+    </footer>
+</body>
+
+</html>
