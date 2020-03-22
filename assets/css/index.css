@@ -255,3 +255,13 @@ footer {
     height: 5em;
     margin-left: 1em;
 }
+
+@media screen and (max-width: 700px) {
+    #top-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    #footer-helpful {
+        margin: 0;
+    }
+}
