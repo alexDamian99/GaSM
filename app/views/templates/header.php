@@ -1,7 +1,7 @@
 <header>
         <nav id="navbar">
             <a class="logo-container" href="#">
-                <img id="logo" src="../../../public/assets/images/navbar_logo.png" alt="logo">
+                <img id="logo" src="../public/assets/images/navbar_logo.png" alt="logo">
             </a>
             <ul id="navbar-buttons">
                 <li><a href="#">Report event</a></li>

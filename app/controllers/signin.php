@@ -14,14 +14,28 @@ class SignIn extends Controller
     public function index()
     {
         if (isset($_POST['submit'])) {
-            if (isset($_POST['username']) && isset($_POST['password'])) {
-                $logedin = $this->model->getLogin($_POST['username'], $_POST['password']);
+            $username = $_POST['username'];
+            $password = md5($_POST['password']);
+            if (isset($username) && isset($password)) {
+                $logedin = $this->model->getLogin($username, $password);
 
                 if ($logedin == True) {
-                    $_SESSION['username'] = $_POST['username'];
-                    header('Location: index');
+                    if (isset($_POST["remember"])) {
+                        // set for 30 days
+                        setcookie("username", $username, time() + (3600 * 24 * 30));
+                    } else {
+                        if (isset($_COOKIE["username"])) {
+                            setcookie("username", $username, time() - (3600 * 24 * 30));
+                        }
+                    }
+
+                    $_SESSION["username"] = $username;
+                    unset($_SESSION["error"]);
+                    $this->redirect('index');
                 } else {
-                    print_r($this->model->getErrors());
+                    setcookie("username", $username, time() + (3600 * 24 * 30)); // remember username to try again
+                    $_SESSION["error"] = $this->model->getErrors()[0];
+                    $this->redirect('sigin');
                 }
             }
         }

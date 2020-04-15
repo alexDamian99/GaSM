@@ -53,12 +53,9 @@ class LoginModel
 
             if ($user['email'] == $email) {
                 array_push($this->errors, "Email already exists");
-            }
+            } 
             return False;
         } else {
-            //check password
-            if ($this->checkPassword($password) == False) return False;
-
             // register new user
             if ($id == NULL) {
                 $insStmt = $this->conn->prepare('INSERT INTO users (username, password, name, email) VALUES(?,?,?,?)');
@@ -73,28 +70,6 @@ class LoginModel
 
             return True;
         }
-    }
-
-    public function checkPassword($password)
-    {
-        $ret = True;
-
-        if (strlen($password) < 6) {
-            array_push($this->errors, "Password too short! Use at least 6 characters.");
-            $ret = False;
-        }
-
-        if (!preg_match("#[0-9]+#", $password)) {
-            array_push($this->errors, "Password must include at least one number!");
-            $ret = False;
-        }
-
-        if (!preg_match("#[a-zA-Z]+#", $password)) {
-            array_push($this->errors, "Password must include at least one letter!");
-            $ret = False;
-        }
-
-        return $ret;
     }
 
     public function getErrors()

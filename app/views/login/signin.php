@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../public/assets/css/signin.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>GaSM</title>
+    <title>GaSM | SignIn</title>
 </head>
 
 <body>
@@ -17,7 +17,9 @@
 
             <label class="input-credentials">
                 <span>Username</span> <br>
-                <input class="input" type="text" name="username" placeholder="&#xF007; Type your username" required>
+                <input class="input" type="text" name="username" value="<?php if (isset($_COOKIE["username"])) {
+                                                                            echo $_COOKIE["username"];
+                                                                        } ?>" placeholder="&#xF007; Type your username" required>
             </label>
 
             <label class="input-credentials">
@@ -26,13 +28,18 @@
             </label>
 
             <label id="remember-me">
-                <input type="checkbox" name="remember">
+                <input type="checkbox" name="remember" <?php if (isset($_COOKIE["username"])) { ?> checked <?php } ?>>
                 <span>Remember me</span>
             </label>
 
             <a href="#" id="forgot-pass" name="forgot">Forgot password?</a>
 
             <button type="submit" name="submit">Sign in</button>
+
+            <span class="display-errors"> <?php if (isset($_SESSION['error'])) {
+                                                echo $_SESSION['error'];
+                                                unset($_SESSION["error"]);
+                                            } ?> </span>
 
             <div id="separator">
                 <span id="separator-text">or</span>
