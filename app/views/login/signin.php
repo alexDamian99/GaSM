@@ -13,6 +13,10 @@
 <body>
     <main>
         <form action="" method="POST">
+            <a class="logo-container" href="./index">
+                <img id="logo" src="../public/assets/images/navbar_logo.png" alt="logo">
+            </a>
+
             <h1>Sign in</h1>
 
             <label class="input-credentials">
@@ -32,7 +36,7 @@
                 <span>Remember me</span>
             </label>
 
-            <a href="#" id="forgot-pass" name="forgot">Forgot password?</a>
+            <a href="./forgotPass" id="forgot-pass" name="forgot" class="link">Forgot password?</a>
 
             <button type="submit" name="submit">Sign in</button>
 
@@ -55,7 +59,7 @@
 
             <div id="not-acc">
                 <span>Not an account?</span>
-                <a href="./register">Register</a>
+                <a href="./register" class="link">Register</a>
             </div>
         </form>
     </main>

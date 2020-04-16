@@ -36,13 +36,13 @@ h1 {
     font-family: 'Roboto', 'FontAwesome';
 }
 
-a {
+.link {
     text-decoration: none;
     color: #3A3A3A;
     font-size: 0.8em;
 }
 
-a:hover {
+.link:hover {
     border-bottom: 1px #3A3A3A solid;
 }
 
@@ -157,6 +157,12 @@ div {
 #not-acc>span {
     font-size: 0.9em;
     margin-bottom: 1em;
+}
+
+#logo {
+    width: 10em;
+    height: 5em;
+    margin-bottom: 1.5em;
 }
 
 @media screen and (max-width: 600px) {

@@ -67,6 +67,10 @@
 <body>
     <main>
         <form action="" method="POST">
+            <a class="logo-container" href="./index">
+                <img id="logo" src="../public/assets/images/navbar_logo.png" alt="logo">
+            </a>
+
             <h1>Registration</h1>
 
             <div class="account-type">
@@ -122,8 +126,9 @@
 
             <div id="having-acc">
                 <span>Already having an account?</span>
-                <a href="./signin">Sign in</a>
+                <a href="./signin" class="link">Sign in</a>
             </div>
+
         </form>
     </main>
 

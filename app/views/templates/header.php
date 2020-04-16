@@ -1,6 +1,6 @@
 <header>
         <nav id="navbar">
-            <a class="logo-container" href="#">
+            <a class="logo-container" href="./index">
                 <img id="logo" src="../public/assets/images/navbar_logo.png" alt="logo">
             </a>
             <ul id="navbar-buttons">

@@ -58,7 +58,7 @@
 
             <p id="footer-copyright">©GaSM 2020</p>
 
-            <a class="footer-logo-container" href="#">
+            <a class="footer-logo-container" href="./index.php">
                 <img id="footer-logo" src="../public/assets/images/logo_footer.png" alt="logo" />
             </a>
         </div>

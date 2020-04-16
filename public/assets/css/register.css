@@ -161,13 +161,13 @@ button:hover::after {
     margin-bottom: 1em;
 }
 
-a {
+.link {
     text-decoration: none;
     color: #3A3A3A;
     font-size: 0.8em;
 }
 
-a:hover {
+.link:hover {
     border-bottom: 1px #3A3A3A solid;
 }
 
@@ -193,6 +193,12 @@ a:hover {
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+#logo {
+    width: 10em;
+    height: 5em;
+    margin-bottom: 1.5em;
 }
 
 @media screen and (max-width: 600px) {
