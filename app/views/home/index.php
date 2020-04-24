@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../../public/assets/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../public/assets/css/index.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <?php include('../templates/header.php'); ?>
+    <?php include('../app/views/templates/header.php'); ?>
 
     <main>
         <section id="intro">
@@ -110,7 +110,7 @@
         
     </main>
 
-    <?php include('../templates/footer.php'); ?>
+    <?php include('../app/views/templates/footer.php'); ?>
 </body>
 
 </html>
