@@ -2,29 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/assets/css/index.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/edit_profile.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script>
-        function myFunction() {
-            var x = document.getElementById("mobile-navbar");
-            if (x.className === "responsive-navbar") {
-                x.className = "";
-            } else {
-                x.className += "responsive-navbar";
-            }
-        }
-    </script>
-    <title>GASM</title>
+    <?php include('../app/views/templates/head_header.php'); ?>
+    <link rel="stylesheet" type="text/css" href="../public/assets/css/edit_profile.css">
 </head>
 
 <body>
-    <?php include('../templates/header.php'); ?>
-
-
+    <?php include('../app/views/templates/header.php'); ?>
     <main>
         <div id="profile_container">
             <div id="profile_container__picture_container">
@@ -80,7 +63,7 @@
         </div>
     </main>
 
-    <?php include('../templates/footer.php'); ?>
+    <?php include('../app/views/templates/footer.php'); ?>
 </body>
 
 </html>
