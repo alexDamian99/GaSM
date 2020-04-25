@@ -23,7 +23,10 @@
                 <span>Username</span> <br>
                 <input class="input" type="text" name="username" value="<?php if (isset($_COOKIE["username"])) {
                                                                             echo $_COOKIE["username"];
-                                                                        } ?>" placeholder="&#xF007; Type your username" required>
+                                                                        } else if (isset($_COOKIE["temp_username"])) {
+                                                                            echo $_COOKIE["temp_username"];
+                                                                        }
+                                                                        ?>" placeholder="&#xF007; Type your username" required>
             </label>
 
             <label class="input-credentials">
