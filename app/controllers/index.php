@@ -9,7 +9,7 @@ class Index extends Controller
             header('Location: signin');
         } else {
             $this->view('home/index', []);
-            session_destroy();
+            // session_destroy(); // TODO: disable this
         }
     }
 }
