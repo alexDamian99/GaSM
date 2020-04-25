@@ -13,7 +13,6 @@ class Edit_profile extends Controller
 
     public function index()
     {
-<<<<<<< HEAD
         if (isset($_POST['submit'])) {
             $username = $_POST['username'];
             if (isset($username)) {
@@ -39,8 +38,5 @@ class Edit_profile extends Controller
                 }
             }
         }
-=======
-        
->>>>>>> 1e1314711d50e23e6f893aadaf2d469421f25502
     }
 }

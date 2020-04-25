@@ -4,8 +4,8 @@
 <head>
     <?php include('../app/views/templates/head_header.php'); ?>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="../public/assets/js/statistics.js"></script>
-    <link rel="stylesheet" type="text/css" href="../public/assets/css/statistics.css">
+    <script type="text/javascript" src="assets/js/statistics.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/statistics.css">
 </head>
 
 <body>

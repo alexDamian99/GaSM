@@ -3,7 +3,7 @@
 
 <head>
     <?php include('../app/views/templates/head_header.php'); ?>
-    <link rel="stylesheet" type="text/css" href="../public/assets/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/profile.css">
 </head>
 
 <body>
