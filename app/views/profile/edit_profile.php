@@ -11,7 +11,8 @@
     <main>
         <div id="profile_container">
             <div id="profile_container__picture_container">
-                <img src="/assets/images/profile_photo.jpg" alt="profile_container__profile_picture" id="profile_container__profile_picture">
+                <!-- TODO tb sa pun dinamic poza asta in functie de utilizator -->
+                <img src="/assets/images/profile_photo.jpg" alt="profile_container__profile_picture" id="profile_container__profile_picture"> 
                 <div class="image_opacer">
                     <label>
                         <span>Upload photo</span>
