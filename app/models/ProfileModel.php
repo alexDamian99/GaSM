@@ -23,9 +23,8 @@ class ProfileModel
 
     public function changeEmail($username, $email)
     {
-        $getStmt = $this->conn->prepare('SELECT id FROM users where username=? and email=?');
-        $getStmt->bind_param('ss', $username, $email);
-
+        $getStmt = $this->conn->prepare('SELECT id FROM users where email=?');
+        $getStmt->bind_param('s', $email);
         $getStmt->execute();
         $res = $getStmt->get_result(); 
         $getStmt->close();
@@ -51,6 +50,17 @@ class ProfileModel
         $getStmt->execute();
         $getStmt->close();
         array_push($this->success, "Name changed!");
+        return True;
+    }
+
+    public function changeAddress($username, $address)
+    {
+        $getStmt = $this->conn->prepare('UPDATE users set address=? where username=?');
+        $getStmt->bind_param('ss', $address, $username);
+
+        $getStmt->execute();
+        $getStmt->close();
+        array_push($this->success, "Adress changed!");
         return True;
     }
 

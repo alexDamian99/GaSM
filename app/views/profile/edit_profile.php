@@ -4,6 +4,7 @@
 <head>
     <?php include('../app/views/templates/head_header.php'); ?>
     <link rel="stylesheet" type="text/css" href="assets/css/edit_profile.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -36,7 +37,7 @@
                     <span class="text">Address</span>
                     <input type="text" name="input_address" id="input_address" placeholder="New address">
                 </label>
-                <button type="submit" name="submit_edit_profile" class="button">Save</button>
+                <button type="submit" name="submit_edit_profile" id="submit_edit_profile" class="button">Save</button>
 
                 <span class="display-errors"> <?php if (isset($_SESSION['error'])) {
                                                 echo $_SESSION['error'];
@@ -46,7 +47,7 @@
                                                 echo $_SESSION['success'];
                                                 unset($_SESSION["success"]);
                                             } ?> </span>
-                 <span class="display-success"> <?php if (isset($_SESSION['debug'])) {
+                 <span class="display-debug"> <?php if (isset($_SESSION['debug'])) {
                                                 echo $_SESSION['debug'];
                                                 unset($_SESSION["debug"]);
                                             } ?> </span>

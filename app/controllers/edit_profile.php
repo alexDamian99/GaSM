@@ -33,6 +33,7 @@ class Edit_profile extends Controller
 
             if (!empty($_POST['input_email'])) {
                 $email = $_POST['input_email'];
+                echo $email;
                 $success = FALSE; 
                 if (isset($_COOKIE["username"])) {
                     $success = $this->model->changeEmail($_COOKIE["username"], $email);
@@ -46,6 +47,25 @@ class Edit_profile extends Controller
                     $_SESSION["error"] = $this->model->getErrors()[0];
                 }
             }
+
+            if (!empty($_POST['input_address'])) {
+                $address = $_POST['input_address'];
+                $success = FALSE; 
+                if (isset($_COOKIE["username"])) {
+                    $success = $this->model->changeAddress($_COOKIE["username"], $address);
+                }
+                
+                if ($success){
+                    unset($_SESSION["error"]);
+                    $_SESSION["success"] = $this->model->getSuccess()[0];
+                }
+                else{
+                    $_SESSION["error"] = $this->model->getErrors()[0];
+                }
+            }
+            
+            $this->redirect('edit_profile');
+            // TODO use ajax
         }
     }
 }
