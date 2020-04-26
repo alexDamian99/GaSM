@@ -14,9 +14,10 @@ class Edit_profile extends Controller
     public function index()
     {
         if (isset($_POST['submit_edit_profile'])) {
-            $name = $_POST['input_name'];
-            if (isset($name)) {
+            if (!empty($_POST['input_name'])) {
+                $name = $_POST['input_name'];
                 $success = FALSE;
+
                 if (isset($_COOKIE["username"])) {
                     $success = $this->model->changeName($_COOKIE["username"], $name);
                 }
@@ -30,9 +31,9 @@ class Edit_profile extends Controller
                 }
             }
 
-            $email = $_POST['input_email'];
-            if (isset($email)) {
-                $success = FALSE;
+            if (!empty($_POST['input_email'])) {
+                $email = $_POST['input_email'];
+                $success = FALSE; 
                 if (isset($_COOKIE["username"])) {
                     $success = $this->model->changeEmail($_COOKIE["username"], $email);
                 }

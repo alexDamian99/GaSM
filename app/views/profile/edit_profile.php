@@ -20,17 +20,17 @@
                     </label>
                 </div>
             </div>
-            <form action="" class="form" method="post">
+            <form class="form" method="POST">
                 <h1 class="text">
                     My profile details
                 </h1>
                 <label>
                     <span class="text">Name</span>
-                    <input type="text" name="input_name" id="input_name"  placeholder="New name">
+                    <input type="text" maxLength="64" name="input_name" id="input_name"  placeholder="New name">
                 </label>
                 <label>
                     <span class="text">Email</span>
-                    <input type="text" name="input_email" id="input_email" placeholder="New email">
+                    <input type="email" maxLength="64" name="input_email" id="input_email" placeholder="New email">
                 </label>
                 <label>
                     <span class="text">Address</span>
@@ -45,6 +45,10 @@
                 <span class="display-success"> <?php if (isset($_SESSION['success'])) {
                                                 echo $_SESSION['success'];
                                                 unset($_SESSION["success"]);
+                                            } ?> </span>
+                 <span class="display-success"> <?php if (isset($_SESSION['debug'])) {
+                                                echo $_SESSION['debug'];
+                                                unset($_SESSION["debug"]);
                                             } ?> </span>
                                             
             </form>

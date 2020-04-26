@@ -23,19 +23,18 @@ class ProfileModel
 
     public function changeEmail($username, $email)
     {
-        $getStmt = $this->conn->prepare('SELECT id FROM users where username=?');
-        $getStmt->bind_param('s', $username);
+        $getStmt = $this->conn->prepare('SELECT id FROM users where username=? and email=?');
+        $getStmt->bind_param('ss', $username, $email);
 
         $getStmt->execute();
-        $res = $getStmt->get_result(); // no of rows returned
+        $res = $getStmt->get_result(); 
         $getStmt->close();
-        
         if ($res->num_rows != 0) {
             array_push($this->errors, "Email already in use!");
             return False;
         }
         
-        $getStmt = $this->conn->prepare('UPDATE users(email) set email=? where username=?');
+        $getStmt = $this->conn->prepare('UPDATE users set email=? where username=?');
         $getStmt->bind_param('ss', $email, $username);
 
         $getStmt->execute();
@@ -46,12 +45,13 @@ class ProfileModel
 
     public function changeName($username, $name)
     {
-        $getStmt = $this->conn->prepare('UPDATE users(name) set name=? where username=?');
+        $getStmt = $this->conn->prepare('UPDATE users set name=? where username=?');
         $getStmt->bind_param('ss', $name, $username);
 
         $getStmt->execute();
         $getStmt->close();
         array_push($this->success, "Name changed!");
+        return True;
     }
 
     public function getErrors()
