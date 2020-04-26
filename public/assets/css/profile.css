@@ -1,13 +1,12 @@
 main {
     display: flex;
     justify-content: center;
+    background-image: url("../images/gplaypattern.png");
 }
 
 .profile_container {
     width: 60%;
     height: 60vh;
-    /* TODO de pus poza backgorund asta. */
-    background-image: url("assets/images/gplaypattern.png");
     display: flex;
     position: relative;
     overflow-y: auto;

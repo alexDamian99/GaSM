@@ -1,13 +1,13 @@
 main {
     display: flex;
     justify-content: center;
+    background-image: url("../images/gplaypattern.png");
 }
 
-#profile_container {
+.profile_container {
     width: 60%;
     height: 60vh;
     padding: 1em;
-    background-image: radial-gradient(rgb(119, 201, 126), white);
     display: flex;
     position: relative;
     overflow-y: auto;
@@ -16,11 +16,11 @@ main {
     align-items: center;
 }
 
-#profile_container__picture_container {
+.profile_container__picture_container {
     position: relative;
 }
 
-#profile_container__profile_picture {
+.profile_container__profile_picture {
     width: 8em;
     height: 8em;
     margin: 1em;
@@ -38,11 +38,11 @@ main {
     text-align: center;
 }
 
-#profile_container__picture_container:hover #profile_container__profile_picture {
+.profile_container__picture_container:hover .profile_container__profile_picture {
     opacity: 0.3;
 }
 
-#profile_container__picture_container:hover .image_opacer {
+.profile_container__picture_container:hover .image_opacer {
     opacity: 1;
 }
 
@@ -55,7 +55,7 @@ main {
     position: absolute;
 }
 
-#profile_container__menu {
+.profile_container__menu {
     height: 2em;
     width: 100%;
     padding: 0.5em;
@@ -71,7 +71,7 @@ main {
     align-items: center;
 }
 
-#profile_container__menu>li>a {
+.profile_container__menu>li>a {
     text-decoration: none;
     color: black;
     font-size: 1.05em;
@@ -79,18 +79,18 @@ main {
     padding: 2px;
 }
 
-#profile_container__menu>li>a:hover {
+.profile_container__menu>li>a:hover {
     color: rgb(2, 158, 86);
     font-size: 1.05em;
     border-bottom: 2px solid rgb(2, 158, 86);
 }
 
-#profile_container__menu>li>button:hover {
+.profile_container__menu>li>button:hover {
     color: rgb(2, 158, 86);
     border-bottom: 2px solid rgb(2, 158, 86);
 }
 
-#profile_container__feed {
+.profile_container__feed {
     width: 100%;
     margin: 1em;
     padding: 1em;
@@ -98,14 +98,6 @@ main {
     flex-flow: column;
     justify-content: center;
     align-items: center;
-}
-
-#profile_container__feed>li {
-    width: 100%;
-    padding: 1em;
-    border: 1px solid red;
-    list-style: none;
-    word-wrap: break-word;
 }
 
 .btn {
