@@ -32,36 +32,25 @@
     <main>
         <div id="intro">
             <div>
-                <p>Titlu campanie</p>
+                <p><?php print_r($data["title"]);?></p>
             </div>
         </div>
         
 
         <div class="campaign">
             <div class="campaign__content">
-                <img src="https://picsum.photos/500/200">
+                <img src="<?php echo getenv("path_to_public") . '/assets/images/uploads/' . $data['image_name'] ?>" alt="<?= $data["title"]?>">
                 <div class="campaign__content__description">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <?= $data["description"]?>
                 </div>
             </div>
             <ul class="campaign__details">
                 <li><img src="https://picsum.photos/128/128" alt="profile_picture"></li>
-                <li>By Ion</li>
-                <li>Event date(optional): 20/12/2020</li>
+                <li>By Author</li>
+                <?php if($data['event_date'] != "0000-00-00"){?>
+                    <li>Event date: <?= $data['event_date']?></li>
+                <?php }?>
+                
                 <li>
                     <p>Help us make the world a better place</p>
                     <ul class="social-share">

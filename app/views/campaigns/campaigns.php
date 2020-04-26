@@ -22,7 +22,7 @@
 
 <body>
 	<?php include('../app/views/templates/header.php'); ?>	
-
+	
     <main>
         <div id="intro">
             <div>
@@ -40,54 +40,19 @@
               </form>
             </div>
             <div class="campaigns__headers">   
-              <div class="campaigns__headers__head">
-                <img src="https://picsum.photos/300/200">
-                <a href="#">
-                  <p class="campaigns__headers__head__title">
-                    Lorem ipsum sit dolor
-                  </p>
-                </a>
-              </div>
-              <div class="campaigns__headers__head">
-                <img src="https://picsum.photos/300/200">
-                <a href="#">
-                  <p class="campaigns__headers__head__title">
-                    Lorem ipsum sit dolor
-                  </p>
-                </a>
-              </div>
-              <div class="campaigns__headers__head">
-                <img src="https://picsum.photos/300/200">
-                <a href="#">
-                  <p class="campaigns__headers__head__title">
-                    Lorem ipsum sit dolor
-                  </p>
-                </a>
-              </div>
-              <div class="campaigns__headers__head">
-                <img src="https://picsum.photos/300/200">
-                <a href="#">
-                  <p class="campaigns__headers__head__title">
-                    Lorem ipsum sit dolor
-                  </p>
-                </a>
-              </div>
-              <div class="campaigns__headers__head">
-                <img src="https://picsum.photos/300/200">
-                <a href="#">
-                  <p class="campaigns__headers__head__title">
-                    Lorem ipsum sit dolor
-                  </p>
-                </a>
-              </div>
-              <div class="campaigns__headers__head">
-                <img src="https://picsum.photos/300/200">
-                <a href="#">
-                  <p class="campaigns__headers__head__title">
-                    Lorem ipsum sit dolor
-                  </p>
-                </a>
-              </div>
+                <?php
+
+                
+					foreach($data as $campaign){?>
+					<div class="campaigns__headers__head">
+						<img src="<?php echo getenv("path_to_public") . '/assets/images/uploads/' . $campaign['image_name'] ?>" alt="<?= $campaign['title'] ?>">
+						<a href="<?=(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"?>/id/<?= $campaign['id'] ?>">
+						<p class="campaigns__headers__head__title">
+							<?= $campaign['title'] ?>
+						</p>
+						</a>
+					</div>
+				<?php } ?>
             </div>
             <div class="campaigns__pagination">
               <a href="#"><</a>

@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="add-campaign">
-            <form id="campaign-details" action="" method="POST">
+            <form id="campaign-details" action="" method="POST" enctype="multipart/form-data">
                 <div>
                     <div class="col25"><label for="title">Title</label></div>
                     <div class="col75"><input type="text" id="title" required name="title"></div>
@@ -41,11 +41,11 @@
                 </div>
                 <div>
                     <div class="col25"><label for="location">Location</label></div>
-                    <div class="col75"><input type="text" id="location" required name="location"></div>
+                    <div class="col75"><input type="text" id="location" name="location"></div>
                 </div>
                 <div>
                     <div class="col25"><label for="date">Date</label></div>
-                    <div class="col75"><input type="date" id="date" required name="date"></div>
+                    <div class="col75"><input type="date" id="date" name="date"></div>
                 </div>
                 <div>
                     <div class="col75"><label for="campaign-banner">Click here to upload an image for your
