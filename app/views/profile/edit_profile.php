@@ -20,23 +20,33 @@
                     </label>
                 </div>
             </div>
-            <form action="submit" class="form">
+            <form action="" class="form" method="post">
                 <h1 class="text">
                     My profile details
                 </h1>
                 <label>
                     <span class="text">Name</span>
-                    <input type="text" name="input_name" id="input_name" placeholder="Andrei Ianau">
+                    <input type="text" name="input_name" id="input_name"  placeholder="New name">
                 </label>
                 <label>
                     <span class="text">Email</span>
-                    <input type="text" name="input_email" id="input_email" placeholder="andrei.ianauu@gmail.com">
+                    <input type="text" name="input_email" id="input_email" placeholder="New email">
                 </label>
                 <label>
                     <span class="text">Address</span>
-                    <textarea> Your address </textarea>
+                    <input type="text" name="input_address" id="input_address" placeholder="New address">
                 </label>
-                <button type="submit" class="button">Save</button>
+                <button type="submit" name="submit_edit_profile" class="button">Save</button>
+
+                <span class="display-errors"> <?php if (isset($_SESSION['error'])) {
+                                                echo $_SESSION['error'];
+                                                unset($_SESSION["error"]);
+                                            } ?> </span>
+                <span class="display-success"> <?php if (isset($_SESSION['success'])) {
+                                                echo $_SESSION['success'];
+                                                unset($_SESSION["success"]);
+                                            } ?> </span>
+                                            
             </form>
         </div>
     </main>

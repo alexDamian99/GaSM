@@ -4,6 +4,7 @@ class ProfileModel
 {
     private $conn;
     private $errors = [];
+    private $success = [];
 
     public function __construct()
     {
@@ -20,60 +21,45 @@ class ProfileModel
         }
     }
 
-    public function getLogin($username, $password)
+    public function changeEmail($username, $email)
     {
-        $getStmt = $this->conn->prepare('SELECT id FROM users where username=? and password=?');
-        $getStmt->bind_param('ss', $username, $password);
+        $getStmt = $this->conn->prepare('SELECT id FROM users where username=?');
+        $getStmt->bind_param('s', $username);
 
         $getStmt->execute();
-        $res = $getStmt->get_result()->num_rows; // no of rows returned
+        $res = $getStmt->get_result(); // no of rows returned
         $getStmt->close();
-
-        if ($res == 0) {
-            array_push($this->errors, "Wrong username/password combination");
+        
+        if ($res->num_rows != 0) {
+            array_push($this->errors, "Email already in use!");
             return False;
-        } else return True;
+        }
+        
+        $getStmt = $this->conn->prepare('UPDATE users(email) set email=? where username=?');
+        $getStmt->bind_param('ss', $email, $username);
+
+        $getStmt->execute();
+        $getStmt->close();
+        array_push($this->success, "Email changed!");
+        return TRUE;
     }
 
-    public function getRegister($username, $password, $name, $email, $id)
+    public function changeName($username, $name)
     {
-        // check if username or email does not already exist in db
-        $getStmt = $this->conn->prepare('SELECT * FROM users where username=? or email=? LIMIT 1');
-        $getStmt->bind_param('ss', $username, $email);
+        $getStmt = $this->conn->prepare('UPDATE users(name) set name=? where username=?');
+        $getStmt->bind_param('ss', $name, $username);
 
         $getStmt->execute();
-        $res = $getStmt->get_result();
         $getStmt->close();
-
-        if ($res->num_rows != 0) { // username or email already exists 
-            $user = mysqli_fetch_assoc($res);
-            if ($user['username'] == $username) {
-                array_push($this->errors, "Username already exists");
-            }
-
-            if ($user['email'] == $email) {
-                array_push($this->errors, "Email already exists");
-            } 
-            return False;
-        } else {
-            // register new user
-            if ($id == NULL) {
-                $insStmt = $this->conn->prepare('INSERT INTO users (username, password, name, email) VALUES(?,?,?,?)');
-                $insStmt->bind_param('ssss', $username, $password, $name, $email);
-            } else {
-                $insStmt = $this->conn->prepare('INSERT INTO users (username, password, name, email, id_comp) VALUES(?,?,?,?,?)');
-                $insStmt->bind_param('ssssi', $username, $password, $name, $email, $id);
-            }
-
-            $insStmt->execute();
-            $insStmt->close();
-
-            return True;
-        }
+        array_push($this->success, "Name changed!");
     }
 
     public function getErrors()
     {
         return $this->errors;
+    }
+    public function getSuccess()
+    {
+        return $this->success;
     }
 }
