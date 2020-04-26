@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../../public/assets/css/index.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo getenv("path_to_public");?>/assets/css/index.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <?php include('../templates/header.php'); ?>
+    <?php include('../app/views/templates/header.php'); ?>
 
     <main>
         <section id="intro">
@@ -34,7 +34,7 @@
     
         <section class="facts">
             <div class="facts__fact">
-                <img src="assets/images/recycle_fact1.svg" alt="man_throwing_garbage">
+                <img src="../public/assets/images/recycle_fact1.svg" alt="man_throwing_garbage">
                 <div class="facts__fact__content">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="facts__fact">
-                <img src="assets/images/eco_logo.svg" alt="recycle_logo">
+                <img src="../public/assets/images/eco_logo.svg" alt="recycle_logo">
                 <div class="facts__fact__content">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -83,7 +83,7 @@
                 </div>
                 </a>
             </div>
-            <button class="btn btn-green">See all campaigns</button>
+            <a class="btn btn-green" href="">See all campaigns</a>
         </section>
 
         <section class="trash-finder">
@@ -110,7 +110,7 @@
         
     </main>
 
-    <?php include('../templates/footer.php'); ?>
+    <?php include('../app/views/templates/footer.php'); ?>
 </body>
 
 </html>

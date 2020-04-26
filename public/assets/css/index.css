@@ -343,6 +343,7 @@ header {
 
 
 .btn{
+    text-decoration: none;
     padding: 1rem 2rem;
     color:white;
     border:none;

@@ -21,11 +21,7 @@
 </head>
 
 <body>
-<<<<<<< HEAD:app/views/home/index.php
     <?php include('../templates/header.php'); ?>
-=======
-    <?php include('./header.php'); ?>
->>>>>>> 8f366a7d91cdb387d8fdc68d48dadb8eccd93f35:app/views/templates/index.php
 
     <main>
         <section id="intro">
@@ -114,11 +110,7 @@
         
     </main>
 
-<<<<<<< HEAD:app/views/home/index.php
     <?php include('../templates/footer.php'); ?>
-=======
-    <?php include('./footer.php'); ?>
->>>>>>> 8f366a7d91cdb387d8fdc68d48dadb8eccd93f35:app/views/templates/index.php
 </body>
 
 </html>
