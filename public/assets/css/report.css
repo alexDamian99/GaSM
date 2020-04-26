@@ -1,9 +1,14 @@
+body {
+    background-image: url('../images/gplaypattern.png');
+}
+
 .map {
     height: 40em;
     margin: 0 1em;
 }
 
 .report {
+    background-color: white;
     margin: 2em 10em;
     display: block;
     border: 2px solid rgb(2, 158, 86);
