@@ -12,14 +12,14 @@
     <main>
         <div class="profile_container">
             
-            <form class="form" method="POST" >
+            <form class="form" method="POST" enctype="multipart/form-data">
                 <div class="profile_container__picture_container">
                     <!-- TODO tb sa pun dinamic poza asta in functie de utilizator -->
                     <img src= "<?php echo $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture" class="profile_container__profile_picture"> 
                     <div class="image_opacer">
                         <label>
                             <span>Upload photo</span>
-                            <input type="file" name="input_file" id="input_file" hidden>
+                            <input type="file" name="input_file" id="input_file" value="default_photo.png" hidden>
                         </label>
                     </div>
                 </div>

@@ -13,17 +13,16 @@ class Edit_profile extends Controller
 
     public function index()
     {
-        $profile_photo = 'default_photo.png';
-
         if (isset($_COOKIE["username"])){
             $username = $_SESSION['username'];
             $image = $this->model->getPhoto($username);
             $profile_photo = "assets/images/upload/".$image;
             $_SESSION["profile_photo"] = $profile_photo;
         }
-
+        
         if (isset($_POST['submit_edit_profile'])) {
             $success = TRUE; 
+
             if (!empty($_POST['input_name'])) {
                 $name = $_POST['input_name'];
                 if (isset($_COOKIE["username"])) {
@@ -44,12 +43,11 @@ class Edit_profile extends Controller
                     $success &= $this->model->changeAddress($_COOKIE["username"], $address);
                 }
             }
-            $file = $_FILES['file']['name'];
-            $_SESSION["debug"] = $file; 
 
-            if (!empty($_POST['input_file'])) {
+            if(!empty($_FILES['input_file']['tmp_name']) && is_uploaded_file($_FILES['input_file']['tmp_name']))
+            {
                 if (isset($_COOKIE["username"])) {
-                    $success &= $this->model->changefile($_COOKIE["username"], $file);
+                    $success &= $this->model->changePhoto($_COOKIE["username"]);
                 }
             }
 
@@ -60,8 +58,6 @@ class Edit_profile extends Controller
             else{
                 $_SESSION["error"] = $this->model->getErrors()[0];
             }
-            
-            
             $this->redirect('edit_profile');
             // TODO use ajax
         }

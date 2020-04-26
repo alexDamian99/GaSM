@@ -55,36 +55,40 @@ class ProfileModel
 
     public function changeAddress($username, $address)
     {
-        $getStmt = $this->conn->prepare('UPDATE users set address=? where username=?');
-        $getStmt->bind_param('ss', $address, $username);
+        $updateStmt = $this->conn->prepare('UPDATE users set address=? where username=?');
+        $updateStmt->bind_param('ss', $address, $username);
 
-        $getStmt->execute();
-        $getStmt->close();
+        $updateStmt->execute();
+        $updateStmt->close();
         array_push($this->success, "Adress changed!");
         return True;
     }
 
-    public function changePhoto($username, $name)
+    public function changePhoto($username)
     {
-        $name = $_FILES['file']['name'];
-        $target_dir = "upload/";
-        $target_file = $target_dir . basename($_FILES["file"]["name"]);
+        $file_name = $_FILES['input_file']['name'];
+        $target_dir = "assets/images/upload/";
+        $target_file = $target_dir . basename($_FILES["input_file"]["name"]);
       
         // Select file type
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
       
         // Valid file extensions
-        $extensions_arr = array("jpg","jpeg","png","gif");
+        $extensions_arr = array("jpg","jpeg","png");
       
         // Check extension
         if( in_array($imageFileType,$extensions_arr) ){
-       
-           // Insert record
-           $query = "insert into images(name) values('".$name."')";
-           mysqli_query($con,$query);
+            $_SESSION['debug'] = $imageFileType;
+            # TODO aici recunoaste, dar la linia 85 face poc? nu inteleg de ce nu ar merge prepare-ul.
+            // Insert record
+            $insertStmt = $this->conn->prepare('INSERT into users (photo) values (?) where username=?');
+            $insertStmt->bind_param('ss', $file_name, $username);
+            
+            $insertStmt->execute();
+            $insertStmt->close();
         
            // Upload file
-           move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
+           move_uploaded_file($_FILES['file']['tmp_name'], $target_dir.$file_name);
       
         }
         return True;
