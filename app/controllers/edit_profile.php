@@ -13,56 +13,54 @@ class Edit_profile extends Controller
 
     public function index()
     {
+        $profile_photo = 'default_photo.png';
+
+        if (isset($_COOKIE["username"])){
+            $username = $_SESSION['username'];
+            $image = $this->model->getPhoto($username);
+            $profile_photo = "assets/images/upload/".$image;
+            $_SESSION["profile_photo"] = $profile_photo;
+        }
+
         if (isset($_POST['submit_edit_profile'])) {
+            $success = TRUE; 
             if (!empty($_POST['input_name'])) {
                 $name = $_POST['input_name'];
-                $success = FALSE;
-
                 if (isset($_COOKIE["username"])) {
-                    $success = $this->model->changeName($_COOKIE["username"], $name);
-                }
-                
-                if ($success){
-                    unset($_SESSION["error"]);
-                    $_SESSION["success"] = $this->model->getSuccess()[0];
-                }
-                else{
-                    $_SESSION["error"] = $this->model->getErrors()[0];
+                    $success &= $this->model->changeName($_COOKIE["username"], $name);
                 }
             }
-
+            
             if (!empty($_POST['input_email'])) {
                 $email = $_POST['input_email'];
-                echo $email;
-                $success = FALSE; 
                 if (isset($_COOKIE["username"])) {
-                    $success = $this->model->changeEmail($_COOKIE["username"], $email);
-                }
-                
-                if ($success){
-                    unset($_SESSION["error"]);
-                    $_SESSION["success"] = $this->model->getSuccess()[0];
-                }
-                else{
-                    $_SESSION["error"] = $this->model->getErrors()[0];
+                    $success &= $this->model->changeEmail($_COOKIE["username"], $email);
                 }
             }
 
             if (!empty($_POST['input_address'])) {
                 $address = $_POST['input_address'];
-                $success = FALSE; 
                 if (isset($_COOKIE["username"])) {
-                    $success = $this->model->changeAddress($_COOKIE["username"], $address);
-                }
-                
-                if ($success){
-                    unset($_SESSION["error"]);
-                    $_SESSION["success"] = $this->model->getSuccess()[0];
-                }
-                else{
-                    $_SESSION["error"] = $this->model->getErrors()[0];
+                    $success &= $this->model->changeAddress($_COOKIE["username"], $address);
                 }
             }
+            $file = $_FILES['file']['name'];
+            $_SESSION["debug"] = $file; 
+
+            if (!empty($_POST['input_file'])) {
+                if (isset($_COOKIE["username"])) {
+                    $success &= $this->model->changefile($_COOKIE["username"], $file);
+                }
+            }
+
+            if ($success){
+                unset($_SESSION["error"]);
+                $_SESSION["success"] = $this->model->getSuccess()[0];
+            }
+            else{
+                $_SESSION["error"] = $this->model->getErrors()[0];
+            }
+            
             
             $this->redirect('edit_profile');
             // TODO use ajax
