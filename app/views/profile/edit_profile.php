@@ -14,7 +14,6 @@
             
             <form class="form" method="POST" enctype="multipart/form-data">
                 <div class="profile_container__picture_container">
-                    <!-- TODO tb sa pun dinamic poza asta in functie de utilizator -->
                     <img src= "<?php echo $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture" class="profile_container__profile_picture"> 
                     <div class="image_opacer">
                         <label>
