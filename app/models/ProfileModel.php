@@ -67,8 +67,9 @@ class ProfileModel
     public function changePhoto($username)
     {
         $file_name = $_FILES['input_file']['name'];
+
         $target_dir = "assets/images/upload/";
-        $target_file = $target_dir . basename($_FILES["input_file"]["name"]);
+        $target_file = $target_dir . $_FILES["input_file"]["name"];
       
         // Select file type
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -78,18 +79,15 @@ class ProfileModel
       
         // Check extension
         if( in_array($imageFileType,$extensions_arr) ){
-            $_SESSION['debug'] = $imageFileType;
-            # TODO aici recunoaste, dar la linia 85 face poc? nu inteleg de ce nu ar merge prepare-ul.
             // Insert record
-            $insertStmt = $this->conn->prepare('INSERT into users (photo) values (?) where username=?');
+            $insertStmt = $this->conn->prepare('UPDATE users set photo=? where username=?');
             $insertStmt->bind_param('ss', $file_name, $username);
             
             $insertStmt->execute();
             $insertStmt->close();
         
            // Upload file
-           move_uploaded_file($_FILES['file']['tmp_name'], $target_dir.$file_name);
-      
+           move_uploaded_file($_FILES['input_file']['tmp_name'], $target_file);
         }
         return True;
     }

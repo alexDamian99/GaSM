@@ -13,10 +13,12 @@ class Edit_profile extends Controller
 
     public function index()
     {
+        $photos_dir = "assets/images/upload/";
+
         if (isset($_COOKIE["username"])){
             $username = $_SESSION['username'];
             $image = $this->model->getPhoto($username);
-            $profile_photo = "assets/images/upload/".$image;
+            $profile_photo = $photos_dir.$image;
             $_SESSION["profile_photo"] = $profile_photo;
         }
         
@@ -48,6 +50,9 @@ class Edit_profile extends Controller
             {
                 if (isset($_COOKIE["username"])) {
                     $success &= $this->model->changePhoto($_COOKIE["username"]);
+                    if ($success){
+                        $_SESSION["profile_photo"] = $photos_dir.$_FILES['input_file']['name'];
+                    }
                 }
             }
 
