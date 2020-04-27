@@ -21,10 +21,12 @@
 
             <label class="input-credentials">
                 <span>Username</span> <br>
-                <input class="input" type="text" name="username" value="<?php if (isset($_COOKIE["username"])) {
+                <input class="input" type="text" name="username" value="<?php
+                                                                        if (isset($_SESSION["temp-username-login"])) {
+                                                                            echo $_SESSION["temp-username-login"];
+                                                                        }
+                                                                        else if (isset($_COOKIE["username"])) {
                                                                             echo $_COOKIE["username"];
-                                                                        } else if (isset($_COOKIE["temp_username"])) {
-                                                                            echo $_COOKIE["temp_username"];
                                                                         }
                                                                         ?>" placeholder="&#xF007; Type your username" required>
             </label>

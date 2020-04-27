@@ -8,35 +8,21 @@ class Register extends Controller
     public function __construct()
     {
         $this->model = $this->model('LoginModel');
-        $this->view('login/register', []);
     }
 
     public function index()
     {
-        if (isset($_POST['submit'])) {
-            // remove old session
-            if (isset($_SESSION['username'])) {
-                unset($_SESSION['username']);
-            }
-            if (isset($_SESSION['id_comp'])) {
-                unset($_SESSION['id_comp']);
-            }
+        $this->view('login/register', []);
 
+        if (isset($_POST['submit'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
             $name = $_POST['name'];
             $email = $_POST['email'];
             $id_comp = isset($_POST['id']) ? $_POST['id'] : NULL;
 
-            // setcookie("temp_name", $name, time() + 300); // remember username to try again
-            // setcookie("temp_email", $email, time() + 300); // remember username to try again
-            // setcookie("temp_username", $username, time() + 300); // remember username to try again
-
-
             if (strcmp($this->checkPassword($password), "Very weak") == 0) {
-                $_SESSION["error"] = "Password is too weak.";
-                $this->redirect('register');
-                return;
+                goto noRegistered;
             }
 
             $password = md5($password);
@@ -50,10 +36,22 @@ class Register extends Controller
                     $_SESSION['id_comp'] = $id_comp;
                 }
 
-                unset($_SESSION["error"]);
+                if (isset($_SESSION['temp-id_comp'])) unset($_SESSION['temp-id_comp']);
+                if (isset($_SESSION['temp-name'])) unset($_SESSION['temp-name']);
+                if (isset($_SESSION['temp-email'])) unset($_SESSION['temp-email']);
+                if (isset($_SESSION['temp-username'])) unset($_SESSION['temp-username']);
+                if (isset($_SESSION['temp-username-check'])) unset($_SESSION['temp-username-check']);
+                if (isset($_SESSION['temp-email-check'])) unset($_SESSION['temp-email-check']);
+
                 $this->redirect('index');
             } else {
-                $_SESSION["error"] = $this->model->getErrors()[0];
+                noRegistered:
+                // remember credentials for trying again
+                if ($id_comp != NULL) $_SESSION['temp-id_comp'] = $id_comp;
+                $_SESSION['temp-name'] = $name;
+                $_SESSION['temp-email'] = $email;
+                $_SESSION['temp-username'] = $username;
+
                 $this->redirect('register');
             }
         }
@@ -76,5 +74,27 @@ class Register extends Controller
             $rez = "Strong";
 
         return $rez;
+    }
+
+    public function checkUsername($username)
+    {
+        if (!$this->model->checkUsername($username)) {
+            $_SESSION['temp-username-check'] = false;
+            echo false;
+        } else {
+            $_SESSION['temp-username-check'] = true;
+            echo true;
+        }
+    }
+
+    public function checkEmail($email)
+    {
+        if (!$this->model->checkEmail($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['temp-email-check'] = false;
+            echo false;
+        } else {
+            $_SESSION['temp-email-check'] = true;
+            echo true;
+        }
     }
 }
