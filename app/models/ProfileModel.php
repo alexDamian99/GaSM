@@ -73,12 +73,14 @@ class ProfileModel
             // Insert record
             $insertStmt = $this->conn->prepare('UPDATE users set photo=? where username=?');
             $insertStmt->bind_param('ss', $file_name, $username);
-            
+
             $insertStmt->execute();
             $insertStmt->close();
-        
-           // Upload file
-           move_uploaded_file($_FILES['input_file']['tmp_name'], $target_file);
+
+            // Upload file
+            move_uploaded_file($_FILES['input_file']['tmp_name'], $target_file);
+            array_push($this->success, "Profile photo changed!");
+
         }
         return True;
     }
