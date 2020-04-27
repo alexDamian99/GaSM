@@ -4,6 +4,7 @@
 <head>
     <?php include('../app/views/templates/head_header.php'); ?>
     <link rel="stylesheet" type="text/css" href="assets/css/profile.css">
+    <script type="text/javascript" src="assets/js/profile.js"></script>
 </head>
 
 <body>
@@ -19,51 +20,46 @@
             </div>
 
             <ul class="profile_container__menu">
-                <li><button class="button">My reports </button></li>
-                <li><button class="button"> Events </button></li>
+                <li><button class="button" onclick="showReports()" >My reports </button></li>
+                <li><button class="button" onclick="showEvents()"> Events </button></li>
             </ul>
 
             <ul class="profile_container__feed">
+                <div  id="profile_container__feed__reports">
+                    <?php 
+                        echo '<li>';
+                            echo "profile_container__feed__reports";
+                        echo '</li>';
+                        foreach ($data as $activeReport){
+                            echo '<li>';
+                                echo $activeReport['username'];
+                                echo $activeReport['type'];
+                            echo '</li>';
+                        }
+                    ?>
+                </div>
 
-                <li>
-                    Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
-                <li>
-                    Lorem ipsum Lorem ipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaaipsumdsadsaaaaaaaaaaaaaaaaaaaaaa
-                </li>
+                <div  id="profile_container__feed__events">
+                    <?php 
+                        echo '<li>';
+                            echo "profile_container__feed__events";
+                        echo '</li>';
+                        foreach ($data as $activeReport){
+                            echo '<li>';
+                                echo $activeReport['username'];
+                                echo $activeReport['type'];
+                            echo '</li>';
+                        }
+                    ?>
+                </div>
             </ul>
-
         </div>
+        <?php 
+        if (isset($_SESSION['debug'])){
+            echo $_SESSION['debug'];
+            unset($_SESSION['debug']);
+        }
+        ?>
     </main>
 
     <?php include('../app/views/templates/footer.php'); ?>

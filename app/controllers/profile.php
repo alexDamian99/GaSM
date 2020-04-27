@@ -8,7 +8,11 @@ class Profile extends Controller
     public function __construct()
     {
         $this->model = $this->model('ProfileModel');
-        $this->view('profile/profile', []);
+        $activeReports = [];
+        if (isset($_COOKIE["username"])){
+            $activeReports = $this->model->getActiveReportsFor($_COOKIE["username"]);
+        }
+        $this->view('profile/profile', $activeReports);
     }
 
     public function index()

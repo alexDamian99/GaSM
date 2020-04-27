@@ -149,7 +149,11 @@ main {
     align-items: center;
 }
 
-.profile_container__feed>li {
+#profile_container__feed__events {
+    display: none;
+}
+
+.profile_container__feed li {
     width: 100%;
     margin: 1px;
     border: 1px solid rgb(81, 112, 69);

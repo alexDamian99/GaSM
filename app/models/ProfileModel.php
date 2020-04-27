@@ -85,6 +85,24 @@ class ProfileModel
         return True;
     }
 
+    public function getActiveReportsFor($username)
+    {
+        $activeReports = [];
+        $stmt = $this->conn->prepare('SELECT * FROM reports where username=?');
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        if ($stmt->num_rows > 0) {
+            while ($row = $stmt->fetch_assoc()) {
+                array_push(
+                    $activeReports,
+                    ['id' => $row['id'], 'type' => $row['type'], 'location' => $row['location'], 'date' => $row['date'], 'user' => $row['user']]
+                );
+            }
+        }
+        $stmt->close();
+        return $activeReports;
+    }
+
     public function getPhoto($username)
     {
         $getStmt = $this->conn->prepare('SELECT photo from users where username=?');
