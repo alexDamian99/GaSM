@@ -1,9 +1,15 @@
-.map {
-    height: 40em;
+body {
+    background-image: url('../images/gplaypattern.png');
 }
 
-#report {
-    margin: 2em 5em;
+.map {
+    height: 40em;
+    margin: 0 1em;
+}
+
+.report {
+    background-color: white;
+    margin: 2em 10em;
     display: block;
     border: 2px solid rgb(2, 158, 86);
 }
@@ -18,7 +24,7 @@
     border: none;
     outline: none;
     border-bottom: 1px solid rgb(2, 158, 86);
-    ;
+    position: relative;
 }
 
 #report-form {
@@ -57,8 +63,8 @@ select {
     border-color: #888;
 }
 
-#send {
-    margin: 3em 0 1em 0;
+.send {
+    margin: 2em 0 1em 0;
     padding: 0.5em 2em;
     border-radius: 0.5em;
     border: 0;
@@ -69,11 +75,11 @@ select {
     opacity: 0.7;
 }
 
-#send:hover {
+.send:hover {
     opacity: 1;
 }
 
-#send::after {
+.send::after {
     content: " ";
     display: block;
     width: 100%;
@@ -84,12 +90,57 @@ select {
     transition: all 0.3s ease-in-out;
 }
 
-#send:hover::after {
+.send:hover::after {
     transform: scaleX(1.75);
 }
 
-@media screen and (max-width: 450px) {
-    #report {
+.arrow {
+    border: solid black;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 4px;
+    position: absolute;
+    right: 1em;
+    margin-top: 7px;
+}
+
+.up {
+    transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+}
+
+#active-reports {
+    display: none;
+}
+
+#active-reports {
+    padding: 1em;
+    margin: 0;
+}
+
+.active-report {
+    display: flex;
+    flex-flow: column wrap;
+    padding: 1em;
+    margin-bottom: 1em;
+    border: 1px solid rgb(2, 158, 86);
+}
+
+.active-report .send {
+    margin: 0.5em 0 1em 0;
+}
+
+@media screen and (max-width: 700px) {
+    .report {
+        margin: 2em 5em;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .report {
         margin: 2em 1em;
     }
 }

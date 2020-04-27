@@ -7,17 +7,8 @@ class LoginModel
 
     public function __construct()
     {
-        $CONFIG = [
-            'servername' => "localhost",
-            'username' => "root",
-            'password' => '',
-            'db' => 'gasm'
-        ];
-
-        $this->conn = new mysqli($CONFIG["servername"], $CONFIG["username"], $CONFIG["password"], $CONFIG["db"]);
-        if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
-        }
+        require_once 'Database.php';
+        $this->conn = Database::getInstance()->getConn();
     }
 
     public function getLogin($username, $password)
@@ -32,10 +23,23 @@ class LoginModel
         if ($res == 0) {
             array_push($this->errors, "Wrong username/password combination");
             return False;
-        } else return True;
+        } else
+            return True;
     }
 
-    public function getRegister($username, $password, $name, $email, $id)
+    public function getIdComp($username)
+    {
+        $getStmt = $this->conn->prepare('SELECT id_comp FROM users where username=?');
+        $getStmt->bind_param('s', $username);
+
+        $getStmt->execute();
+        $id_comp = mysqli_fetch_assoc($getStmt->get_result())['id_comp'];
+        $getStmt->close();
+
+        return $id_comp;
+    }
+
+    public function getRegister($username, $password, $name, $email, $id_comp)
     {
         // check if username or email does not already exist in db
         $getStmt = $this->conn->prepare('SELECT * FROM users where username=? or email=? LIMIT 1');
@@ -53,16 +57,16 @@ class LoginModel
 
             if ($user['email'] == $email) {
                 array_push($this->errors, "Email already exists");
-            } 
+            }
             return False;
         } else {
             // register new user
-            if ($id == NULL) {
+            if ($id_comp == NULL) {
                 $insStmt = $this->conn->prepare('INSERT INTO users (username, password, name, email) VALUES(?,?,?,?)');
                 $insStmt->bind_param('ssss', $username, $password, $name, $email);
             } else {
                 $insStmt = $this->conn->prepare('INSERT INTO users (username, password, name, email, id_comp) VALUES(?,?,?,?,?)');
-                $insStmt->bind_param('ssssi', $username, $password, $name, $email, $id);
+                $insStmt->bind_param('ssssi', $username, $password, $name, $email, $id_comp);
             }
 
             $insStmt->execute();

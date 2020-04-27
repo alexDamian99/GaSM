@@ -7,7 +7,7 @@ body {
 }
 
 form {
-    background-color: white;
+    background-image: url('../images/gplaypattern.png');
     display: flex;
     flex-flow: column wrap;
     align-items: center;
@@ -26,6 +26,7 @@ h1 {
 }
 
 .input {
+    background-color: transparent;
     outline: none;
     border: none;
     border-bottom: 1px #3A3A3A solid;
