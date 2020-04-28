@@ -117,6 +117,7 @@ select {
 }
 
 #active-reports {
+    list-style-type: none;
     padding: 1em;
     margin: 0;
 }
@@ -130,7 +131,21 @@ select {
 }
 
 .active-report .send {
-    margin: 0.5em 0 1em 0;
+    margin: 1em 0 1em 0;
+}
+
+.kudos i {
+    font-size: 1.1em;
+    margin-right: 0.5em;
+    cursor: pointer;
+}
+
+.not-clicked {
+    color: #3A3A3A;
+}
+
+.clicked {
+    color: rgb(2, 158, 86);
 }
 
 @media screen and (max-width: 700px) {
