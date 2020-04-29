@@ -7,6 +7,7 @@ class Report extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->model = $this->model('ReportModel');
     }
 

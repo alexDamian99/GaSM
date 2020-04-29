@@ -7,6 +7,7 @@ class Register extends Controller
 
     public function __construct()
     {
+        $_SESSION['previous'] = pathinfo(__FILE__, PATHINFO_FILENAME);
         $this->model = $this->model('LoginModel');
     }
 
