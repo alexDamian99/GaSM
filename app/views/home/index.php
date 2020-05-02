@@ -4,11 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <link rel="stylesheet" type="text/css" href="../public/assets/css/index.css">
-=======
     <link rel="stylesheet" type="text/css" href="<?php echo getenv("path_to_public");?>/assets/css/index.css">
->>>>>>> 57c372d02c02f6661a25ace3f49d0cbd1302f7c3
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>GASM</title>
