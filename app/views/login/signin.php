@@ -22,8 +22,8 @@
             <label class="input-credentials">
                 <span>Username</span> <br>
                 <input class="input" type="text" name="username" value="<?php
-                                                                        if (isset($_SESSION["temp-username-login"])) {
-                                                                            echo $_SESSION["temp-username-login"];
+                                                                        if (isset($_SESSION["temp-username"])) {
+                                                                            echo $_SESSION["temp-username"];
                                                                         }
                                                                         else if (isset($_COOKIE["username"])) {
                                                                             echo $_COOKIE["username"];

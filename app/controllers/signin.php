@@ -7,7 +7,9 @@ class SignIn extends Controller
 
     public function __construct()
     {
-        $_SESSION['previous'] = pathinfo(__FILE__, PATHINFO_FILENAME);
+        parent::__construct();
+        $_SESSION['previous'] = 'signin';
+
         $this->model = $this->model('LoginModel');
     }
 
@@ -44,14 +46,14 @@ class SignIn extends Controller
 
                 if (isset($_SESSION['error']))
                     unset($_SESSION['error']);
-                if (isset($_SESSION['temp-username-login']))
-                    unset($_SESSION['temp-username-login']);
+                if (isset($_SESSION['temp-username']))
+                    unset($_SESSION['temp-username']);
 
-                $this->redirect('index');
+                $this->redirect('home');
             } else {
-                $_SESSION['temp-username-login'] = $username; // remember username to try again
+                $_SESSION['temp-username'] = $username; // remember username to try again
                 $_SESSION['error'] = $this->model->getErrors()[0];
-                $this->redirect('sigin');
+                $this->redirect('signin');
             }
         }
     }
