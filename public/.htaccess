@@ -1,17 +1,9 @@
 Options -MultiViews
 RewriteEngine On
 
-<<<<<<< HEAD
 RewriteBase /GaSM/public
-=======
-RewriteBase /tw/GaSM/public/
->>>>>>> 57c372d02c02f6661a25ace3f49d0cbd1302f7c3
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
-<<<<<<< HEAD
 RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
-=======
-RewriteRule ^(.+)$ index.php?url=$1 
->>>>>>> 57c372d02c02f6661a25ace3f49d0cbd1302f7c3
