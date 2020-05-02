@@ -88,7 +88,7 @@ class ProfileModel
     public function getActiveReportsFor($username)
     {
         $activeReports = [];
-        $stmt = $this->conn->prepare('SELECT * FROM reports where username=?');
+        $stmt = $this->conn->prepare('SELECT * FROM reports where user=?');
         $stmt->bind_param('s', $username);
         $stmt->execute();
         if ($stmt->num_rows > 0) {

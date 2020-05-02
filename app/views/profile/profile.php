@@ -15,7 +15,7 @@
             <div class="profile_container__picture_container">
                 <img src="<?php echo $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture" class="profile_container__profile_picture">
                 <div class="image_opacer">
-                    <a href="/gasm/public/profile/edit_profile.php">Edit profile</a>
+                    <a href="./edit_profile">Edit profile</a>
                 </div>
             </div>
 
