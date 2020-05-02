@@ -1,12 +1,7 @@
 <header>
         <nav id="navbar">
-<<<<<<< HEAD
-            <a class="logo-container" href="./index">
-                <img id="logo" src="../public/assets/images/navbar_logo.png" alt="logo">
-=======
             <a class="logo-container" href="#">
                 <img id="logo" src="<?php echo getenv("path_to_public");?>/assets/images/navbar_logo.png" alt="logo">
->>>>>>> 57c372d02c02f6661a25ace3f49d0cbd1302f7c3
             </a>
             <ul id="navbar-buttons">
                 <li><a href="#">Report event</a></li>

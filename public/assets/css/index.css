@@ -355,13 +355,9 @@ header {
     }
 }
 
-<<<<<<< HEAD
-.btn {
-=======
 
 .btn{
     text-decoration: none;
->>>>>>> 57c372d02c02f6661a25ace3f49d0cbd1302f7c3
     padding: 1rem 2rem;
     color: white;
     border: none;
