@@ -52,15 +52,18 @@ class Report extends Controller
         }
     }
 
-    public function newAction($report_id, $action)
-    {
+    public function newAction($params)
+    {   
+        $report_id = $params[0];
+        $action = $params[1];
+        
         // only logged in users can vote
         if (isset($_SESSION['username'])) {
             $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Anonymous';
             $this->model->newAction($report_id, $action, $username);
         }
 
-        $likes = $this->model->getLikes($report_id);
+        $likes = $this->model->getLikes($report_id); 
         $dislikes = $this->model->getDislikes($report_id);
 
         echo $likes . " " . $dislikes;
