@@ -42,23 +42,10 @@ class LoginModel
     public function getRegister($username, $password, $name, $email, $id_comp)
     {
         // check if username or email does not already exist in db
-        $getStmt = $this->conn->prepare('SELECT * FROM users where username=? or email=? LIMIT 1');
-        $getStmt->bind_param('ss', $username, $email);
-
-        $getStmt->execute();
-        $res = $getStmt->get_result();
-        $getStmt->close();
-
-        if ($res->num_rows != 0) { // username or email already exists 
-            $user = mysqli_fetch_assoc($res);
-            if ($user['username'] == $username) {
-                array_push($this->errors, "Username already exists");
-            }
-
-            if ($user['email'] == $email) {
-                array_push($this->errors, "Email already exists");
-            }
-            return False;
+        if (!$this->checkUsername($username)) {
+            array_push($this->errors, "Username already exists");
+        } else if (!$this->checkEmail($email)) {
+            array_push($this->errors, "Email already exists");
         } else {
             // register new user
             if ($id_comp == NULL) {
@@ -74,6 +61,38 @@ class LoginModel
 
             return True;
         }
+    }
+
+    public function checkUsername($username)
+    {
+        $getStmt = $this->conn->prepare('SELECT * FROM users where username=? LIMIT 1');
+        $getStmt->bind_param('s', $username);
+
+        $getStmt->execute();
+        $res = $getStmt->get_result();
+        $getStmt->close();
+
+        if ($res->num_rows != 0) {
+            return False;
+        }
+
+        return true;
+    }
+
+    public function checkEmail($email)
+    {
+        $getStmt = $this->conn->prepare('SELECT * FROM users where email=? LIMIT 1');
+        $getStmt->bind_param('s', $email);
+
+        $getStmt->execute();
+        $res = $getStmt->get_result();
+        $getStmt->close();
+
+        if ($res->num_rows != 0) {
+            return False;
+        }
+
+        return true;
     }
 
     public function getErrors()

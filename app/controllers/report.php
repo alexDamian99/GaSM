@@ -7,13 +7,26 @@ class Report extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->model = $this->model('ReportModel');
-        $activeReports = $this->model->getActiveReports();
-        $this->view('report/report', $activeReports);
     }
 
     public function index()
     {
+        $username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+
+        $activeReports = $this->model->getActiveReports();
+        $likedReports = $this->model->getLikedReports($username);
+        $dislikedReports = $this->model->getDislikedReports($username);
+        $likes = $this->model->getTotalLikes();
+        $dislikes = $this->model->getTotalDislikes();
+
+        $this->view('report/report', [
+            'active_reports' => $activeReports,
+            'liked_reports' => $likedReports, 'disliked_reports' => $dislikedReports,
+            'likes' => $likes, 'dislikes' => $dislikes
+        ]);
+
         if (isset($_POST['submit'])) {
             // create report
             $type = $_POST['type'];
@@ -37,5 +50,19 @@ class Report extends Controller
 
             $this->redirect('report');
         }
+    }
+
+    public function newAction($report_id, $action)
+    {
+        // only logged in users can vote
+        if (isset($_SESSION['username'])) {
+            $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Anonymous';
+            $this->model->newAction($report_id, $action, $username);
+        }
+
+        $likes = $this->model->getLikes($report_id);
+        $dislikes = $this->model->getDislikes($report_id);
+
+        echo $likes . " " . $dislikes;
     }
 }

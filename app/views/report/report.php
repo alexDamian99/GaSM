@@ -13,21 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/css/ol.css" type="text/css" />
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/build/ol.js"></script>
 
-    <script>
-        function extend(elementId, arrowId) {
-            var x = document.getElementById(elementId);
-            var y = document.getElementById(arrowId);
-            if (x.className == "active-form") {
-                x.className = "";
-                x.style.display = "none";
-                y.className = "arrow down";
-            } else {
-                x.className += "active-form";
-                x.style.display = "block";
-                y.className = "arrow up";
-            }
-        }
-    </script>
+    <script src="../public/assets/js/report.js"></script>
 </head>
 
 <body>
@@ -93,23 +79,49 @@
 
             <ul id="active-reports">
                 <?php
-                $doneBtn = false;
-                if (isset($_SESSION['id_comp']))
-                    $doneBtn = true;
+                $like_permission = '';
+                $dislike_permission = '';
+                if (isset($_SESSION['username'])) {
+                    $like_permission = 'onclick="newLike(this)"';
+                    $dislike_permission = 'onclick="newDislike(this)"';
+                }
 
-                foreach ($data as $activeReport) {
-                    if ($activeReport['type'] == 1) $type = 'Garbage must be collected';
-                    else if ($activeReport['type'] == 2) $type = 'Waste sorting is not respected';
+                foreach ($data['active_reports'] as $activeReport) {
+                    // get report's type
+                    if ($activeReport['type'] == 1)
+                        $type = 'Garbage must be collected';
+                    else if ($activeReport['type'] == 2)
+                        $type = 'Waste sorting is not respected';
+
+                    // check if current report is liked/disliked by user
+                    $btn_like_class = 'not-clicked';
+                    if (in_array($activeReport['id'], $data['liked_reports']))
+                        $btn_like_class = 'clicked';
+                    $btn_dislike_class = 'not-clicked';
+                    if (in_array($activeReport['id'], $data['disliked_reports']))
+                        $btn_dislike_class = 'clicked';
+
+
+                    // get total likes/dislikes
+                    $likes = isset($data['likes'][$activeReport['id']]) ? $data['likes'][$activeReport['id']] : 0;
+                    $dislikes = isset($data['dislikes'][$activeReport['id']]) ? $data['dislikes'][$activeReport['id']] : 0;
+
                     echo '<li class="active-report">
-                            <h3>' . $type . '</h3>
-                            <span>Location: <a href="#">' . $activeReport['location'] . '</a></span> <br />
-                            <span>Date: ' . $activeReport['date'] . '</span> <br />
-                            <span>Reported by: ' . $activeReport['user'] . '</span> <br />';
-                    if ($doneBtn)
+                                <h3>' . $type . '</h3>
+                                <span>Location: <a href="#">' . $activeReport['location'] . '</a></span> <br />
+                                <span>Date: ' . $activeReport['date'] . '</span> <br />
+                                <span>Reported by: ' . $activeReport['user'] . '</span> <br />
+                                <div class="kudos">
+                                    <i id="like-btn" class="fa fa-thumbs-up ' . $btn_like_class . '" 
+                                        data-id="' . $activeReport['id'] . '" ' . $like_permission . '>' . $likes . '</i> 
+                                    <i id="dislike-btn" class="fa fa-thumbs-down ' . $btn_dislike_class . '" 
+                                        data-id="' . $activeReport['id'] . '" ' . $dislike_permission . '>' . $dislikes . '</i>
+                                </div>';
+                    if (isset($_SESSION['id_comp']))
                         echo '<form action="" method="POST">
-                                <input type="text" hidden value="' . $activeReport['id'] . '" name="report_id">
-                                <button type="submit" class="send" name="done">Done</button>
-                              </form>';
+                                    <input type="text" hidden value="' . $activeReport['id'] . '" name="report_id">
+                                    <button type="submit" class="send" name="done">Done</button>
+                                </form>';
                     echo '</li>';
                 }
                 ?>
