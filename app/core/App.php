@@ -2,27 +2,16 @@
 
 class App
 {
-<<<<<<< HEAD
-    protected $controller = 'index';
-=======
     protected $controller = 'home';
->>>>>>> 57c372d02c02f6661a25ace3f49d0cbd1302f7c3
     protected $method = 'index';
     protected $params = [];
     
     public function __construct(){
         
-
-<<<<<<< HEAD
-        if(isset($url[0])) {
-            if(file_exists('../app/controllers/' .  $url[0] . '.php')) {
-=======
-
         $url = $this->parseURL();
         
         if(isset($url[0])){
             if(file_exists('../app/controllers/' . $url[0] . '.php')){
->>>>>>> 57c372d02c02f6661a25ace3f49d0cbd1302f7c3
                 $this->controller = $url[0];
                 unset($url[0]);
             }
