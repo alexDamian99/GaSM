@@ -5,21 +5,8 @@ class CampaignModel {
     //TODO: treat error and succes messages and send them to the user;
     
     public function __construct(){
-        $CONFIG = [
-            'servername' => "localhost",
-            'username' => "root",
-            'password' => '',
-            'db' => 'proiect_tw'
-        ];
-        
-        $this->conn = new mysqli($CONFIG["servername"], $CONFIG["username"], $CONFIG["password"], $CONFIG["db"]);
-
-        if ($this->conn->connect_error) {
-            die("Connection to the database failed: " . $this->conn->connect_error);
-        } else { 
-            // echo "Successfully connected to DB";
-        }
-
+        require_once 'Database.php';
+        $this->conn = Database::getInstance()->getConn();
     }
 
     public function insertCampaign($title, $description, $location, $date, $image = 'default.jpg'){
