@@ -7,7 +7,9 @@ class Register extends Controller
 
     public function __construct()
     {
-        $_SESSION['previous'] = pathinfo(__FILE__, PATHINFO_FILENAME);
+        parent::__construct();
+        $_SESSION['previous'] = 'register';
+        
         $this->model = $this->model('LoginModel');
     }
 
@@ -37,14 +39,7 @@ class Register extends Controller
                     $_SESSION['id_comp'] = $id_comp;
                 }
 
-                if (isset($_SESSION['temp-id_comp'])) unset($_SESSION['temp-id_comp']);
-                if (isset($_SESSION['temp-name'])) unset($_SESSION['temp-name']);
-                if (isset($_SESSION['temp-email'])) unset($_SESSION['temp-email']);
-                if (isset($_SESSION['temp-username'])) unset($_SESSION['temp-username']);
-                if (isset($_SESSION['temp-username-check'])) unset($_SESSION['temp-username-check']);
-                if (isset($_SESSION['temp-email-check'])) unset($_SESSION['temp-email-check']);
-
-                $this->redirect('index');
+                $this->redirect('home');
             } else {
                 noRegistered:
                 // remember credentials for trying again
@@ -79,6 +74,7 @@ class Register extends Controller
 
     public function checkUsername($username)
     {
+        $username = $username[0];
         if (!$this->model->checkUsername($username)) {
             $_SESSION['temp-username-check'] = false;
             echo false;
@@ -90,6 +86,7 @@ class Register extends Controller
 
     public function checkEmail($email)
     {
+        $email = $email[0];
         if (!$this->model->checkEmail($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $_SESSION['temp-email-check'] = false;
             echo false;
