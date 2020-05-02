@@ -4,20 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <link rel="stylesheet" type="text/css" href="../public/assets/css/index.css">
-=======
-    <link rel="stylesheet" type="text/css" href="<?php echo getenv("path_to_public");?>/assets/css/index.css">
->>>>>>> 57c372d02c02f6661a25ace3f49d0cbd1302f7c3
+    <link rel="stylesheet" type="text/css" href="../../../public/assets/css/index.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        function myFunction() {
+            var x = document.getElementById("mobile-navbar");
+            if (x.className === "responsive-navbar") {
+                x.className = "";
+            } else {
+                x.className += "responsive-navbar";
+            }
+        }
+    </script>
     <title>GASM</title>
-
-    <script src="../public/assets/js/index.js"></script>
 </head>
 
 <body>
-    <?php include('../app/views/templates/header.php'); ?>
+    <?php include('../templates/header.php'); ?>
 
     <main>
         <section id="intro">
@@ -30,7 +34,7 @@
     
         <section class="facts">
             <div class="facts__fact">
-                <img src="../public/assets/images/recycle_fact1.svg" alt="man_throwing_garbage">
+                <img src="assets/images/recycle_fact1.svg" alt="man_throwing_garbage">
                 <div class="facts__fact__content">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -39,7 +43,7 @@
                 </div>
             </div>
             <div class="facts__fact">
-                <img src="../public/assets/images/eco_logo.svg" alt="recycle_logo">
+                <img src="assets/images/eco_logo.svg" alt="recycle_logo">
                 <div class="facts__fact__content">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -79,7 +83,7 @@
                 </div>
                 </a>
             </div>
-            <a class="btn btn-green" href="">See all campaigns</a>
+            <button class="btn btn-green">See all campaigns</button>
         </section>
 
         <section class="trash-finder">
@@ -106,7 +110,7 @@
         
     </main>
 
-    <?php include('../app/views/templates/footer.php'); ?>
+    <?php include('../templates/footer.php'); ?>
 </body>
 
 </html>

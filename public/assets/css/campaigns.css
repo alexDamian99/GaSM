@@ -136,6 +136,10 @@ header{
     justify-content:space-around;
     margin-bottom:3em;
 }
+.campaigns__headers img{
+    width: 300px;
+    height: 200px;
+}
 .campaigns__headers__head{
     background: white;
     margin:1em 1em 1em 1em;
