@@ -21,27 +21,8 @@
 
     <main>
         <div id="map" class="map"></div>
-        <script type="text/javascript">
-            var map = new ol.Map({
-                target: "map",
-                layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    })
-                ],
-                view: new ol.View({
-                    center: ol.proj.fromLonLat([27.57, 47.17]),
-                    zoom: 13
-                })
-            });
+        <script src="../public/assets/js/report-map.js"></script>
 
-            map.on('click', function(evt) {
-                var loc = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326')
-                var lon = loc[0];
-                var lat = loc[1]
-                alert(lat + "," + lon);
-            });
-        </script>
 
         <div class="report">
             <button id="report-btn" onclick="extend('report-form', 'arrow1')">
@@ -52,8 +33,8 @@
             <form id="report-form" action="" method="POST">
                 <label class="input-location">
                     <span>Location</span> <br />
-                    <input class="input" type="text" name="location" placeholder="Lat, Lon" required />
-                    <a href="#"><i class="fa fa-map-marker" style="font-size:24px"></i></a>
+                    <input id="location-input" class="input" type="text" name="location" placeholder="Lat, Lon" required />
+                    <a href="#" onclick="getLocation()"><i class="fa fa-map-marker" style="font-size:24px"></i></a>
                 </label>
 
                 <br />
@@ -109,6 +90,7 @@
                     echo '<li class="active-report">
                                 <h3>' . $type . '</h3>
                                 <span>Location: <a href="#">' . $activeReport['location'] . '</a></span> <br />
+                                <script>addPointToMap(' . $activeReport['location'] . ')</script>
                                 <span>Date: ' . $activeReport['date'] . '</span> <br />
                                 <span>Reported by: ' . $activeReport['user'] . '</span> <br />
                                 <div class="kudos">
