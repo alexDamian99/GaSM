@@ -53,7 +53,6 @@ class Edit_profile extends Controller
                     $old_photo = $this->model->getPhoto($_COOKIE["username"]);
                     $success &= $this->model->changePhoto($_COOKIE["username"]);
                     if ($success){
-                        $_SESSION['debug'] = $old_photo.' '.$new_photo;
                         if (strcmp($old_photo, $default_photo) != 0 &&
                             strcmp($old_photo, basename($new_photo)) != 0)
                         {
