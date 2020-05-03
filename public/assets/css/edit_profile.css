@@ -187,3 +187,69 @@ main {
     color: rgb(163, 25, 163);
     margin-bottom: 1em;
 }
+
+
+input[type=text]
+{
+    font: inherit;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    color: #494949;
+    width: 100%;
+    display: block;
+    margin: 1rem 0;
+  }
+  input[type=email]
+{
+    font: inherit;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    color: #494949;
+    width: 100%;
+    display: block;
+    margin: 1rem 0;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #09ff00;
+  }
+  
+  
+  button:focus {
+    outline: none;
+  }
+  
+  button:hover,
+  button:active {
+    background: #73d884;
+    border-color: #ff3482;
+  }
+ 
+  
+  ::-webkit-scrollbar {
+    width: 12px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(136, 209, 146, 0.4);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(136, 209, 146, 0.4);
+}
