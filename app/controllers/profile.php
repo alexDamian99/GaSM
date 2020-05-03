@@ -9,10 +9,12 @@ class Profile extends Controller
     {
         $this->model = $this->model('ProfileModel');
         $activeReports = [];
+        $activeCampaigns = [];
         if (isset($_COOKIE["username"])){
             $activeReports = $this->model->getActiveReportsFor($_COOKIE["username"]);
+            $activeCampaigns = $this->model->getActiveCampaignsFor($_COOKIE["username"]);
         }
-        $this->view('profile/profile', $activeReports);
+        $this->view('profile/profile', [$activeReports, $activeCampaigns]);
     }
 
     public function index()

@@ -91,8 +91,9 @@ class ProfileModel
         $stmt = $this->conn->prepare('SELECT * FROM reports where user=?');
         $stmt->bind_param('s', $username);
         $stmt->execute();
-        if ($stmt->num_rows > 0) {
-            while ($row = $stmt->fetch_assoc()) {
+        $res = $stmt->get_result(); 
+        if ($res->num_rows > 0) {
+            while ($row = $res->fetch_assoc()) {
                 array_push(
                     $activeReports,
                     ['id' => $row['id'], 'type' => $row['type'], 'location' => $row['location'], 'date' => $row['date'], 'user' => $row['user']]
@@ -103,6 +104,26 @@ class ProfileModel
         return $activeReports;
     }
 
+    public function getActiveCampaignsFor($username)
+    {
+        $activeEvents = [];
+        $stmt = $this->conn->prepare('SELECT * FROM campaigns where user=?');
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $res = $stmt->get_result(); 
+        if ($res->num_rows > 0) {
+            while ($row = $res->fetch_assoc()) {
+                array_push(
+                    $activeEvents,
+                    ['id' => $row['id'], 'title' => $row['title'], 'description' => $row['description'], 'location' => $row['location'], 'event_date' => $row['event_date'], 'image_name' => $row['image_name']]
+                );
+            }
+        }
+        $stmt->close();
+        return $activeEvents;
+    }
+
+    
     public function getPhoto($username)
     {
         $getStmt = $this->conn->prepare('SELECT photo from users where username=?');
