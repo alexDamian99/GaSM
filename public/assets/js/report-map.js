@@ -11,12 +11,21 @@ var map = new ol.Map({
     })
 });
 
+var temp_marker = null;
+var vectorSource = new ol.source.Vector();
+
 function getLocation() {
     let locationField = document.getElementById('location-input');
     map.on('click', function(evt) {
         let loc = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326')
         let lon = loc[0].toFixed(6);
         let lat = loc[1].toFixed(6);
+
+        // allow only one temp marker on map
+        if (temp_marker != null)
+            vectorSource.clear();
+        temp_marker = addPointToMap(lat, lon);
+
         locationField.value = lat + "," + lon;
     });
 }
@@ -30,19 +39,21 @@ function addPointToMap(lat, lon) {
 
     var markerStyle = new ol.style.Style({
         image: new ol.style.Icon({
-            anchor: [0.5, 46],
+            anchor: [0.475, 30],
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
-            src: 'https://openlayers.org/en/v3.20.1/examples/data/icon.png'
+            src: '../public/assets/images/placeholder.png'
         })
     });
     marker.setStyle(markerStyle);
 
-    var vectorSource = new ol.source.Vector({
+    vectorSource = new ol.source.Vector({
         features: [marker]
     });
     var markerVectorLayer = new ol.layer.Vector({
         source: vectorSource,
     });
     map.addLayer(markerVectorLayer);
+
+    return marker;
 }
