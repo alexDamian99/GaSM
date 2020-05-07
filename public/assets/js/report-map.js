@@ -11,6 +11,33 @@ var map = new ol.Map({
     })
 });
 
+var element_popup = document.getElementById('popup');
+
+var popup = new ol.Overlay({
+    element: element_popup,
+    positioning: 'bottom-center',
+    stopEvent: false,
+    offset: [0, -35]
+});
+map.addOverlay(popup);
+
+// display popup on click
+map.on('click', function(evt) {
+    var feature = map.forEachFeatureAtPixel(evt.pixel,
+        function(feature) {
+            return feature;
+        });
+    if (feature) {
+        var coordinates = feature.getGeometry().getCoordinates();
+        popup.setPosition(coordinates);
+        element_popup.innerHTML = feature.get('type') + '<br><br>' + 'Report id: ' + feature.get('id');
+        element_popup.style.display = 'flex';
+    } else {
+        element_popup.innerHTML = '';
+        element_popup.style.display = 'none';
+    }
+});
+
 var temp_marker = null;
 var vectorSource = new ol.source.Vector();
 
@@ -30,11 +57,13 @@ function getLocation() {
     });
 }
 
-function addPointToMap(lat, lon) {
+function addPointToMap(lat, lon, report_id, report_type) {
     var marker = new ol.Feature({
         geometry: new ol.geom.Point(
             ol.proj.fromLonLat([lon, lat])
         ),
+        id: report_id,
+        type: report_type
     });
 
     var markerStyle = new ol.style.Style({
@@ -54,6 +83,10 @@ function addPointToMap(lat, lon) {
         source: vectorSource,
     });
     map.addLayer(markerVectorLayer);
-
     return marker;
+}
+
+function goToLocation(lat, lon) {
+    map.getView().setCenter(ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857'));
+    map.getView().setZoom(15);
 }

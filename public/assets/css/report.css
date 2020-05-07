@@ -95,7 +95,7 @@ select {
 }
 
 .arrow {
-    border: solid black;
+    border: solid #3A3A3A;
     border-width: 0 4px 4px 0;
     display: inline-block;
     padding: 4px;
@@ -146,6 +146,17 @@ select {
 
 .clicked {
     color: rgb(2, 158, 86);
+}
+
+#popup {
+    border: 1px solid #3A3A3A;
+    background-image: url('../images/gplaypattern.png');
+    border-radius: 25%;
+    height: 7em;
+    width: 6em;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
 @media screen and (max-width: 700px) {
