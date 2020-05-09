@@ -1,27 +1,25 @@
 main {
     display: flex;
     justify-content: center;
+    background-image: url("../images/gplaypattern.png");
 }
 
-#profile_container {
+.profile_container {
     width: 60%;
     height: 60vh;
-    padding: 1em;
-    background-image: radial-gradient(rgb(119, 201, 126), white);
     display: flex;
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
     flex-flow: column;
     align-items: center;
-    scroll-behavior: smooth;
 }
 
-#profile_container__picture_container {
+.profile_container__picture_container {
     position: relative;
 }
 
-#profile_container__profile_picture {
+.profile_container__profile_picture {
     width: 8em;
     height: 8em;
     margin: 1em;
@@ -39,11 +37,11 @@ main {
     text-align: center;
 }
 
-#profile_container__picture_container:hover #profile_container__profile_picture {
+.profile_container__picture_container:hover .profile_container__profile_picture {
     opacity: 0.3;
 }
 
-#profile_container__picture_container:hover .image_opacer {
+.profile_container__picture_container:hover .image_opacer {
     opacity: 1;
 }
 
@@ -56,7 +54,7 @@ main {
     position: absolute;
 }
 
-#profile_container__menu {
+.profile_container__menu {
     height: 3em;
     width: 100%;
     padding: 0.5em;
@@ -106,7 +104,6 @@ main {
     height: 3em;
     min-width: 4em;
     border-radius: 0.5em;
-    padding: 1em;
     cursor: pointer;
     font-size: 1em;
     font-weight: bold;
@@ -143,21 +140,53 @@ main {
     align-items: center;
 }
 
-#profile_container__feed {
+.profile_container__feed {
     width: 100%;
     margin: 1em;
-    padding: 1em;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
 }
 
-#profile_container__feed>li {
+#profile_container__feed__events {
+    display: none;
+}
+
+.profile_container__feed li {
     width: 100%;
-    padding: 1em;
     margin: 1px;
     border: 1px solid rgb(81, 112, 69);
     list-style: none;
     word-wrap: break-word;
+}
+
+
+/* Let's get this party started */
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(136, 209, 146, 0.4);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(136, 209, 146, 0.4);
 }

@@ -8,8 +8,6 @@ class App
     
     public function __construct(){
         
-
-
         $url = $this->parseURL();
         
         if(isset($url[0])){
@@ -22,7 +20,7 @@ class App
         require_once '../app/controllers/' .  $this->controller . '.php';
 
         $this->controller = new $this->controller;
-        
+
         if(isset($url[1])){
             if(method_exists($this->controller, $url[1])){
                 $this->method = $url[1];
