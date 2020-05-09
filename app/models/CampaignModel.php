@@ -2,8 +2,7 @@
 
 class CampaignModel {
     private $conn;
-    //TODO: treat error and succes messages and send them to the user;
-    
+    private $errors = [];
     public function __construct(){
         require_once 'Database.php';
         $this->conn = Database::getInstance()->getConn();
@@ -20,30 +19,27 @@ class CampaignModel {
             $imageType = strtolower(pathinfo($place_to_upload, PATHINFO_EXTENSION));
             $up = true;
             if($imageType != "jpg" && $imageType != "png" && $imageType != "jpeg"){
-                echo "Only jpg, png, and jpeg are allowed";
+                array_push($this->errors, "Only jpg, png, and jpeg are allowed");
                 $up = false;
             }
             if ($_FILES["banner"]["size"] > 10000000) {
-                // echo "File too large";
+                array_push($this->errors, "File too large");
                 $up = false;
             }
             if($up){
-                if(move_uploaded_file($_FILES["banner"]["tmp_name"], $place_to_upload)){
-                    // echo "Uploaded banner image";
+                if(move_uploaded_file($_FILES["banner"]["tmp_name"], $place_to_upload)){                  
                     $banner_image_uploaded = true;
                 }
             }
         }
         if($banner_image_uploaded == false){
-            echo "Failed to upload image...";
+            array_push($this->errors, "Failed to upload banner image");
         }else{
             //uploading the rest of content to the database
             $insert_stmt = $this->conn->prepare($query);
             $insert_stmt->bind_param("sssss", $title, $description, $date, $image, $location);
-            if($insert_stmt->execute()){
-                // echo "Campaign created succesfully";
-            }else{
-                echo "Failed to create campaign: " . $insert_stmt->error;
+            if(!$insert_stmt->execute()){
+                array_push($this->errors, "Failed to create campaign: " . $insert_stmt->error);
             }
             $insert_stmt->close();
         }
@@ -53,7 +49,7 @@ class CampaignModel {
         $query = "select * from campaigns order by event_date";
         $get_stmt = $this->conn->prepare($query);
         if(!$get_stmt->execute()){
-            echo "Error" . $get_stmt->error;
+            array_push($this->errors, $get_stmt->error);
             return;
         }
 
@@ -65,11 +61,14 @@ class CampaignModel {
         $get_stmt = $this->conn->prepare($query);
         $get_stmt->bind_param("i", $id);
         if(!$get_stmt->execute()){
-            echo "Error" . $get_stmt->error;
+            array_push($this->errors, $get_stmt->error);
             return;
         }
         return $get_stmt->get_result()->fetch_array();
     }
-
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 
 }

@@ -5,10 +5,12 @@ class Campaigns extends Controller{
     public function __construct(){
         $this->model = $this->model("CampaignModel");
     }
-    public function index($params = '') {
+
+    public function index($params = ''){
         $view = 'campaigns/campaigns';
         $this->view($view, $this->model->getAllCampaigns());
     }
+
     public function id($params = ''){
         if(empty($params)){
             $view = '404';
@@ -25,9 +27,16 @@ class Campaigns extends Controller{
             
         }
     }
+
     public function add($params = ''){
-        if(isset($_POST['submit'])){
-            
+        $view = 'campaigns/add_campaign';
+        $this->view($view);
+    }
+
+    public function insert() {
+        $response = ["status" => false, "errors" => []];
+
+        
             if(isset($_POST['title']) && isset($_POST['description'])){
                 if(preg_match("/[A-Za-z0-9-_ ]{1,255}$/", $_POST['title'])){
                     if(isset($_FILES['banner']) && $_FILES['banner']['size'] != 0){
@@ -36,18 +45,24 @@ class Campaigns extends Controller{
                     else{
                         $this->model->insertCampaign($_POST['title'], $_POST['description'], $_POST['location'], $_POST['date']);
                     }
+
+                    if(sizeof($this->model->getErrors()) === 0) {
+                        $response["status"] = true;
+                    }
+                    else {
+                        $response["errors"] = $this->model->getErrors();
+                    }
                 }
                 else{
-                    // echo "invalid title or location";
+                    $response["errors"] = "Invalid title or location";
                 }
             }
-            else{
-                // echo "Missing required fields";
+            else {
+                $response["errors"] = "Missing required fields";
             }
-
-
-        }
-        $view = 'campaigns/add_campaign';
-        $this->view($view);
+        
+        echo json_encode($response);
     }
+    
+
 }

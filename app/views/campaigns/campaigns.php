@@ -41,8 +41,6 @@
             </div>
             <div class="campaigns__headers">   
                 <?php
-
-                
 					foreach($data as $campaign){?>
 					<div class="campaigns__headers__head">
 						<img src="<?php echo getenv("path_to_public") . '/assets/images/uploads/' . $campaign['image_name'] ?>" alt="<?= $campaign['title'] ?>">

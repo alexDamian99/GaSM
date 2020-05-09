@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
         function myFunction() {
-            var x = document.getElementById("mobile-navbar");
+            let x = document.getElementById("mobile-navbar");
             if (x.className === "responsive-navbar") {
                 x.className = "";
             } else {
@@ -17,6 +17,7 @@
             }
         }
     </script>
+    <script src ="<?=getenv('path_to_public')?>/assets/js/add_campaign.js"></script>
     <title>GASM</title>
 </head>
 
@@ -30,7 +31,10 @@
             </div>
         </div>
         <div class="add-campaign">
-            <form id="campaign-details" action="" method="POST" enctype="multipart/form-data">
+            <div id="info">
+                <p></p>
+            </div>
+            <form id="campaign-details" method="POST" enctype="multipart/form-data">
                 <div>
                     <div class="col25"><label for="title">Title</label></div>
                     <div class="col75"><input type="text" id="title" required name="title"></div>
@@ -48,8 +52,9 @@
                     <div class="col75"><input type="date" id="date" name="date"></div>
                 </div>
                 <div>
-                    <div class="col75"><label for="campaign-banner">Click here to upload an image for your
-                            campaign</label></div>
+                    <div class="col75">
+                        <label for="campaign-banner">Click here to upload an image for your campaign</label>
+                    </div>
                     <div class="col75"><input type="file" id="campaign-banner" accept = "image/*" hidden name="banner"></div>
                 </div>
                 <div>
