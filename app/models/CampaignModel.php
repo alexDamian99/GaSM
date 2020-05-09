@@ -45,14 +45,18 @@ class CampaignModel {
         }
     }
 
-    public function getAllCampaigns(){
-        $query = "select * from campaigns order by event_date";
+    public function getNCampaigns($n = ""){
+        if($n === "") {
+            $query = "select * from campaigns order by event_date";
+        }
+        else {
+            $query = "select * from campaigns limit 3";
+        }
         $get_stmt = $this->conn->prepare($query);
         if(!$get_stmt->execute()){
             array_push($this->errors, $get_stmt->error);
             return;
         }
-
         return $get_stmt->get_result();
     }
 
@@ -66,6 +70,7 @@ class CampaignModel {
         }
         return $get_stmt->get_result()->fetch_array();
     }
+
     public function getErrors()
     {
         return $this->errors;

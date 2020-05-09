@@ -233,11 +233,10 @@ header {
 .campaigns__headers__head {
     height: 200px;
     width: 300px;
-    background-image: url(https://picsum.photos/300/200);
     box-shadow: inset 0 0 0 500px rgba(0, 0, 0, 0.7);
     display: flex;
     flex-direction: column-reverse;
-    margin: 1em 1em 1em 1em;
+    margin: 1em;
 }
 
 .campaigns__headers__head>p {

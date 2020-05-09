@@ -50,7 +50,7 @@
                 <img src ="assets/images/warning.svg">
                 <p>Do you wish to report something?</p>
             </div>
-            <button class="btn btn-yellow">Report here</button>
+            <a class="btn btn-yellow" href="<?=getenv('path_to_public')?>/report">Report here</a>
         </section>
 
         <section class="campaigns">
@@ -59,23 +59,15 @@
             <p>CAMPAIGNS </p>
             </div>
             <div class="campaigns__headers">
-                <a href="#">
-                <div class="campaigns__headers__head">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris auctor est eu aliquam porttitor.<p>
-                </div>
+            <?php foreach ($data as $campaign) {?>
+                <a href="<?php echo getenv('path_to_public') . '/campaigns/id/' .$campaign["id"]; ?>" >
+                    <div class="campaigns__headers__head" style="background-image: url(<?php echo getenv("path_to_public") . '/assets/images/uploads/' . $campaign['image_name'] ?>);">
+                        <p><?= $campaign['title'] ?><p>
+                    </div>
                 </a>
-                <a href="#">
-                <div class="campaigns__headers__head">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris auctor est eu aliquam porttitor.<p>
-                </div>
-                </a>
-                <a href="#">
-                <div class="campaigns__headers__head">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris auctor est eu aliquam porttitor.<p>
-                </div>
-                </a>
+            <?php } ?>
             </div>
-            <a class="btn btn-green" href="">See all campaigns</a>
+            <a class="btn btn-green" href="<?=getenv("path_to_public")?>/campaigns">See all campaigns</a>
         </section>
 
         <section class="trash-finder">

@@ -8,7 +8,7 @@ class Campaigns extends Controller{
 
     public function index($params = ''){
         $view = 'campaigns/campaigns';
-        $this->view($view, $this->model->getAllCampaigns());
+        $this->view($view, $this->model->getNCampaigns());
     }
 
     public function id($params = ''){
@@ -35,32 +35,29 @@ class Campaigns extends Controller{
 
     public function insert() {
         $response = ["status" => false, "errors" => []];
-
-        
-            if(isset($_POST['title']) && isset($_POST['description'])){
-                if(preg_match("/[A-Za-z0-9-_ ]{1,255}$/", $_POST['title'])){
-                    if(isset($_FILES['banner']) && $_FILES['banner']['size'] != 0){
-                        $this->model->insertCampaign($_POST['title'], $_POST['description'], $_POST['location'], $_POST['date'], $_FILES["banner"]["name"]);
-                    }
-                    else{
-                        $this->model->insertCampaign($_POST['title'], $_POST['description'], $_POST['location'], $_POST['date']);
-                    }
-
-                    if(sizeof($this->model->getErrors()) === 0) {
-                        $response["status"] = true;
-                    }
-                    else {
-                        $response["errors"] = $this->model->getErrors();
-                    }
+        if(isset($_POST['title']) && isset($_POST['description'])){
+            if(preg_match("/[A-Za-z0-9-_ ]{1,255}$/", $_POST['title'])){
+                if(isset($_FILES['banner']) && $_FILES['banner']['size'] != 0){
+                    $this->model->insertCampaign($_POST['title'], $_POST['description'], $_POST['location'], $_POST['date'], $_FILES["banner"]["name"]);
                 }
                 else{
-                    $response["errors"] = "Invalid title or location";
+                    $this->model->insertCampaign($_POST['title'], $_POST['description'], $_POST['location'], $_POST['date']);
+                }
+
+                if(sizeof($this->model->getErrors()) === 0) {
+                    $response["status"] = true;
+                }
+                else {
+                    $response["errors"] = $this->model->getErrors();
                 }
             }
-            else {
-                $response["errors"] = "Missing required fields";
+            else{
+                $response["errors"] = "Invalid title or location";
             }
-        
+        }
+        else {
+            $response["errors"] = "Missing required fields";
+        }
         echo json_encode($response);
     }
     
