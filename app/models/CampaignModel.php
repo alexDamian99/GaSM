@@ -45,22 +45,40 @@ class CampaignModel {
         }
     }
 
-    public function getNCampaigns($n = ""){
-        if($n === "") {
-            $query = "select * from campaigns order by event_date";
-        }
-        else {
-            $query = "select * from campaigns limit 3";
-        }
+    public function getNCampaigns($offset, $length=9){
+        $query = "select * from campaigns order by event_date desc limit $offset, $length";
         $get_stmt = $this->conn->prepare($query);
         if(!$get_stmt->execute()){
             array_push($this->errors, $get_stmt->error);
             return;
         }
-        return $get_stmt->get_result();
+        $found_campaigns = $get_stmt->get_result();
+        $results = [];
+        foreach ($found_campaigns as $c) {
+            $results[] = $c;
+        }
+        return $results;
     }
 
-    public function getCampaignById($id){
+    public function countCampaigns() {
+        $query = "select count(*) from campaigns";
+        $get_stmt = $this->conn->prepare($query);
+        $get_stmt->execute();
+        return mysqli_fetch_array($get_stmt->get_result())[0];
+    }
+
+    public function searchCampaigns($key) {
+        $found_campaigns = [];
+        $campaigns = $this->getNCampaigns(0, $this->countCampaigns());
+        foreach ($campaigns as $campaign) {
+            if(stripos($campaign['title'], $key) !== false || stripos($campaign['description'], $key) !== false) {
+                $found_campaigns[] = $campaign;
+            }
+        }
+        return $found_campaigns;
+    }
+
+    public function getCampaignById($id) {
         $query = "select * from campaigns where id = ?";
         $get_stmt = $this->conn->prepare($query);
         $get_stmt->bind_param("i", $id);
@@ -71,8 +89,7 @@ class CampaignModel {
         return $get_stmt->get_result()->fetch_array();
     }
 
-    public function getErrors()
-    {
+    public function getErrors() {
         return $this->errors;
     }
 

@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
                 infoBar.classList.remove("info-success");
                 infoBar.classList.remove("info-fail");
 
-                if(responseData.status === true) {
+                if(responseData.status === true) { //daca am introdus evenimentul in baza de date
                     infoBar.classList.add("info-success");
                     insertText("Success");
                 }

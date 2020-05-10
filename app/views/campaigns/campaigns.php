@@ -1,3 +1,23 @@
+<?php
+    $total_pages = ceil($data[1] / 9);
+    $campaigns = $data[0];
+    $page = 1;
+    if(isset($_GET["pg"]) && !empty($_GET["pg"])){
+        $page = $_GET["pg"];
+        
+    }
+    $start_page = ($page - 1 <= 0) ? 1 : $page - 1;
+    $stop_page = ($page + 1 > $total_pages) ? $page : (($page + 2 >= $total_pages) ? $page + 1 : $page + 2);
+    
+    
+    $query = [];
+    $search = "";
+    if($data[2]) {
+        $query['k'] = $_GET['k'];
+        $search = "/search";
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +37,7 @@
             }
         }
     </script>
+    
     <title>GASM</title>
 </head>
 
@@ -31,20 +52,24 @@
         </div>
         <div class="campaigns">
             <div class="campaigns__search">
-              <form action="" class="campaigns__search__bar search-bar">
+              <form id="campaign-search" action="<?=getenv('path_to_public')?>/campaigns/search" class="campaigns__search__bar search-bar" method="GET">
                 <label>
                   <span><img src="<?php echo getenv("path_to_public");?>/assets/images/search.svg" alt="search_icon"></span>
-                  <input type="search" class="search-bar__input">
+                  <input type="search" name="k" class="search-bar__input">
                 </label>
                 <button class="btn btn-green" type="submit">Search</button>
               </form>
             </div>
-            <div class="campaigns__headers">   
+            <?php if($data[2]) {?>
+                    <p>Found <?=$data[1]?> results for your search.</p>
+                <?php } ?>
+            <div class="campaigns__headers">
+                
                 <?php
-					foreach($data as $campaign){?>
+					foreach($campaigns as $campaign){?>
 					<div class="campaigns__headers__head">
 						<img src="<?php echo getenv("path_to_public") . '/assets/images/uploads/' . $campaign['image_name'] ?>" alt="<?= $campaign['title'] ?>">
-						<a href="<?=(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"?>/id/<?= $campaign['id'] ?>">
+						<a href="<?=getenv("path_to_public")?>/campaigns/id/<?= $campaign['id'] ?>">
 						<p class="campaigns__headers__head__title">
 							<?= $campaign['title'] ?>
 						</p>
@@ -52,12 +77,14 @@
 					</div>
 				<?php } ?>
             </div>
+            
             <div class="campaigns__pagination">
-              <a href="#"><</a>
-              <a href="#" class="page-active">1</a>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">></a>
+                <a class="<?php if($page <= 1){ echo "disabled"; }?>" href="<?php $query['pg'] = $page - 1; echo getenv('path_to_public') . "/campaigns$search" . "?" . http_build_query($query) ?>"><</a>
+                <?php for($i = $start_page; $i <= $stop_page; $i++) {?>
+                    <a class="<?=($page == $i) ? "page-active" : ''?>" href="<?php $query['pg'] = $i; echo getenv('path_to_public') . "/campaigns$search" . "?" . http_build_query($query) ?>"> <?=$i?> </a>
+                    
+                <?php } ?>
+                <a class="<?php if($page >= $total_pages){ echo "disabled"; }?>" href="<?php $query['pg'] = $page + 1; echo getenv('path_to_public') . "/campaigns$search" . "?" . http_build_query($query) ?>">></a>
             </div>
         </div>
     </main>

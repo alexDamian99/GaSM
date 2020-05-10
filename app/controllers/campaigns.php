@@ -8,7 +8,14 @@ class Campaigns extends Controller{
 
     public function index($params = ''){
         $view = 'campaigns/campaigns';
-        $this->view($view, $this->model->getNCampaigns());
+        if(isset($_GET['pg']) && !empty($_GET['pg'])){
+            $campaigns = $this->model->getNCampaigns(($_GET['pg'] - 1) * 9);
+        }
+        else {
+            $campaigns = $this->model->getNCampaigns(0);
+        }
+        
+        $this->view($view, [$campaigns, $this->model->countCampaigns(), false]);
     }
 
     public function id($params = ''){
@@ -61,5 +68,18 @@ class Campaigns extends Controller{
         echo json_encode($response);
     }
     
+    public function search($params='') {
+        $view = 'campaigns/campaigns';
+        if(isset($_GET['k']) && !empty($_GET['k'])) {
+            $found_campaigns = $this->model->searchCampaigns($_GET['k']);
+            $size = sizeof($found_campaigns);
+            if(isset($_GET['pg']) && !empty($_GET['pg'])) {
+                $found_campaigns = array_slice($found_campaigns, ($_GET['pg'] - 1) * 9, 9);
+            }else {
+                $found_campaigns = array_slice($found_campaigns, 0, 9);
+            }
+        }
+        $this->view($view, [$found_campaigns, $size, true]);
+    }
 
 }

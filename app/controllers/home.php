@@ -9,6 +9,6 @@ class Home extends Controller{
     
     public function index($params = ''){
         $view = 'home/index';
-        $this->view($view, $this->model->getNCampaigns(3));
+        $this->view($view, $this->model->getNCampaigns(0, 3));
     }
 }
