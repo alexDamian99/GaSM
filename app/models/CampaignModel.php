@@ -3,14 +3,13 @@
 class CampaignModel {
     private $conn;
     private $errors = [];
-    public function __construct(){
+    public function __construct() {
         require_once 'Database.php';
         $this->conn = Database::getInstance()->getConn();
     }
 
-    public function insertCampaign($title, $description, $location, $date, $image = 'default.jpg'){
-        
-        $query = "insert into campaigns(title, description, event_date, image_name, location) values (?, ?, ?, ?, ?)";    
+    public function insertCampaign($title, $description, $location, $date, $image = 'default.jpg') {
+        $query = "insert into campaigns(user_id, title, description, event_date, image_name, location) values (?, ?, ?, ?, ?, ?)";    
         $banner_image_uploaded = true;
         
         if($image != 'default.jpg'){
@@ -37,7 +36,13 @@ class CampaignModel {
         }else{
             //uploading the rest of content to the database
             $insert_stmt = $this->conn->prepare($query);
-            $insert_stmt->bind_param("sssss", $title, $description, $date, $image, $location);
+
+            $stmt= $this->conn->prepare("Select * from users where username like ?");
+            $stmt->bind_param("s", $_SESSION["username"]);
+            $stmt->execute();
+            $user_id = mysqli_fetch_assoc($stmt->get_result())['id'];
+
+            $insert_stmt->bind_param("isssss", $user_id, $title, $description, $date, $image, $location);
             if(!$insert_stmt->execute()){
                 array_push($this->errors, "Failed to create campaign: " . $insert_stmt->error);
             }
@@ -45,7 +50,7 @@ class CampaignModel {
         }
     }
 
-    public function getNCampaigns($offset, $length=9){
+    public function getNCampaigns($offset, $length=9) {
         $query = "select * from campaigns order by event_date desc limit $offset, $length";
         $get_stmt = $this->conn->prepare($query);
         if(!$get_stmt->execute()){
@@ -82,15 +87,23 @@ class CampaignModel {
         $query = "select * from campaigns where id = ?";
         $get_stmt = $this->conn->prepare($query);
         $get_stmt->bind_param("i", $id);
-        if(!$get_stmt->execute()){
+        if(!$get_stmt->execute()) {
             array_push($this->errors, $get_stmt->error);
             return;
         }
-        return $get_stmt->get_result()->fetch_array();
+        return mysqli_fetch_assoc($get_stmt->get_result());
     }
 
     public function getErrors() {
         return $this->errors;
+    }
+
+    public function getUserById($user_id) {
+        $getStmt = $this->conn->prepare('SELECT username FROM users where id=?');
+        $getStmt->bind_param('i', $user_id);
+        $getStmt->execute();
+        $username = mysqli_fetch_assoc($getStmt->get_result())['username'];
+        return $username;
     }
 
 }

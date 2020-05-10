@@ -9,7 +9,6 @@
     $start_page = ($page - 1 <= 0) ? 1 : $page - 1;
     $stop_page = ($page + 1 > $total_pages) ? $page : (($page + 2 >= $total_pages) ? $page + 1 : $page + 2);
     
-    
     $query = [];
     $search = "";
     if($data[2]) {

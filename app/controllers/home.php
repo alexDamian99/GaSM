@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 class Home extends Controller{
     private $model;

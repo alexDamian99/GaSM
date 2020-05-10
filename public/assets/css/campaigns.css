@@ -58,6 +58,7 @@ header{
 }
 #mobile-navbar-buttons{
     display: none;
+    margin-bottom: 0;
 }
 .responsive-navbar #mobile-navbar-buttons{
     display: flex;

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 class Campaigns extends Controller{
     private $model;
@@ -26,18 +27,24 @@ class Campaigns extends Controller{
             $view = 'campaigns/campaign';
             
             $campaign_info = $this->model->getCampaignById($params[0]);
+            $username = $this->model->getUserById($campaign_info['user_id']);
             if(empty($campaign_info)){//if the id is wrong
                 $this->view('404');
             }else{
-                $this->view($view, $campaign_info);
+                $this->view($view, ["campaign" => $campaign_info, "user" => $username]);
             }
             
         }
     }
 
     public function add($params = ''){
-        $view = 'campaigns/add_campaign';
-        $this->view($view);
+        if(isset($_SESSION['id']) || isset($_SESSION['username'])){
+            $view = 'campaigns/add_campaign';
+            $this->view($view);
+        }
+        else {
+            header("Location: " . getenv('path_to_public') . "/signin"); //redirect to signin
+        }
     }
 
     public function insert() {
