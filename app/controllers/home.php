@@ -12,4 +12,6 @@ class Home extends Controller{
         $view = 'home/index';
         $this->view($view, $this->model->getNCampaigns(0, 3));
     }
+
+    
 }

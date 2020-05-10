@@ -10,7 +10,7 @@
             <?php if(isset($_SESSION['username']) || isset($_SESSION['id'])) { ?>
                 <li><a href="<?= getenv("path_to_public") ?>/campaigns/add">Create a campaign</a></li>
                 <li><a href="<?= getenv("path_to_public") ?>/profile">Profile</a></li>
-                <li><a href="<?= getenv("path_to_public") ?>/">Log out</a></li>
+                <li><a href="<?= getenv("path_to_public") ?>/signin/logout">Log out</a></li>
             <?php } else { ?>
                 <li><a href="<?= getenv("path_to_public") ?>/register">Register</a></li>
                 <li><a href="<?= getenv("path_to_public") ?>/signin">Sign In</a></li>
@@ -32,7 +32,7 @@
             <?php if(isset($_SESSION['username']) || isset($_SESSION['id'])) { ?>
                 <li><a href="<?= getenv("path_to_public") ?>/campaigns/add">Create a campaign</a></li>
                 <li><a href="<?= getenv("path_to_public") ?>/profile">Profile</a></li>
-                <li><a href="<?= getenv("path_to_public") ?>/">Log out</a></li>
+                <li><a href="<?= getenv("path_to_public") ?>/signin/logout">Log out</a></li>
             <?php } else { ?>
                 <li><a href="<?= getenv("path_to_public") ?>/register">Register</a></li>
                 <li><a href="<?= getenv("path_to_public") ?>/signin">Sign In</a></li>
