@@ -8,7 +8,7 @@ class Statistics_data extends Controller
     public function __construct()
     {
         $this->model = $this->model('StatisticsModel');
-        $this->view('statistics/statistics_data', [$this->model->getStatisticsData()]);
+        $this->view('statistics/statistics_data', $this->model->getStatisticsData());
     }
 
     public function index()
