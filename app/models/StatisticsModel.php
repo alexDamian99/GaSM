@@ -31,7 +31,7 @@ class StatisticsModel
             while ($row = $res->fetch_assoc()) {
                 array_push(
                     $activeReports,
-                    ['id' => $row['id'], 'type' => $row['type'], 'location' => $row['location'], 'date' => $row['date'], 'user' => $row['user']]
+                    ['id' => $row['id'], 'type' => $row['type'], 'location' => $row['location'], 'date' => $row['date']]
                 );
             }
         }
