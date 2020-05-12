@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <title>GASM</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/css/ol.css" type="text/css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/css/ol.css"
+        type="text/css" />
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/build/ol.js"></script>
 
     <script src="../public/assets/js/report.js"></script>
@@ -20,28 +22,10 @@
     <?php include('../app/views/templates/header.php'); ?>
 
     <main>
-        <div id="map" class="map"></div>
-        <script type="text/javascript">
-            var map = new ol.Map({
-                target: "map",
-                layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    })
-                ],
-                view: new ol.View({
-                    center: ol.proj.fromLonLat([27.57, 47.17]),
-                    zoom: 13
-                })
-            });
-
-            map.on('click', function(evt) {
-                var loc = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326')
-                var lon = loc[0];
-                var lat = loc[1]
-                alert(lat + "," + lon);
-            });
-        </script>
+        <div id="map" class="map">
+            <div id="popup"></div>
+        </div>
+        <script src="../public/assets/js/report-map.js"></script>
 
         <div class="report">
             <button id="report-btn" onclick="extend('report-form', 'arrow1')">
@@ -52,8 +36,9 @@
             <form id="report-form" action="" method="POST">
                 <label class="input-location">
                     <span>Location</span> <br />
-                    <input class="input" type="text" name="location" placeholder="Lat, Lon" required />
-                    <a href="#"><i class="fa fa-map-marker" style="font-size:24px"></i></a>
+                    <input id="location-input" class="input" type="text" name="location" placeholder="Lat, Lon"
+                        required />
+                    <a href="#" onclick="getLocation()"><i class="fa fa-map-marker" style="font-size:24px"></i></a>
                 </label>
 
                 <br />
@@ -88,6 +73,7 @@
 
                 foreach ($data['active_reports'] as $activeReport) {
                     // get report's type
+                    $type = '';
                     if ($activeReport['type'] == 1)
                         $type = 'Garbage must be collected';
                     else if ($activeReport['type'] == 2)
@@ -108,7 +94,8 @@
 
                     echo '<li class="active-report">
                                 <h3>' . $type . '</h3>
-                                <span>Location: <a href="#">' . $activeReport['location'] . '</a></span> <br />
+                                <span onclick="goToLocation(' . $activeReport['location'] . ')">Location: <a href="#">' . $activeReport['location'] . '</a></span> <br />
+                                <script>addPointToMap(' . $activeReport['location'] . ', ' . $activeReport['id'] . ', "' . $type . '")</script>
                                 <span>Date: ' . $activeReport['date'] . '</span> <br />
                                 <span>Reported by: ' . $activeReport['user'] . '</span> <br />
                                 <div class="kudos">

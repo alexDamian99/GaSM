@@ -1,14 +1,14 @@
 function extend(elementId, arrowId) {
     var x = document.getElementById(elementId);
     var y = document.getElementById(arrowId);
-    if (x.className == "active-form") {
-        x.className = "";
-        x.style.display = "none";
-        y.className = "arrow down";
+    if (x.className == 'active-form') {
+        x.className = '';
+        x.style.display = 'none';
+        y.className = 'arrow down';
     } else {
-        x.className += "active-form";
-        x.style.display = "block";
-        y.className = "arrow up";
+        x.className += 'active-form';
+        x.style.display = 'block';
+        y.className = 'arrow up';
     }
 }
 
@@ -25,16 +25,16 @@ function newLike(elem) {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             // change button color
-            if (action == "like") {
+            if (action == 'like') {
                 elem.classList.remove('not-clicked');
                 elem.classList.add('clicked');
-            } else if (action == "unlike") {
+            } else if (action == 'unlike') {
                 elem.classList.remove('clicked');
                 elem.classList.add('not-clicked');
             }
 
             // display the number of likes and dislikes
-            var res = this.responseText.split(" ");
+            var res = this.responseText.split(' ');
             elem.innerHTML = res[0];
 
             // can't like and dislike same report at the same time
@@ -45,7 +45,7 @@ function newLike(elem) {
             elemSibling.classList.add('not-clicked');
         }
     };
-    xmlhttp.open("POST", "report/newAction/" + report_id + "/" + action, true);
+    xmlhttp.open('POST', 'report/newAction/' + report_id + '/' + action, true);
     xmlhttp.send();
 }
 
@@ -62,16 +62,16 @@ function newDislike(elem) {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             // change button color
-            if (action == "dislike") {
+            if (action == 'dislike') {
                 elem.classList.remove('not-clicked');
                 elem.classList.add('clicked');
-            } else if (action == "undislike") {
+            } else if (action == 'undislike') {
                 elem.classList.remove('clicked');
                 elem.classList.add('not-clicked');
             }
 
             // display the number of likes and dislikes
-            var res = this.responseText.split(" ");
+            var res = this.responseText.split(' ');
             elem.innerHTML = res[1];
 
             // can't like and dislike same report at the same time
@@ -82,7 +82,7 @@ function newDislike(elem) {
             elemSibling.classList.add('not-clicked');
         }
     };
-    xmlhttp.open("POST", "report/newAction/" + report_id + "/" + action, true);
+    xmlhttp.open('POST', 'report/newAction/' + report_id + '/' + action, true);
     xmlhttp.send();
 
 }

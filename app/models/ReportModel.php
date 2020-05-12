@@ -41,9 +41,14 @@ class ReportModel
 
     public function deleteReport($id)
     {
-        $delStmt = $this->conn->prepare('DELETE FROM reports WHERE ID=?');
+        $delStmt = $this->conn->prepare('DELETE FROM reports WHERE id=?');
         $delStmt->bind_param('i', $id);
+        $delStmt->execute();
+        $delStmt->close();
 
+        // also delete its kudos
+        $delStmt = $this->conn->prepare('DELETE FROM reports_kudos WHERE report_id=?');
+        $delStmt->bind_param('i', $id);
         $delStmt->execute();
         $delStmt->close();
     }
