@@ -7,15 +7,37 @@ function loadStatisticsData() {
         if (xhr.readyState === 4) {
             let res = JSON.parse(xhr.responseText);
 
-            let arrayForDataTable
-            
-            ;
-            
+            let arrayForDataTableMonth;
+            let arrayForDataTableDay;
+            let arrayForDataTableYear;
+
             google.charts.load('current', {
                 'packages': ['corechart']
             });
-            google.charts.setOnLoadCallback(drawChart.bind(null, arrayForDataTable));
-            google.charts.setOnLoadCallback(drawVisualization.bind(null, arrayForDataTable));
+            google.charts.setOnLoadCallback(
+                drawVisualization.bind(
+                    null,
+                    arrayForDataTableMonth,
+                    "chart_div_month",
+                    "Monthly Garbage Collection"
+                )
+            );
+            google.charts.setOnLoadCallback(
+                drawVisualization.bind(
+                    null,
+                    arrayForDataTableYear,
+                    "chart_div_year",
+                    "Yearly Garbage Collection"
+                )
+            );
+            google.charts.setOnLoadCallback(
+                drawVisualization.bind(
+                    null,
+                    arrayForDataTableDay,
+                    "chart_div_day",
+                    "Daily Garbage Collection"
+                )
+            );
         }
     };
 
@@ -23,25 +45,9 @@ function loadStatisticsData() {
     xhr.send();
 }
 
-function drawChart(arrayForDataTable) {
-    let data = google.visualization.arrayToDataTable([
-        ['Material type', 'Quantity'],
-        ['Paper', 11],
-        ['Glass', 2],
-        ['Plastic', 2],
-        ['Metal', 2],
-        ['Household waste', 7]
-    ]);
+function drawVisualization(arrayForDataTable, id, _title, period) {
     let options = {
-        title: 'Percentage of categorized quantities'
-    };
-    let chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    chart.draw(data, options);
-}
-
-function drawVisualization(arrayForDataTable) {
-    let options = {
-        title: 'Monthly Garbage Collection by category',
+        title: _title,
         vAxis: {
             title: 'Count'
         },
@@ -65,6 +71,6 @@ function drawVisualization(arrayForDataTable) {
         ['2019/09', 136, 691]
     ]);
 
-    let chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+    let chart = new google.visualization.ComboChart(document.getElementById(id));
     chart.draw(data, options);
 }
