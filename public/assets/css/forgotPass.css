@@ -76,6 +76,59 @@ p {
     margin-bottom: 1.5em;
 }
 
+.display-errors {
+    font-size: 0.8em;
+    color: red;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#pass-strength {
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 0.5em 0 0 0;
+}
+
+.very-weak {
+    color: rgb(175, 0, 0);
+}
+
+.weak {
+    color: rgb(255, 0, 0);
+}
+
+.good {
+    color: rgb(255, 200, 0);
+}
+
+.strong {
+    color: rgb(0, 200, 0);
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #3A3A3A;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    font-size: 1em;
+    width: 25em;
+    background-color: #3A3A3A;
+    color: white;
+    border-radius: 1em;
+    padding: 1em;
+    position: absolute;
+    bottom: 150%;
+    left: -10em;
+    white-space: pre;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
 @media screen and (max-width: 600px) {
     form {
         width: 250px;
