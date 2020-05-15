@@ -1,0 +1,230 @@
+body {
+    background-image: url('../images/green-background.jpg');
+    display: flex;
+    justify-content: center;
+    font-family: 'Roboto', 'sans-serif';
+    color: #3A3A3A;
+}
+
+form {
+    background-image: url('../images/gplaypattern.png');
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    width: 500px;
+    border-radius: 1em;
+    padding: 2em;
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.account-type {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+label.radio {
+    cursor: pointer;
+    text-indent: 2em;
+    display: inline-block;
+    position: relative;
+}
+
+input[type=radio] {
+    visibility: hidden;
+}
+
+label.radio:before {
+    content: '';
+    position: absolute;
+    background-color: rgb(2, 158, 86);
+    width: 1.25em;
+    height: 1.25em;
+    border-radius: 50%;
+    left: 0;
+}
+
+label.radio:after {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    background-color: #f1f1f1;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    top: 6px;
+    left: 6.5px;
+}
+
+input[type=radio]:checked+label:after {
+    opacity: 1;
+}
+
+.credentials {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5em;
+}
+
+.fas {
+    cursor: pointer;
+    width: 2em;
+    height: 1.2em;
+    background-color: rgb(2, 158, 86);
+    padding: 5px 10px 5px 5px;
+    border-radius: 0.5em 0 0 0.5em;
+    color: #f1f1f1;
+    border: solid 1px #3A3A3A;
+    text-align: center;
+}
+
+.check {
+    cursor: none;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    text-align: end;
+    font-size: 1.5em !important;
+}
+
+.green {
+    color: rgb(2, 158, 86);
+}
+
+.red {
+    color: rgb(255, 0, 0);
+}
+
+.input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px #3A3A3A solid;
+    padding: 0.5em 1em 0.5em 0;
+    font-size: 1.15em;
+    width: 100%;
+    margin-left: 0.5em;
+}
+
+#pass-strength {
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 5px 0 0 3.5em;
+}
+
+.very-weak {
+    color: rgb(175, 0, 0);
+}
+
+.weak {
+    color: rgb(255, 0, 0);
+}
+
+.good {
+    color: rgb(255, 200, 0);
+}
+
+.strong {
+    color: rgb(0, 200, 0);
+}
+
+button {
+    margin: 3em 0 1.5em 0;
+    padding: 1em 5em;
+    border-radius: 0.5em;
+    border: 0;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    font-size: 1em;
+    font-weight: bold;
+    opacity: 0.7;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+button::after {
+    content: " ";
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    height: 2px;
+    background-color: #3A3A3A;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover::after {
+    transform: scaleX(1.75);
+}
+
+.display-errors {
+    font-size: 0.8em;
+    color: red;
+    margin-bottom: 2.5em;
+}
+
+#having-acc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#having-acc>span {
+    font-size: 0.9em;
+    margin-bottom: 1em;
+}
+
+.link {
+    text-decoration: none;
+    color: #3A3A3A;
+    font-size: 0.8em;
+}
+
+.link:hover {
+    border-bottom: 1px #3A3A3A solid;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #3A3A3A;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    font-size: 1em;
+    width: 25em;
+    background-color: #3A3A3A;
+    color: white;
+    border-radius: 1em;
+    padding: 1em;
+    position: absolute;
+    bottom: 150%;
+    left: -10em;
+    white-space: pre;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+#logo {
+    width: 10em;
+    height: 5em;
+    margin-bottom: 1.5em;
+}
+
+@media screen and (max-width: 600px) {
+    form {
+        width: 250px;
+    }
+    .tooltip .tooltiptext {
+        font-size: 0.8em;
+        left: -7em;
+    }
+}
