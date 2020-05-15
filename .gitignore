@@ -1,8 +1,6 @@
-
 #### App related
-\public\assets\images\upload
-
-
+public/assets/images/upload
+node_modules/
 
 ##### Windows
 # Windows thumbnail cache files

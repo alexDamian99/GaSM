@@ -27,12 +27,9 @@
             <ul class="profile_container__feed">
                 <div  id="profile_container__feed__reports">
                     <?php 
-                        echo '<li>';
-                            echo "profile_container__feed__reports";
-                        echo '</li>';
-                        foreach ($data as $activeReport){
+                        foreach ($data[0] as $activeReport){
                             echo '<li>';
-                                echo $activeReport['username'];
+                                echo $activeReport['location'];
                                 echo $activeReport['type'];
                             echo '</li>';
                         }
@@ -41,13 +38,10 @@
 
                 <div  id="profile_container__feed__events">
                     <?php 
-                        echo '<li>';
-                            echo "profile_container__feed__events";
-                        echo '</li>';
-                        foreach ($data as $activeReport){
+                        foreach ($data[1] as $activeEvent){
                             echo '<li>';
-                                echo $activeReport['username'];
-                                echo $activeReport['type'];
+                                echo $activeEvent['title'];
+                                echo $activeEvent['location'];
                             echo '</li>';
                         }
                     ?>

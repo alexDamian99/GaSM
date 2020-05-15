@@ -3,8 +3,8 @@
 
 <head>
     <?php include('../app/views/templates/head_header.php'); ?>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="assets/js/statistics.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" defer></script>
+    <script type="text/javascript" src="assets/js/statistics.js" defer></script>
     <link rel="stylesheet" type="text/css" href="assets/css/statistics.css">
 </head>
 

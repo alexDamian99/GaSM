@@ -4,7 +4,6 @@ session_start();
 class Edit_profile extends Controller
 {
     private $model;
-
     public function __construct()
     {
         $this->model = $this->model('ProfileModel');
@@ -14,6 +13,7 @@ class Edit_profile extends Controller
     public function index()
     {
         $photos_dir = "assets/images/upload/";
+        $default_photo = 'default_photo.png';
 
         if (isset($_COOKIE["username"])){
             $username = $_SESSION['username'];
@@ -49,9 +49,16 @@ class Edit_profile extends Controller
             if(!empty($_FILES['input_file']['tmp_name']) && is_uploaded_file($_FILES['input_file']['tmp_name']))
             {
                 if (isset($_COOKIE["username"])) {
+                    $new_photo =  $photos_dir.$_FILES['input_file']['name'];
+                    $old_photo = $this->model->getPhoto($_COOKIE["username"]);
                     $success &= $this->model->changePhoto($_COOKIE["username"]);
                     if ($success){
-                        $_SESSION["profile_photo"] = $photos_dir.$_FILES['input_file']['name'];
+                        if (strcmp($old_photo, $default_photo) != 0 &&
+                            strcmp($old_photo, basename($new_photo)) != 0)
+                        {
+                            unlink($photos_dir.$old_photo);
+                        }
+                        $_SESSION["profile_photo"] = $new_photo;
                     }
                 }
             }
