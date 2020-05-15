@@ -100,5 +100,44 @@ class LoginModel
         return $this->errors;
     }
 
-    
+    public function insertToken($email, $token)
+    {
+        $this->cleanUpTokens(); // remove expired tokens
+
+        $insStmt = $this->conn->prepare('INSERT INTO tokens VALUES(?, ?, now() + INTERVAL 1 HOUR)');
+        $insStmt->bind_param('ss', $email, $token);
+        $insStmt->execute();
+        $insStmt->close();
+    }
+
+    public function checkToken($email, $token)
+    {
+        $getStmt = $this->conn->prepare('SELECT * FROM tokens where token=? and email=? LIMIT 1');
+        $getStmt->bind_param('ss', $token, $email);
+
+        $getStmt->execute();
+        $res = $getStmt->get_result();
+        $getStmt->close();
+
+        if ($res->num_rows != 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function cleanUpTokens()
+    {
+        $delStmt = $this->conn->prepare('DELETE FROM tokens WHERE expire_date < NOW()');
+        $delStmt->execute();
+        $delStmt->close();
+    }
+
+    public function updatePassword($email, $password)
+    {
+        $updateStmt = $this->conn->prepare('UPDATE users SET password=? WHERE email=?');
+        $updateStmt->bind_param('ss', $password, $email);
+        $updateStmt->execute();
+        $updateStmt->close();
+    }
 }
