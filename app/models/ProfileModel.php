@@ -107,8 +107,13 @@ class ProfileModel
     public function getActiveCampaignsFor($username)
     {
         $activeEvents = [];
-        $stmt = $this->conn->prepare('SELECT * FROM campaigns where user=?');
-        $stmt->bind_param('s', $username);
+        $stmt= $this->conn->prepare("Select * from users where username like ?");
+        $stmt->bind_param("s", $_SESSION["username"]);
+        $stmt->execute();
+        $user_id = mysqli_fetch_assoc($stmt->get_result())['id'];
+
+        $stmt = $this->conn->prepare('SELECT * FROM campaigns where user_id=?');
+        $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $res = $stmt->get_result(); 
         if ($res->num_rows > 0) {
