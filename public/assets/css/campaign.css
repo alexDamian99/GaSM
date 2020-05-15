@@ -58,6 +58,7 @@ header{
 }
 #mobile-navbar-buttons{
     display: none;
+    margin-bottom: 0;
 }
 .responsive-navbar #mobile-navbar-buttons{
     display: flex;
@@ -133,6 +134,8 @@ header{
 }
 .campaign__details img{
     border-radius:50%;
+    width: 128px;
+    height: 128px;
     box-shadow:0 2px 5px 5px rgba(0,0,0,.16);
 }
 .campaign__content{

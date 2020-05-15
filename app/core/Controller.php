@@ -8,7 +8,6 @@ class Controller
         if (isset($_SESSION['previous'])) {
             $uri = explode('/', $_SERVER['REQUEST_URI']);
             $currPage =  end($uri);
-
             if ($currPage != $_SESSION['previous']) {
                 if (isset($_SESSION['temp-id_comp'])) unset($_SESSION['temp-id_comp']);
                 if (isset($_SESSION['temp-name'])) unset($_SESSION['temp-name']);

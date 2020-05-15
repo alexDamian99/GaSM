@@ -1,13 +1,17 @@
 <?php
+session_start();
 
 class Home extends Controller{
-    public function __construct()
-    {
+    private $model;
+    public function __construct(){
         parent::__construct();
+        $this->model = $this->model("CampaignModel");
     }
     
     public function index($params = ''){
         $view = 'home/index';
-        $this->view($view);
+        $this->view($view, $this->model->getNCampaigns(0, 3));
     }
+
+    
 }
