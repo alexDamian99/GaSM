@@ -13,8 +13,9 @@ class Database
             'password' => '',
             'db' => 'gasm'
         ];
-
+        
         $this->conn = new mysqli($CONFIG["servername"], $CONFIG["username"], $CONFIG["password"], $CONFIG["db"]);
+        
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }
@@ -34,3 +35,5 @@ class Database
         return $this->conn;
     }
 }
+
+

@@ -17,7 +17,7 @@ class App
             }
         }
 
-        require_once '../app/controllers/' .  $this->controller . '.php';
+        require_once('../app/controllers/' .  $this->controller . '.php');
 
         $this->controller = new $this->controller;
 
