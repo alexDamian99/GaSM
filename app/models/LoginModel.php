@@ -7,7 +7,7 @@ class LoginModel
 
     public function __construct()
     {
-        require_once 'Database.php';
+        require_once('Database.php');
         $this->conn = Database::getInstance()->getConn();
     }
 
