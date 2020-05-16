@@ -26,6 +26,10 @@
             <span>Uite ce statistica frumoasa 1</span>
             <div class="stats_row__chart" id="chart_div_day"></div>
         </div>
+
+        <div class="export_div">
+        <button class="btn btn-green" onclick="download_csv()">Export CSV</button>
+        </div>
     </main>
 
     <?php include('../app/views/templates/footer.php'); ?>

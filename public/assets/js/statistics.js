@@ -47,7 +47,6 @@ function loadStatisticsData() {
             let months = new MapWithDefault();
             let days = new MapWithDefault();
             let years = new MapWithDefault();
-            console.log(res);
             let now = new Date();
             let thisMonth = parseInt(now.getMonth()) + 1;
             let thisYear = now.getFullYear();
@@ -88,7 +87,7 @@ function loadStatisticsData() {
                 }
             }
 
-            thisDay = parseInt(now.getDay())+1;
+            thisDay = parseInt(now.getDay()) + 1;
             for (let i = 8; i > 0; i--) {
                 let entry = thisDay.toString();
                 days[entry] = [0, 0, 0, 0, 0];
@@ -131,7 +130,7 @@ function loadStatisticsData() {
                 thisYear -= 1;
             }
 
-            thisDay = parseInt(now.getDay())+1;
+            thisDay = parseInt(now.getDay()) + 1;
             for (let i = 8; i > 0; i--) {
                 let entry = thisDay.toString();
                 arrayForDataTableDay.push([entry, days[entry][1], days[entry][2]]);
@@ -207,4 +206,59 @@ function drawVisualization(arrayForDataTable, id, _title, period) {
 
     let chart = new google.visualization.ComboChart(document.getElementById(id));
     chart.draw(data, options);
+}
+
+
+// function download_csv() {
+//     console.log("A");
+//     let xhr = new XMLHttpRequest();
+//     xhr.onreadystatechange = function () {
+//         console.log(xhr.readyState);
+//         if (xhr.readyState === 4) {
+//             let res = JSON.parse(xhr.responseText);
+//             console.log(res);
+
+//             // var csv = 'Name,Title\n';
+//             // data.forEach(function (row) {
+//             //     csv += row.join(',');
+//             //     csv += "\n";
+//             // });
+
+//             // var hiddenElement = document.createElement('a');
+//             // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+//             // hiddenElement.target = '_blank';
+//             // hiddenElement.download = 'people.csv';
+//             // hiddenElement.click();
+
+//         };
+
+//         xhr.open('GET', '/gasm/public/statistics_data');
+//         xhr.send();
+//     }
+// }
+
+function download_csv() {
+    console.log("A")
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            let res = JSON.parse(xhr.responseText);
+            console.log(res);
+
+            var csv = 'Type,Latitude,Longitude,Date\n';
+            for (report of res){
+                csv += [report.type, report.location.toString() ,report.date].join(',');
+                csv += "\n";
+            }
+            console.log(csv);
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+            hiddenElement.target = '_blank';
+            hiddenElement.download = 'statistics.csv';
+            hiddenElement.click();
+        }
+    };
+
+    xhr.open('GET', '/gasm/public/statistics_data');
+    xhr.send();
 }
