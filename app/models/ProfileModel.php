@@ -59,7 +59,7 @@ class ProfileModel
     {
         $file_name = $_FILES['input_file']['name'];
 
-        $target_dir = "assets/images/upload/";
+        $target_dir = "../public/assets/images/upload/";
         $target_file = $target_dir . $_FILES["input_file"]["name"];
       
         // Select file type

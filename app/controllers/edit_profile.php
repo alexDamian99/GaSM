@@ -12,7 +12,7 @@ class Edit_profile extends Controller
 
     public function index()
     {
-        $photos_dir = "assets/images/upload/";
+        $photos_dir = "../public/assets/images/upload/";
         $default_photo = 'default_photo.png';
 
         if (isset($_COOKIE["username"])){

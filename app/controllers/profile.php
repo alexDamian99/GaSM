@@ -19,7 +19,7 @@ class Profile extends Controller
 
     public function index()
     {
-        $photos_dir = "assets/images/upload/";
+        $photos_dir = "../public/assets/images/upload/";
 
         if (isset($_COOKIE["username"])){
             $username = $_SESSION['username'];
