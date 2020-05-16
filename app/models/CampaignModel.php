@@ -30,11 +30,28 @@ class CampaignModel {
             }
             if($up){
                 $s3 = new Aws\S3\S3Client([
-                    'version'  => '2006-03-01',
-                    'region'   => 'eu-central-1',
-                ]);
-                $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
-                $upload = $s3->upload($bucket, $_FILES['banner']['name'], fopen($_FILES['banner']['tmp_name'], 'rb'), 'public-read');
+                    'region'  => 'eu-central-1',
+                    'version' => 'latest',
+                    'credentials' => [
+                        'key'    => getenv('AWS_ACCESS_KEY_ID'),
+                        'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
+                    ]
+                ]);	
+                $bucket = getenv('S3_BUCKET');
+                if(isset($bucket) && !empty($bucket)){
+                    // $upload = $s3->upload($bucket, $_FILES['banner']['name'], fopen($_FILES['banner']['tmp_name'], 'rb'), 'public-read');
+                    $result = $s3->putObject([
+                        'Bucket' => $bucket,
+                        'Key'    => $_FILES['banner']['name'],
+                        'SourceFile' => $_FILES['banner']['tmp_name']			
+                    ]);
+                    var_dump($result);
+                    $banner_image_uploaded = true;
+                }
+                else {
+                    array_push($this->errors, "Failed to load amazon s3 bucket");
+                    $banner_image_uploaded = false;
+                }
                 
             }
         }
