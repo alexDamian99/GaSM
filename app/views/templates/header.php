@@ -1,6 +1,6 @@
 <header>
     <nav id="navbar">
-        <a class="logo-container" href="../public">
+        <a class="logo-container" href="<?=getenv("path_to_public")?>">
             <img id="logo" src="<?php echo getenv("path_to_public"); ?>/assets/images/navbar_logo.png" alt="logo">
         </a>
         <ul id="navbar-buttons">

@@ -4,19 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../public/assets/css/register.css">
+    <link rel="stylesheet" type="text/css" href="<?=getenv("path_to_public")?>/assets/css/register.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>GaSM | Register</title>
 
-    <script src="../public/assets/js/register.js"></script>
+    <script src="<?=getenv("path_to_public")?>/assets/js/register.js"></script>
 </head>
 
 <body>
     <main>
         <form action="" method="POST">
-            <a class="logo-container" href="./index">
-                <img id="logo" src="../public/assets/images/navbar_logo.png" alt="logo">
+            <a class="logo-container" href="<?=getenv("path_to_public")?>/">
+                <img id="logo" src="<?=getenv("path_to_public")?>/assets/images/navbar_logo.png" alt="logo">
             </a>
 
             <h1>Registration</h1>
@@ -84,7 +84,7 @@
 
             <div id="having-acc">
                 <span>Already having an account?</span>
-                <a href="./signin" class="link">Sign in</a>
+                <a href="<?=getenv("path_to_public")?>/signin" class="link">Sign in</a>
             </div>
 
         </form>

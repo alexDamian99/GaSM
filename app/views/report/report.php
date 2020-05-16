@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="../public/assets/css/report.css">
-    <link rel="stylesheet" type="text/css" href="../public/assets/css/template.css">
+    <link rel="stylesheet" type="text/css" href="<?=getenv("path_to_public")?>/assets/css/report.css">
+    <link rel="stylesheet" type="text/css" href="<?=getenv("path_to_public")?>/assets/css/template.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <title>GASM</title>
@@ -15,7 +15,7 @@
         type="text/css" />
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/build/ol.js"></script>
 
-    <script src="../public/assets/js/report.js"></script>
+    <script src="<?=getenv("path_to_public")?>//assets/js/report.js"></script>
 </head>
 
 <body>
@@ -25,7 +25,7 @@
         <div id="map" class="map">
             <div id="popup"></div>
         </div>
-        <script src="../public/assets/js/report-map.js"></script>
+        <script src="<?=getenv("path_to_public")?>/assets/js/report-map.js"></script>
 
         <div class="report">
             <button id="report-btn" onclick="extend('report-form', 'arrow1')">

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../public/assets/css/signin.css">
+    <link rel="stylesheet" type="text/css" href="<?=getenv("path_to_public")?>/assets/css/signin.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>GaSM | SignIn</title>
@@ -14,7 +14,7 @@
     <main>
         <form action="" method="POST">
             <a class="logo-container" href="./index">
-                <img id="logo" src="../public/assets/images/navbar_logo.png" alt="logo">
+                <img id="logo" src="<?=getenv("path_to_public")?>/assets/images/navbar_logo.png" alt="logo">
             </a>
 
             <h1>Sign in</h1>
@@ -64,7 +64,7 @@
 
             <div id="not-acc">
                 <span>Not an account?</span>
-                <a href="./register" class="link">Register</a>
+                <a href="<?=getenv("path_to_public")?>/register" class="link">Register</a>
             </div>
         </form>
     </main>

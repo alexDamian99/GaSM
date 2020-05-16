@@ -7,22 +7,22 @@ class Database
 
     private function __construct()
     {
-        // $CONFIG = [
-        //     'servername' => "localhost",
-        //     'username' => "root",
-        //     'password' => '',
-        //     'db' => 'gasm'
-        // ];
+        $CONFIG = [
+            'servername' => "localhost",
+            'username' => "root",
+            'password' => '',
+            'db' => 'gasm'
+        ];
         
-        // $this->conn = new mysqli($CONFIG["servername"], $CONFIG["username"], $CONFIG["password"], $CONFIG["db"]);
-        $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+        $this->conn = new mysqli($CONFIG["servername"], $CONFIG["username"], $CONFIG["password"], $CONFIG["db"]);
+        // $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
-        $server = $url["host"];
-        $username = $url["user"];
-        $password = $url["pass"];
-        $db = substr($url["path"], 1);
+        // $server = $url["host"];
+        // $username = $url["user"];
+        // $password = $url["pass"];
+        // $db = substr($url["path"], 1);
 
-        $this->conn = new mysqli($server, $username, $password, $db);
+        // $this->conn = new mysqli($server, $username, $password, $db);
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }

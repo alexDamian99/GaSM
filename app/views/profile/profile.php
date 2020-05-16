@@ -3,8 +3,8 @@
 
 <head>
     <?php include('../app/views/templates/head_header.php'); ?>
-    <link rel="stylesheet" type="text/css" href="assets/css/profile.css">
-    <script type="text/javascript" src="assets/js/profile.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?=getenv("path_to_public")?>/assets/css/profile.css">
+    <script type="text/javascript" src="<?=getenv("path_to_public")?>/assets/js/profile.js"></script>
 </head>
 
 <body>

@@ -58,7 +58,7 @@
 
             <p id="footer-copyright">©GaSM 2020</p>
 
-            <a class="footer-logo-container" href="../public">
+            <a class="footer-logo-container" href="<?=getenv("path_to_public")?>">
                 <img id="footer-logo" src="<?php echo getenv("path_to_public");?>/assets/images/logo_footer.png" alt="logo" />
             </a>
         </div>
