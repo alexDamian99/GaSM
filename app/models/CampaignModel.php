@@ -1,4 +1,5 @@
 <?php
+require('../../vendor/autoload.php');
 
 class CampaignModel {
     private $conn;
@@ -13,6 +14,8 @@ class CampaignModel {
         $banner_image_uploaded = true;
         
         if($image != 'default.jpg'){
+            
+            
             $banner_image_uploaded = false;
             $place_to_upload = "../public/assets/images/uploads/" . basename($_FILES["banner"]["name"]);
             $imageType = strtolower(pathinfo($place_to_upload, PATHINFO_EXTENSION));
@@ -26,9 +29,13 @@ class CampaignModel {
                 $up = false;
             }
             if($up){
-                if(move_uploaded_file($_FILES["banner"]["tmp_name"], $place_to_upload)){                  
-                    $banner_image_uploaded = true;
-                }
+                $s3 = new Aws\S3\S3Client([
+                    'version'  => '2006-03-01',
+                    'region'   => 'eu-central-1',
+                ]);
+                $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
+                $upload = $s3->upload($bucket, $_FILES['banner']['name'], fopen($_FILES['banner']['tmp_name'], 'rb'), 'public-read');
+                
             }
         }
         if($banner_image_uploaded == false){
