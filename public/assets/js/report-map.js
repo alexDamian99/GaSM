@@ -71,7 +71,7 @@ function addPointToMap(lat, lon, report_id, report_type) {
             anchor: [0.475, 30],
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
-            src: '../public/assets/images/placeholder.png'
+            src: './images/placeholder.png'
         })
     });
     marker.setStyle(markerStyle);
