@@ -61,7 +61,7 @@
             <div class="campaigns__headers">
                 <?php foreach ($data as $campaign) { ?>
                     <a href="<?php echo getenv('path_to_public') . '/campaigns/id/' . $campaign["id"]; ?>">
-                        <div class="campaigns__headers__head" style="background-image: url(<?php echo getenv("path_to_public") . '/assets/images/uploads/' . $campaign['image_name'] ?>);">
+                        <div class="campaigns__headers__head" style="background-image: url(https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?= $campaign['image_name'] ?>);">
                             <p><?= $campaign['title'] ?><p>
                         </div>
                     </a>
