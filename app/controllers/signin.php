@@ -34,7 +34,7 @@ class SignIn extends Controller
                 if (isset($_POST["remember"])) {
                     setcookie("username", $username, time() + (3600 * 24 * 30)); // add cookie for 30 days
                 } else {
-                    if (isset($_COOKIE["username"])) {
+                    if (isset($_SESSION["username"])) {
                         setcookie("username", $username, time() - (3600 * 24 * 30));
                     }
                 }

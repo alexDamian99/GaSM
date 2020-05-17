@@ -10,23 +10,19 @@ class Profile extends Controller
         parent::__construct();
         $_SESSION['previous'] = 'profile';
         $this->model = $this->model('ProfileModel');
-        $activeReports = [];
-        $activeCampaigns = [];
-        if (isset($_COOKIE["username"])){
-            $activeReports = $this->model->getActiveReportsFor($_COOKIE["username"]);
-            $activeCampaigns = $this->model->getActiveCampaignsFor($_COOKIE["username"]);
-        }
-        $this->view('profile/profile', [$activeReports, $activeCampaigns]);
     }
 
     public function index()
     {
-
-        if (isset($_COOKIE["username"])){
+        if(isset($_SESSION['username'])){
             $username = $_SESSION['username'];
             $image = $this->model->getPhoto($username);
-            
+            $activeReports = $this->model->getActiveReportsFor($_SESSION["username"]);
+            $activeCampaigns = $this->model->getActiveCampaignsFor($_SESSION["username"]);
             $_SESSION["profile_photo"] = "https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/" . $image;
+            $this->view('profile/profile', [$activeReports, $activeCampaigns]);
+        } else {
+            header("Location: " . getenv('path_to_public') . "/signin"); //redirect to signin
         }
     }
 }

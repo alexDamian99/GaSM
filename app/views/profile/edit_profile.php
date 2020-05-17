@@ -14,7 +14,7 @@
             
             <form class="form" method="POST" enctype="multipart/form-data">
                 <div class="profile_container__picture_container">
-                    <img src= "<?php echo $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture" class="profile_container__profile_picture"> 
+                    <img src= "<?= $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture" class="profile_container__profile_picture"> 
                     <div class="image_opacer">
                         <label>
                             <span>Upload photo</span>

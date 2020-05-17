@@ -25,8 +25,8 @@
                                                                         if (isset($_SESSION["temp-username"])) {
                                                                             echo $_SESSION["temp-username"];
                                                                         }
-                                                                        else if (isset($_COOKIE["username"])) {
-                                                                            echo $_COOKIE["username"];
+                                                                        else if (isset($_SESSION["username"])) {
+                                                                            echo $_SESSION["username"];
                                                                         }
                                                                         ?>" placeholder="&#xF007; Type your username" required>
             </label>
@@ -37,7 +37,7 @@
             </label>
 
             <label id="remember-me">
-                <input type="checkbox" name="remember" <?php if (isset($_COOKIE["username"])) { ?> checked <?php } ?>>
+                <input type="checkbox" name="remember" <?php if (isset($_SESSION["username"])) { ?> checked <?php } ?>>
                 <span>Remember me</span>
             </label>
 

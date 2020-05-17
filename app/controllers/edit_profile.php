@@ -17,7 +17,7 @@ class Edit_profile extends Controller
         
         $default_photo = 'default_photo.png';
 
-        if (isset($_COOKIE["username"])){
+        if (isset($_SESSION["username"])){
             $username = $_SESSION['username'];
             $image = $this->model->getPhoto($username);
             $_SESSION["profile_photo"] = "https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/" . $image;
@@ -28,29 +28,29 @@ class Edit_profile extends Controller
 
             if (!empty($_POST['input_name'])) {
                 $name = $_POST['input_name'];
-                if (isset($_COOKIE["username"])) {
-                    $success &= $this->model->changeName($_COOKIE["username"], $name);
+                if (isset($_SESSION["username"])) {
+                    $success &= $this->model->changeName($_SESSION["username"], $name);
                 }
             }
             
             if (!empty($_POST['input_email'])) {
                 $email = $_POST['input_email'];
-                if (isset($_COOKIE["username"])) {
-                    $success &= $this->model->changeEmail($_COOKIE["username"], $email);
+                if (isset($_SESSION["username"])) {
+                    $success &= $this->model->changeEmail($_SESSION["username"], $email);
                 }
             }
 
             if (!empty($_POST['input_address'])) {
                 $address = $_POST['input_address'];
-                if (isset($_COOKIE["username"])) {
-                    $success &= $this->model->changeAddress($_COOKIE["username"], $address);
+                if (isset($_SESSION["username"])) {
+                    $success &= $this->model->changeAddress($_SESSION["username"], $address);
                 }
             }
 
             if(!empty($_FILES['input_file']['tmp_name']) && is_uploaded_file($_FILES['input_file']['tmp_name']))
             {
-                if (isset($_COOKIE["username"])) {
-                    $success &= $this->model->changePhoto($_COOKIE["username"]);
+                if (isset($_SESSION["username"])) {
+                    $success &= $this->model->changePhoto($_SESSION["username"]);
                 }
             }
 
