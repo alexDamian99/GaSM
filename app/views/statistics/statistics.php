@@ -13,17 +13,14 @@
 
     <main>
         <div class="stats_row">
-            <span>Uite ce statistica frumoasa 1</span>
             <div class="stats_row__chart" id="chart_div_month"></div>
         </div>
 
         <div class="stats_row">
-            <span>Uite ce statistica frumoasa 1</span>
             <div class="stats_row__chart" id="chart_div_year"></div>
         </div>
 
         <div class="stats_row">
-            <span>Uite ce statistica frumoasa 1</span>
             <div class="stats_row__chart" id="chart_div_day"></div>
         </div>
 
