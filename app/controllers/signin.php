@@ -64,7 +64,7 @@ class SignIn extends Controller
         if(isset($_SESSION['id_comp'])){
             unset($_SESSION['id_comp']);
         }
-        $this->redirect('home'); //redirect to home
+        header("Location:/"); //redirect to home
     }
 
 }

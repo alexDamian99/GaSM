@@ -209,36 +209,10 @@ function drawVisualization(arrayForDataTable, id, _title, period) {
 }
 
 
-// function download_csv() {
-//     console.log("A");
-//     let xhr = new XMLHttpRequest();
-//     xhr.onreadystatechange = function () {
-//         console.log(xhr.readyState);
-//         if (xhr.readyState === 4) {
-//             let res = JSON.parse(xhr.responseText);
-//             console.log(res);
 
-//             // var csv = 'Name,Title\n';
-//             // data.forEach(function (row) {
-//             //     csv += row.join(',');
-//             //     csv += "\n";
-//             // });
-
-//             // var hiddenElement = document.createElement('a');
-//             // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-//             // hiddenElement.target = '_blank';
-//             // hiddenElement.download = 'people.csv';
-//             // hiddenElement.click();
-
-//         };
-
-//         xhr.open('GET', '/gasm/public/statistics_data');
-//         xhr.send();
-//     }
-// }
 
 function download_csv() {
-    console.log("A")
+
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -259,6 +233,6 @@ function download_csv() {
         }
     };
 
-    xhr.open('GET', '/gasm/public/statistics_data');
+    xhr.open('GET', '/statistics_data');
     xhr.send();
 }
