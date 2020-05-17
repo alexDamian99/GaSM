@@ -21,13 +21,12 @@ class Profile extends Controller
 
     public function index()
     {
-        $photos_dir = "../public/assets/images/upload/";
 
         if (isset($_COOKIE["username"])){
             $username = $_SESSION['username'];
             $image = $this->model->getPhoto($username);
-            $profile_photo = $photos_dir.$image;
-            $_SESSION["profile_photo"] = $profile_photo;
+            
+            $_SESSION["profile_photo"] = "https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/" . $image;
         }
     }
 }
