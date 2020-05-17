@@ -174,7 +174,7 @@ function loadStatisticsData() {
         }
     };
 
-    xhr.open('GET', '/gasm/public/statistics_data');
+    xhr.open('GET', '/statistics_data');
     xhr.send();
 }
 

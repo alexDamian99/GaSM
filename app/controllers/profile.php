@@ -7,6 +7,8 @@ class Profile extends Controller
 
     public function __construct()
     {
+        parent::__construct();
+        $_SESSION['previous'] = 'profile';
         $this->model = $this->model('ProfileModel');
         $activeReports = [];
         $activeCampaigns = [];

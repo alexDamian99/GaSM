@@ -1,5 +1,6 @@
 <?php
 require_once('Database.php');
+require('../vendor/autoload.php');
 
 class ProfileModel
 {
@@ -57,30 +58,38 @@ class ProfileModel
 
     public function changePhoto($username)
     {
-        $file_name = $_FILES['input_file']['name'];
 
-        $target_dir = "../public/assets/images/upload/";
-        $target_file = $target_dir . $_FILES["input_file"]["name"];
-      
-        // Select file type
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-      
-        // Valid file extensions
+        $extension = $_FILES['input_file']['type'];
+        $extension = explode("/", $extension)[1];
+        $filename = uniqid("user_photo_", true) . ".$extension";
+        
+        
         $extensions_arr = array("jpg","jpeg","png");
       
         // Check extension
-        if( in_array($imageFileType,$extensions_arr) ){
+        if( in_array($extension, $extensions_arr) ){
             // Insert record
+            $s3 = new Aws\S3\S3Client([
+                'region'  => 'eu-central-1',
+                'version' => 'latest',
+                'credentials' => [
+                    'key'    => getenv('AWS_ACCESS_KEY_ID'),
+                    'secret' => getenv('AWS_SECRET_KEY'),
+                ]
+            ]);	
+            $bucket = getenv('S3_BUCKET_NAME');
+            $s3->upload($bucket, $filename, fopen($_FILES['input_file']['tmp_name'], 'rb'), 'public-read');
+
             $insertStmt = $this->conn->prepare('UPDATE users set photo=? where username=?');
-            $insertStmt->bind_param('ss', $file_name, $username);
+            $insertStmt->bind_param('ss', $filename, $username);
 
             $insertStmt->execute();
             $insertStmt->close();
-
+            
             // Upload file
-            move_uploaded_file($_FILES['input_file']['tmp_name'], $target_file);
+            // move_uploaded_file($_FILES['input_file']['tmp_name'], $target_file);
             array_push($this->success, "Profile photo changed!");
-
+            $_SESSION["profile_photo"] = "https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/" . $filename;
         }
         return True;
     }

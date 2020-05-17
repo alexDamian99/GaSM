@@ -3,7 +3,7 @@
 
 <head>
     <?php include('../app/views/templates/head_header.php'); ?>
-    <link rel="stylesheet" type="text/css" href="<?getenv("path_to_public")?>/assets/css/edit_profile.css">
+    <link rel="stylesheet" type="text/css" href="<?=getenv("path_to_public")?>/assets/css/edit_profile.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 

@@ -125,11 +125,11 @@ class CampaignModel {
     }
 
     public function getUserById($user_id) {
-        $getStmt = $this->conn->prepare('SELECT username FROM users where id=?');
+        $getStmt = $this->conn->prepare('SELECT * FROM users where id=?');
         $getStmt->bind_param('i', $user_id);
         $getStmt->execute();
-        $username = mysqli_fetch_assoc($getStmt->get_result())['username'];
-        return $username;
+        $user = mysqli_fetch_assoc($getStmt->get_result());
+        return $user;
     }
 
 }
