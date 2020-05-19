@@ -66,14 +66,23 @@ function addPointToMap(lat, lon, report_id, report_type) {
         type: report_type
     });
 
+    let placeholderType = '';
+    if (report_type == 'Garbage must be collected')
+        placeholderType = 1;
+    else if (report_type == 'Waste sorting is not respected')
+        placeholderType = 2;
+    else
+        placeholderType = 3;
+
     var markerStyle = new ol.style.Style({
         image: new ol.style.Icon({
             anchor: [0.475, 30],
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
-            src: '../public/assets/images/placeholder.png'
+            src: '../public/assets/images/placeholder_' + placeholderType + '.png'
         })
     });
+
     marker.setStyle(markerStyle);
 
     vectorSource = new ol.source.Vector({
