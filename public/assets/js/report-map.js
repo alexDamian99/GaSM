@@ -79,7 +79,7 @@ function addPointToMap(lat, lon, report_id, report_type) {
             anchor: [0.475, 30],
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
-            src: '../public/assets/images/placeholder_' + placeholderType + '.png'
+            src: '../images/placeholder_' + placeholderType + '.png'
         })
     });
     marker.setStyle(markerStyle);
