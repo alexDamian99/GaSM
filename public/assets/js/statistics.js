@@ -197,7 +197,6 @@ function loadStatisticsData() {
                     doc.addImage(chart_year.getImageURI(), 0, 20, width, height);
                     doc.addPage();
                     doc.addImage(chart_day.getImageURI(), 0, 20, width, height);
-                    doc.addPage();
 
                     doc.save('statistics.pdf');
                 }, false);
