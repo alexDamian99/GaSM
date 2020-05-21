@@ -143,34 +143,51 @@ function loadStatisticsData() {
 
             google.charts.load('current', {
                 'packages': ['corechart']
-            });
-            google.charts.setOnLoadCallback(
-                drawVisualization.bind(
-                    null,
+            }).then(function () {
+
+                let chart_month;
+                let chart_year;
+                let chart_day;
+
+                let download_pdf = document.getElementById('download_pdf');
+
+                chart_month = drawVisualization(
                     arrayForDataTableMonth,
                     "chart_div_month",
                     "Monthly Garbage Collection",
                     "Month"
-                )
-            );
-            google.charts.setOnLoadCallback(
-                drawVisualization.bind(
-                    null,
+                );
+
+                chart_year = drawVisualization(
                     arrayForDataTableYear,
                     "chart_div_year",
                     "Yearly Garbage Collection",
                     "Year"
                 )
-            );
-            google.charts.setOnLoadCallback(
-                drawVisualization.bind(
-                    null,
+
+                chart_day = drawVisualization(
                     arrayForDataTableDay,
                     "chart_div_day",
                     "Daily Garbage Collection",
                     "Day"
                 )
-            );
+
+                download_pdf.addEventListener('click', function () {
+                    var doc = new jsPDF();
+                    let width = 180;
+                    let height = 160;
+
+                    doc.addImage(chart_month.getImageURI(), 0, 20, width, height);
+                    doc.addPage();
+                    doc.addImage(chart_year.getImageURI(), 0, 20, width, height);
+                    doc.addPage();
+                    doc.addImage(chart_day.getImageURI(), 0, 20, width, height);
+                    doc.addPage();
+
+                    doc.save('statistics.pdf');
+                }, false);
+
+            });
         }
     };
 
@@ -179,9 +196,8 @@ function loadStatisticsData() {
 }
 
 /** 
- * @param {String} arrayForDataTable An array of arrays. First element is the period value (ex: "2019/05" if the period is "Month")
+ * @param {String[]} arrayForDataTable An array of arrays. First element is the period value (ex: "2019/05" if the period is "Month")
  */
-
 function drawVisualization(arrayForDataTable, id, _title, period) {
     let options = {
         title: _title,
@@ -206,36 +222,8 @@ function drawVisualization(arrayForDataTable, id, _title, period) {
 
     let chart = new google.visualization.ComboChart(document.getElementById(id));
     chart.draw(data, options);
+    return chart;
 }
-
-
-// function download_csv() {
-//     console.log("A");
-//     let xhr = new XMLHttpRequest();
-//     xhr.onreadystatechange = function () {
-//         console.log(xhr.readyState);
-//         if (xhr.readyState === 4) {
-//             let res = JSON.parse(xhr.responseText);
-//             console.log(res);
-
-//             // var csv = 'Name,Title\n';
-//             // data.forEach(function (row) {
-//             //     csv += row.join(',');
-//             //     csv += "\n";
-//             // });
-
-//             // var hiddenElement = document.createElement('a');
-//             // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-//             // hiddenElement.target = '_blank';
-//             // hiddenElement.download = 'people.csv';
-//             // hiddenElement.click();
-
-//         };
-
-//         xhr.open('GET', '/gasm/public/statistics_data');
-//         xhr.send();
-//     }
-// }
 
 function download_csv() {
     console.log("A")
@@ -246,8 +234,8 @@ function download_csv() {
             console.log(res);
 
             var csv = 'Type,Latitude,Longitude,Date\n';
-            for (report of res){
-                csv += [report.type, report.location.toString() ,report.date].join(',');
+            for (report of res) {
+                csv += [report.type, report.location.toString(), report.date].join(',');
                 csv += "\n";
             }
             console.log(csv);
@@ -261,4 +249,38 @@ function download_csv() {
 
     xhr.open('GET', '/gasm/public/statistics_data');
     xhr.send();
+}
+
+function download_html() {
+    var url = "http://localhost:80/proiect/GaSM/app/php/ajaxHTML.php";
+    var sentData = {
+        "timeFilter": filter,
+        "country": country,
+        "city": city,
+        "county": county,
+        "plastic": JSON.stringify(plastics),
+        "paper": JSON.stringify(papers),
+        "glass": JSON.stringify(glasses),
+        "metal": JSON.stringify(metals),
+        "allPlastic": allPlastic,
+        "allPaper": allPaper,
+        "allGlass": allGlass,
+        "allMetal": allMetal
+    };
+    fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(sentData)
+        }).then(response => response.blob())
+        .then(data => {
+            var url = window.URL.createObjectURL(data);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = "report.html";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        });
 }
