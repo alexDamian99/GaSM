@@ -50,6 +50,7 @@ function loadStatisticsData() {
             let now = new Date();
             let thisMonth = parseInt(now.getMonth()) + 1;
             let thisYear = now.getFullYear();
+            let thisDay = now.getDate();
 
             for (let i = 12; i > 0; i--) {
                 let entry = thisYear.toString() + "/" + thisMonth.toString();
@@ -68,6 +69,15 @@ function loadStatisticsData() {
                 thisYear -= 1;
             }
 
+            thisDay = parseInt(now.getDate());
+            for (let i = 8; i > 0; i--) {
+                let entry = thisDay.toString();
+                days[entry] = [0, 0, 0, 0, 0];
+                if (thisDay == 0) {
+                    thisDay = 30;
+                }
+                thisDay -= 1;
+            }
 
             for (let report of res) {
                 let date = new Date(report.date);
@@ -85,13 +95,14 @@ function loadStatisticsData() {
                 } else {
                     years[year][report.type] += 1;
                 }
-            }
 
-            thisDay = parseInt(now.getDay()) + 1;
-            for (let i = 8; i > 0; i--) {
-                let entry = thisDay.toString();
-                days[entry] = [0, 0, 0, 0, 0];
-                thisDay -= 1;
+                let thisDay = parseInt(now.getDate());
+                day = thisDay.toString();
+                if (days[day][report.type] == 0) {
+                    days[day][report.type] = 1;
+                } else {
+                    days[day][report.type] += 1;
+                }
             }
 
             let arrayForDataTableMonth = [
@@ -130,17 +141,19 @@ function loadStatisticsData() {
                 thisYear -= 1;
             }
 
-            thisDay = parseInt(now.getDay()) + 1;
+            thisDay = parseInt(now.getDate());
             for (let i = 8; i > 0; i--) {
                 let entry = thisDay.toString();
                 arrayForDataTableDay.push([entry, days[entry][1], days[entry][2]]);
+                if (thisDay == 0) {
+                    thisDay = 30;
+                }
                 thisDay -= 1;
             }
 
             arrayForDataTableMonth.reverse();
             arrayForDataTableYear.reverse();
             arrayForDataTableDay.reverse();
-
             google.charts.load('current', {
                 'packages': ['corechart']
             }).then(function () {
@@ -249,38 +262,4 @@ function download_csv() {
 
     xhr.open('GET', '/gasm/public/statistics_data');
     xhr.send();
-}
-
-function download_html() {
-    var url = "http://localhost:80/proiect/GaSM/app/php/ajaxHTML.php";
-    var sentData = {
-        "timeFilter": filter,
-        "country": country,
-        "city": city,
-        "county": county,
-        "plastic": JSON.stringify(plastics),
-        "paper": JSON.stringify(papers),
-        "glass": JSON.stringify(glasses),
-        "metal": JSON.stringify(metals),
-        "allPlastic": allPlastic,
-        "allPaper": allPaper,
-        "allGlass": allGlass,
-        "allMetal": allMetal
-    };
-    fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(sentData)
-        }).then(response => response.blob())
-        .then(data => {
-            var url = window.URL.createObjectURL(data);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = "report.html";
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-        });
 }
