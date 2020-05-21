@@ -50,6 +50,7 @@ function loadStatisticsData() {
             let now = new Date();
             let thisMonth = parseInt(now.getMonth()) + 1;
             let thisYear = now.getFullYear();
+            let thisDay = now.getDate();
 
             for (let i = 12; i > 0; i--) {
                 let entry = thisYear.toString() + "/" + thisMonth.toString();
@@ -68,7 +69,7 @@ function loadStatisticsData() {
                 thisYear -= 1;
             }
 
-            thisDay = parseInt(now.getDay()) + 1;
+            thisDay = parseInt(now.getDate());
             for (let i = 8; i > 0; i--) {
                 let entry = thisDay.toString();
                 days[entry] = [0, 0, 0, 0, 0];
@@ -95,9 +96,8 @@ function loadStatisticsData() {
                     years[year][report.type] += 1;
                 }
 
-                
-                let dayNow = parseInt(date.getDay()) + 1
-                day = dayNow.toString();
+                let thisDay = parseInt(now.getDate());
+                day = thisDay.toString();
                 if (days[day][report.type] == 0) {
                     days[day][report.type] = 1;
                 } else {
@@ -143,7 +143,7 @@ function loadStatisticsData() {
                 thisYear -= 1;
             }
 
-            thisDay = parseInt(now.getDay()) + 1;
+            thisDay = parseInt(now.getDate());
             for (let i = 8; i > 0; i--) {
                 let entry = thisDay.toString();
                 arrayForDataTableDay.push([entry, days[entry][1], days[entry][2]]);
