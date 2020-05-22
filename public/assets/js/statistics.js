@@ -50,6 +50,7 @@ function loadStatisticsData() {
             let now = new Date();
             let thisMonth = parseInt(now.getMonth()) + 1;
             let thisYear = now.getFullYear();
+            let thisDay = now.getDate();
 
             for (let i = 12; i > 0; i--) {
                 let entry = thisYear.toString() + "/" + thisMonth.toString();
@@ -68,7 +69,7 @@ function loadStatisticsData() {
                 thisYear -= 1;
             }
 
-            thisDay = parseInt(now.getDay()) + 1;
+            thisDay = parseInt(now.getDate());
             for (let i = 8; i > 0; i--) {
                 let entry = thisDay.toString();
                 days[entry] = [0, 0, 0, 0, 0];
@@ -95,9 +96,8 @@ function loadStatisticsData() {
                     years[year][report.type] += 1;
                 }
 
-                
-                let dayNow = parseInt(date.getDay()) + 1
-                day = dayNow.toString();
+                let thisDay = parseInt(now.getDate());
+                day = thisDay.toString();
                 if (days[day][report.type] == 0) {
                     days[day][report.type] = 1;
                 } else {
@@ -143,7 +143,7 @@ function loadStatisticsData() {
                 thisYear -= 1;
             }
 
-            thisDay = parseInt(now.getDay()) + 1;
+            thisDay = parseInt(now.getDate());
             for (let i = 8; i > 0; i--) {
                 let entry = thisDay.toString();
                 arrayForDataTableDay.push([entry, days[entry][1], days[entry][2]]);
@@ -156,37 +156,52 @@ function loadStatisticsData() {
             arrayForDataTableMonth.reverse();
             arrayForDataTableYear.reverse();
             arrayForDataTableDay.reverse();
-
             google.charts.load('current', {
                 'packages': ['corechart']
-            });
-            google.charts.setOnLoadCallback(
-                drawVisualization.bind(
-                    null,
+            }).then(function () {
+
+                let chart_month;
+                let chart_year;
+                let chart_day;
+
+                let download_pdf = document.getElementById('download_pdf');
+
+                chart_month = drawVisualization(
                     arrayForDataTableMonth,
                     "chart_div_month",
                     "Monthly Garbage Collection",
                     "Month"
-                )
-            );
-            google.charts.setOnLoadCallback(
-                drawVisualization.bind(
-                    null,
+                );
+
+                chart_year = drawVisualization(
                     arrayForDataTableYear,
                     "chart_div_year",
                     "Yearly Garbage Collection",
                     "Year"
                 )
-            );
-            google.charts.setOnLoadCallback(
-                drawVisualization.bind(
-                    null,
+
+                chart_day = drawVisualization(
                     arrayForDataTableDay,
                     "chart_div_day",
                     "Daily Garbage Collection",
                     "Day"
                 )
-            );
+
+                download_pdf.addEventListener('click', function () {
+                    var doc = new jsPDF();
+                    let width = 180;
+                    let height = 160;
+
+                    doc.addImage(chart_month.getImageURI(), 0, 20, width, height);
+                    doc.addPage();
+                    doc.addImage(chart_year.getImageURI(), 0, 20, width, height);
+                    doc.addPage();
+                    doc.addImage(chart_day.getImageURI(), 0, 20, width, height);
+
+                    doc.save('statistics.pdf');
+                }, false);
+
+            });
         }
     };
 
@@ -194,10 +209,10 @@ function loadStatisticsData() {
     xhr.send();
 }
 
-/** 
- * @param {String} arrayForDataTable An array of arrays. First element is the period value (ex: "2019/05" if the period is "Month")
- */
 
+/** 
+ * @param {String[]} arrayForDataTable An array of arrays. First element is the period value (ex: "2019/05" if the period is "Month")
+ */
 function drawVisualization(arrayForDataTable, id, _title, period) {
     let options = {
         title: _title,
@@ -222,13 +237,13 @@ function drawVisualization(arrayForDataTable, id, _title, period) {
 
     let chart = new google.visualization.ComboChart(document.getElementById(id));
     chart.draw(data, options);
+    return chart;
 }
 
 
 
-
 function download_csv() {
-
+    console.log("A")
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -236,8 +251,8 @@ function download_csv() {
             console.log(res);
 
             var csv = 'Type,Latitude,Longitude,Date\n';
-            for (report of res){
-                csv += [report.type, report.location.toString() ,report.date].join(',');
+            for (report of res) {
+                csv += [report.type, report.location.toString(), report.date].join(',');
                 csv += "\n";
             }
             console.log(csv);
