@@ -51,7 +51,7 @@ function getLocation() {
         // allow only one temp marker on map
         if (temp_marker != null)
             vectorSource.clear();
-        temp_marker = addPointToMap(lat, lon);
+        temp_marker = addPointToMap(lat, lon, null, 'default');
 
         locationField.value = lat + "," + lon;
     });
@@ -67,19 +67,23 @@ function addPointToMap(lat, lon, report_id, report_type) {
     });
 
     let placeholderType = '';
-    if (report_type == 'Garbage must be collected')
-        placeholderType = 1;
-    else if (report_type == 'Waste sorting is not respected')
-        placeholderType = 2;
-    else
-        placeholderType = 3;
+    switch (report_type) {
+        case 'Garbage must be collected':
+            placeholderType = 'report_1';
+            break;
+        case 'Waste sorting is not respected':
+            placeholderType = 'report_2';
+            break;
+        default:
+            placeholderType = report_type;
+    }
 
     var markerStyle = new ol.style.Style({
         image: new ol.style.Icon({
             anchor: [0.475, 30],
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
-            src: 'assets/images/placeholder_' + placeholderType + '.png'
+            src: 'assets/images/placeholders/placeholder_' + placeholderType + '.png'
         })
     });
     marker.setStyle(markerStyle);

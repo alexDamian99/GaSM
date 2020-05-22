@@ -10,6 +10,34 @@ class ReportModel
         $this->conn = Database::getInstance()->getConn();
     }
 
+    public function addRecyclePoint($type, $location)
+    {
+        $insStmt = $this->conn->prepare('INSERT INTO recycle_points (type, location) VALUES(?,?)');
+        $insStmt->bind_param('ss', $type, $location);
+
+        $insStmt->execute();
+        $insStmt->close();
+    }
+
+    public function getRecyclePoints()
+    {
+        $recyclePoints = [];
+        $getStmt = $this->conn->query('SELECT * FROM recycle_points');
+        if ($getStmt->num_rows > 0) {
+            while ($row = $getStmt->fetch_assoc()) {
+                array_push(
+                    $recyclePoints,
+                    [
+                        'id' => $row['id'], 'type' => $row['type'], 'location' => $row['location']
+                    ]
+                );
+            }
+        }
+        $getStmt->close();
+
+        return $recyclePoints;
+    }
+
     public function doReport($type, $location, $date, $user)
     {
         $insStmt = $this->conn->prepare('INSERT INTO reports (type, location, date, user) VALUES(?,?,?,?)');
