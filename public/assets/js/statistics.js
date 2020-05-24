@@ -1,6 +1,12 @@
 loadStatisticsData();
 
 
+class MapValueFactory{
+    static CreateMapValue(){
+        return new MapValue();
+    } 
+}
+
 class MapValue {
     constructor(numberDecongestions = 0, numberWrongCateg = 0) {
         this.numberDecongestions = numberDecongestions;
@@ -11,13 +17,16 @@ class MapValue {
 class MapWithDefault extends Map {
     get(key) {
         if (!this.has(key)) {
-            return this.defaultGet();
+            super.set(key, this.defaultSet());
+            return super.get(key);
         }
         return super.get(key);
     }
 
     set(key, value) {
+        console.log(`${key} setting value ${value}`);
         if (!this.has(key)) {
+            console.log(`${key} not found. setting ${this.defaultSet()}`);
             return super.set(key, this.defaultSet());
         }
         return super.set(key, value);
@@ -25,137 +34,208 @@ class MapWithDefault extends Map {
 
     constructor(defaultSetFunc, defaultGetFunc, entries) {
         super(entries);
-        if (defaultGetFunc) {
+        if (typeof defaultGetFunc != 'undefined') {
             this.defaultGet = defaultGetFunc;
         } else {
-            this.defaultGet = () => [0, 0];
+            this.defaultGet = super.get;
         }
-        if (defaultSetFunc) {
+        if (typeof defaultSetFunc != 'undefined') {
             this.defaultSet = defaultSetFunc;
         } else {
-            this.defaultSet = () => [0, 0];
+            this.defaultSet = super.set;
         }
     }
 }
 
 
-function loadStatisticsData() {
+async function GetLocationJson(lon, lat) {
+    return fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat)
+        .then(res => {
+            if (res.status == 200) {
+                return res.json();
+            } else {
+                throw new Error(res.status);
+            }
+        });
+}
+
+
+function TimePeriodStats(res, arrayForDataTableMonth, arrayForDataTableYear, arrayForDataTableDay) {
+
+    let months = new MapWithDefault(MapValueFactory.CreateMapValue, MapValueFactory.CreateMapValue);
+    let days = new MapWithDefault(MapValueFactory.CreateMapValue, MapValueFactory.CreateMapValue);
+    let years = new MapWithDefault(MapValueFactory.CreateMapValue, MapValueFactory.CreateMapValue);
+    let now = new Date();
+    let thisMonth = parseInt(now.getMonth()) + 1;
+    let thisYear = now.getFullYear();
+    let thisDay = now.getDate();
+
+    for (let i = 12; i > 0; i--) {
+        let entry = thisYear.toString() + "/" + thisMonth.toString();
+        months.get(entry);
+        thisMonth -= 1;
+        if (thisMonth == 0) {
+            thisMonth = 12;
+            thisYear -= 1;
+        }
+    }
+
+    thisYear = now.getFullYear();
+    for (let i = 6; i > 0; i--) {
+        let entry = thisYear.toString();
+        years.get(entry);
+        thisYear -= 1;
+    }
+
+    thisDay = parseInt(now.getDate());
+    for (let i = 8; i > 0; i--) {
+        let entry = thisDay.toString();
+        days.get(entry);
+        if (thisDay == 0) {
+            thisDay = 30;
+        }
+        thisDay -= 1;
+    }
+
+    for (let report of res) {
+        let reportDate = new Date(report.date);
+        let monthNow = parseInt(reportDate.getMonth()) + 1
+        month = reportDate.getFullYear().toString() + "/" + monthNow.toString();
+        let thisDay = parseInt(now.getDate());
+        day = thisDay.toString();
+        let year = reportDate.getFullYear().toString();
+
+
+        switch (report.type){
+            case 1:
+            {
+                months.get(month).numberDecongestions += 1;
+                days.get(day).numberDecongestions += 1;
+                years.get(year).numberDecongestions += 1;
+                
+            }
+            case 2:
+            {
+                months.get(month).numberWrongCateg += 1;
+                days.get(day).numberWrongCateg += 1;
+                years.get(year).numberWrongCateg += 1;
+            }
+        }
+    }
+
+    now = new Date();
+    thisMonth = parseInt(now.getMonth()) + 1;
+    thisYear = now.getFullYear();
+    for (let i = 12; i > 0; i--) {
+        let entry = thisYear.toString() + "/" + thisMonth.toString();
+
+        arrayForDataTableMonth.push([entry, months.get(entry).numberDecongestions, months.get(entry).numberWrongCateg]);
+
+        thisMonth -= 1;
+        if (thisMonth == 0) {
+            thisMonth = 12;
+            thisYear -= 1;
+        }
+    }
+
+    thisYear = now.getFullYear();
+    for (let i = 6; i > 0; i--) {
+        let entry = thisYear.toString();
+        arrayForDataTableYear.push([entry, years.get(entry).numberDecongestions, years.get(entry).numberWrongCateg]);
+        thisYear -= 1;
+    }
+
+    thisDay = parseInt(now.getDate());
+    for (let i = 8; i > 0; i--) {
+        let entry = thisDay.toString();
+        arrayForDataTableDay.push([entry, days.get(entry).numberDecongestions, days.get(entry).numberWrongCateg]);
+
+        if (thisDay == 0) {
+            thisDay = 30;
+        }
+        thisDay -= 1;
+    }
+
+    arrayForDataTableMonth.reverse();
+    arrayForDataTableYear.reverse();
+    arrayForDataTableDay.reverse();
+}
+
+async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCities){
+    let cities = new MapWithDefault(MapValueFactory.CreateMapValue, MapValueFactory.CreateMapValue);
+    let suburbs = new MapWithDefault(MapValueFactory.CreateMapValue, MapValueFactory.CreateMapValue);
+    
+    for (let report of res) {
+        let lon, lat;
+        lon = report.location.split(",")[0];
+        lat = report.location.split(",")[1];
+        let json = await GetLocationJson(lon, lat);
+        switch (report.type){
+            case 1:
+            {
+                cities.get(json.address.city).numberDecongestions += 1;
+                suburbs.get(json.address.suburb).numberDecongestions += 1;
+            }
+            case 2:
+            {
+                cities.get(json.address.city).numberWrongCateg += 1;
+                suburbs.get(json.address.suburb).numberWrongCateg += 1;
+
+            }
+        }
+    }
+    let citiesSorted = new Map([...cities].sort((a, b) => {
+        return sum(a.numberDecongestions, a.numberWrongCateg) - sum(b.numberDecongestions, b.numberWrongCateg);
+    }
+    ));
+    let suburbsSorted = new Map([...suburbs].sort((a, b) => {
+        return sum(a.numberDecongestions, a.numberWrongCateg) - sum(b.numberDecongestions, b.numberWrongCateg);
+    }
+    ));
+
+    let counter = 0;
+    for (let entry of citiesSorted){
+        arrayForDataTableCities.push([entry[0], entry[1].numberDecongestions, entry[1].numberWrongCateg]);
+        counter++;
+        if(counter === 7){
+            break;
+        }
+    } 
+    counter = 0;
+    for (let entry of suburbsSorted){
+        arrayForDataTableSuburbs.push([entry[0], entry[1].numberDecongestions, entry[1].numberWrongCateg]);
+        counter++;
+        if(counter === 7){
+            break;
+        }
+    }
+}
+
+
+async function loadStatisticsData() {
     let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = async function () {
         if (xhr.readyState === 4) {
             let res = JSON.parse(xhr.responseText);
-            let months = new MapWithDefault();
-            let days = new MapWithDefault();
-            let years = new MapWithDefault();
-            let now = new Date();
-            let thisMonth = parseInt(now.getMonth()) + 1;
-            let thisYear = now.getFullYear();
-            let thisDay = now.getDate();
-
-            for (let i = 12; i > 0; i--) {
-                let entry = thisYear.toString() + "/" + thisMonth.toString();
-                months[entry] = [0, 0, 0, 0, 0];
-                thisMonth -= 1;
-                if (thisMonth == 0) {
-                    thisMonth = 12;
-                    thisYear -= 1;
-                }
-            }
-
-            thisYear = now.getFullYear();
-            for (let i = 6; i > 0; i--) {
-                let entry = thisYear.toString();
-                years[entry] = [0, 0, 0, 0, 0];
-                thisYear -= 1;
-            }
-
-            thisDay = parseInt(now.getDate());
-            for (let i = 8; i > 0; i--) {
-                let entry = thisDay.toString();
-                days[entry] = [0, 0, 0, 0, 0];
-                if (thisDay == 0) {
-                    thisDay = 30;
-                }
-                thisDay -= 1;
-            }
-
-            for (let report of res) {
-                let date = new Date(report.date);
-                let monthNow = parseInt(date.getMonth()) + 1
-                month = date.getFullYear().toString() + "/" + monthNow.toString();
-                if (months[month][report.type] == 0) {
-                    months[month][report.type] = 1;
-                } else {
-                    months[month][report.type] += 1;
-                }
-
-                year = date.getFullYear().toString();
-                if (years[year][report.type] == 0) {
-                    years[year][report.type] = 1;
-                } else {
-                    years[year][report.type] += 1;
-                }
-
-                let thisDay = parseInt(now.getDate());
-                day = thisDay.toString();
-                if (days[day][report.type] == 0) {
-                    days[day][report.type] = 1;
-                } else {
-                    days[day][report.type] += 1;
-                }
-            }
-
-            
-
             let arrayForDataTableMonth = [
                 // ['2019/05', 165, 938],
             ];
-
             let arrayForDataTableYear = [
                 // ['2019/05', 165, 938],
             ];;
-
-
             let arrayForDataTableDay = [
                 // ['2019/05', 165, 938]
             ];
+            let arrayForDataTableSuburbs = [
+                // ['Podu Ros', 165, 938]
+            ];
+            let arrayForDataTableCities = [
+                // ['Iasi', 165, 938]
+            ];
+            TimePeriodStats(res, arrayForDataTableMonth, arrayForDataTableYear, arrayForDataTableDay);
+            await LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCities);
 
 
-            now = new Date();
-            thisMonth = parseInt(now.getMonth()) + 1;
-            thisYear = now.getFullYear();
-            for (let i = 12; i > 0; i--) {
-                let entry = thisYear.toString() + "/" + thisMonth.toString();
-
-                arrayForDataTableMonth.push([entry, months[entry][1], months[entry][2]]);
-
-                thisMonth -= 1;
-                if (thisMonth == 0) {
-                    thisMonth = 12;
-                    thisYear -= 1;
-                }
-            }
-
-            thisYear = now.getFullYear();
-            for (let i = 6; i > 0; i--) {
-                let entry = thisYear.toString();
-                arrayForDataTableYear.push([entry, years[entry][1], years[entry][2]]);
-                thisYear -= 1;
-            }
-
-            thisDay = parseInt(now.getDate());
-            for (let i = 8; i > 0; i--) {
-                let entry = thisDay.toString();
-                arrayForDataTableDay.push([entry, days[entry][1], days[entry][2]]);
-                if (thisDay == 0) {
-                    thisDay = 30;
-                }
-                thisDay -= 1;
-            }
-
-            arrayForDataTableMonth.reverse();
-            arrayForDataTableYear.reverse();
-            arrayForDataTableDay.reverse();
             google.charts.load('current', {
                 'packages': ['corechart']
             }).then(function () {
@@ -163,6 +243,8 @@ function loadStatisticsData() {
                 let chart_month;
                 let chart_year;
                 let chart_day;
+                let chart_cities;
+                let chart_suburbs;
 
                 let download_pdf = document.getElementById('download_pdf');
 
@@ -178,14 +260,35 @@ function loadStatisticsData() {
                     "chart_div_year",
                     "Yearly Garbage Collection",
                     "Year"
-                )
+                );
 
                 chart_day = drawVisualization(
                     arrayForDataTableDay,
                     "chart_div_day",
                     "Daily Garbage Collection",
                     "Day"
-                )
+                );
+
+                chart_day = drawVisualization(
+                    arrayForDataTableDay,
+                    "chart_div_day",
+                    "Daily Garbage Collection",
+                    "Day"
+                );
+
+                chart_cities = drawVisualization(
+                    arrayForDataTableCities,
+                    "chart_div_cities",
+                    "Top Cities for Garbage reports",
+                    "Cities"
+                );
+
+                chart_suburbs = drawVisualization(
+                    arrayForDataTableSuburbs,
+                    "chart_div_suburbs",
+                    "Top Suburbs for Garbage reports",
+                    "Suburbs"
+                );
 
                 download_pdf.addEventListener('click', function () {
                     var doc = new jsPDF();
@@ -197,10 +300,13 @@ function loadStatisticsData() {
                     doc.addImage(chart_year.getImageURI(), 0, 20, width, height);
                     doc.addPage();
                     doc.addImage(chart_day.getImageURI(), 0, 20, width, height);
+                    doc.addPage();
+                    doc.addImage(chart_cities.getImageURI(), 0, 20, width, height);
+                    doc.addPage();
+                    doc.addImage(chart_suburbs.getImageURI(), 0, 20, width, height);
 
                     doc.save('statistics.pdf');
                 }, false);
-
             });
         }
     };
@@ -208,7 +314,6 @@ function loadStatisticsData() {
     xhr.open('GET', '/statistics_data');
     xhr.send();
 }
-
 
 /** 
  * @param {String[]} arrayForDataTable An array of arrays. First element is the period value (ex: "2019/05" if the period is "Month")
@@ -240,22 +345,17 @@ function drawVisualization(arrayForDataTable, id, _title, period) {
     return chart;
 }
 
-
-
 function download_csv() {
-    console.log("A")
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             let res = JSON.parse(xhr.responseText);
-            console.log(res);
 
             var csv = 'Type,Latitude,Longitude,Date\n';
             for (report of res) {
                 csv += [report.type, report.location.toString(), report.date].join(',');
                 csv += "\n";
             }
-            console.log(csv);
             var hiddenElement = document.createElement('a');
             hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
             hiddenElement.target = '_blank';
@@ -267,3 +367,4 @@ function download_csv() {
     xhr.open('GET', '/statistics_data');
     xhr.send();
 }
+
