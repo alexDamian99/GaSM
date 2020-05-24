@@ -67,6 +67,26 @@ class ReportModel
         return $activeReports;
     }
 
+    public function getActiveReport($id)
+    {
+        $activeReport = [];
+        $getStmt = $this->conn->prepare('SELECT * FROM reports WHERE id = ?');
+        $getStmt->bind_param('i', $id);
+        $getStmt->execute();
+
+        $results = $getStmt->get_result();
+        if ($row = $results->fetch_assoc()) {
+            $activeReport = [
+                'id' => $row['id'], 'type' => $row['type'], 'location' => $row['location'], 'date' => $row['date'],
+                'user' => $row['user']
+            ];
+        }
+
+        $getStmt->close();
+
+        return $activeReport;
+    }
+
     public function deleteReport($id)
     {
         $delStmt = $this->conn->prepare('DELETE FROM reports WHERE id=?');
