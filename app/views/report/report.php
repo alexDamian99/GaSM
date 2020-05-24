@@ -28,6 +28,44 @@
         <script src="<?= getenv("path_to_public") ?>/assets/js/report-map.js"></script>
 
         <div class="report">
+            <button id="report-btn" onclick="extend('recycle-form', 'arrow3')">
+                <span>Mark a new recycle point</span>
+                <i id="arrow3" class="arrow down"></i>
+            </button>
+
+            <form id="recycle-form" action="" method="POST">
+                <label class="input-location">
+                    <span>Location</span> <br />
+                    <input id="location-input" class="input" type="text" name="location-recycle" placeholder="Lat, Lon"
+                        required />
+                    <a href="#" onclick="getLocation()"><i class="fa fa-map-marker" style="font-size:24px"></i></a>
+                </label>
+
+                <br />
+                <label>
+                    <span>Garbage type</span> <br />
+                    <select name="type-recycle">
+                        <option value="organic">Organic</option>
+                        <option value="paper">Paper</option>
+                        <option value="plastic">Plastic</option>
+                        <option value="glass">Glass</option>
+                        <option value="metal">Metal</option>
+                        <option value="mixed">Mixed</option>
+                    </select>
+                </label>
+
+                <?php
+                foreach ($data['recycle_points'] as $recyclePoint)
+                    echo '<script>addPointToMap(' . $recyclePoint['location'] . ', ' . $recyclePoint['id'] . ', "' . $recyclePoint['type'] . '")</script>';
+                ?>
+
+                <br />
+
+                <button type="submit" class="send" name="submit-recycle">Send</button>
+            </form>
+        </div>
+
+        <div class="report">
             <button id="report-btn" onclick="extend('report-form', 'arrow1')">
                 <span>Do a new report</span>
                 <i id="arrow1" class="arrow down"></i>
@@ -36,7 +74,7 @@
             <form id="report-form" action="" method="POST">
                 <label class="input-location">
                     <span>Location</span> <br />
-                    <input id="location-input" class="input" type="text" name="location" placeholder="Lat, Lon"
+                    <input id="location-input" class="input" type="text" name="location-report" placeholder="Lat, Lon"
                         required />
                     <a href="#" onclick="getLocation()"><i class="fa fa-map-marker" style="font-size:24px"></i></a>
                 </label>
@@ -44,7 +82,7 @@
                 <br />
                 <label>
                     <span>Type</span> <br />
-                    <select name="type">
+                    <select name="type-report">
                         <option value="garbage-full">Garbage must be collected</option>
                         <option value="garbage-not-sorted">Waste sorting is not respected</option>
                     </select>
@@ -52,7 +90,7 @@
 
                 <br />
 
-                <button type="submit" class="send" name="submit">Send</button>
+                <button type="submit" class="send" name="submit-report">Send</button>
             </form>
         </div>
 

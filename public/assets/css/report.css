@@ -160,6 +160,11 @@ select {
     text-align: center;
 }
 
+#recycle-form {
+    display: none;
+    padding: 1em;
+}
+
 @media screen and (max-width: 700px) {
     .report {
         margin: 2em 5em;
