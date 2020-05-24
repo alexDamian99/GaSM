@@ -16,7 +16,6 @@ class SignIn extends Controller
     public function index()
     {
         $this->view('login/signin', []);
-
         if (isset($_POST['submit'])) {
             // destry old session
             if (isset($_SESSION['username']))
@@ -35,7 +34,7 @@ class SignIn extends Controller
                 if (isset($_POST["remember"])) {
                     setcookie("username", $username, time() + (3600 * 24 * 30)); // add cookie for 30 days
                 } else {
-                    if (isset($_COOKIE["username"])) {
+                    if (isset($_SESSION["username"])) {
                         setcookie("username", $username, time() - (3600 * 24 * 30));
                     }
                 }
@@ -57,4 +56,15 @@ class SignIn extends Controller
             }
         }
     }
+    
+    public function logout() {
+        if(isset($_SESSION['username'])){
+            unset($_SESSION['username']);
+        }
+        if(isset($_SESSION['id_comp'])){
+            unset($_SESSION['id_comp']);
+        }
+        header("Location:/"); //redirect to home
+    }
+
 }

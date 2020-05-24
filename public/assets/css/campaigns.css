@@ -58,6 +58,7 @@ header{
 }
 #mobile-navbar-buttons{
     display: none;
+    margin-bottom: 0;
 }
 .responsive-navbar #mobile-navbar-buttons{
     display: flex;
@@ -156,7 +157,7 @@ header{
 .campaigns__headers__head__title{
     text-align:left;
 }
-  
+
   
 
 .search-bar{
@@ -200,6 +201,12 @@ header{
     background:#01b469 !important;
     color:white !important;
 }
+.campaigns__pagination a.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: gray;
+}
+
 
 @media screen and (max-width:550px){
     .search-bar__input{

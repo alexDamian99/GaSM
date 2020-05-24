@@ -3,8 +3,8 @@
 
 <head>
     <?php include('../app/views/templates/head_header.php'); ?>
-    <link rel="stylesheet" type="text/css" href="assets/css/profile.css">
-    <script type="text/javascript" src="assets/js/profile.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?=getenv("path_to_public")?>/assets/css/profile.css">
+    <script type="text/javascript" src="<?=getenv("path_to_public")?>/assets/js/profile.js"></script>
 </head>
 
 <body>
@@ -13,7 +13,7 @@
     <main>
         <div class="profile_container">
             <div class="profile_container__picture_container">
-                <img src="<?php echo $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture" class="profile_container__profile_picture">
+                <img src="<?= $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture" class="profile_container__profile_picture">
                 <div class="image_opacer">
                     <a href="./edit_profile">Edit profile</a>
                 </div>
@@ -27,12 +27,9 @@
             <ul class="profile_container__feed">
                 <div  id="profile_container__feed__reports">
                     <?php 
-                        echo '<li>';
-                            echo "profile_container__feed__reports";
-                        echo '</li>';
-                        foreach ($data as $activeReport){
+                        foreach ($data[0] as $activeReport){
                             echo '<li>';
-                                echo $activeReport['username'];
+                                echo $activeReport['location'];
                                 echo $activeReport['type'];
                             echo '</li>';
                         }
@@ -41,13 +38,10 @@
 
                 <div  id="profile_container__feed__events">
                     <?php 
-                        echo '<li>';
-                            echo "profile_container__feed__events";
-                        echo '</li>';
-                        foreach ($data as $activeReport){
+                        foreach ($data[1] as $activeEvent){
                             echo '<li>';
-                                echo $activeReport['username'];
-                                echo $activeReport['type'];
+                                echo $activeEvent['title'];
+                                echo $activeEvent['location'];
                             echo '</li>';
                         }
                     ?>

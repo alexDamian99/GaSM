@@ -32,23 +32,23 @@
     <main>
         <div id="intro">
             <div>
-                <p><?php print_r($data["title"]);?></p>
+                <p><?php print_r($data["campaign"]["title"]);?></p>
             </div>
         </div>
         
 
         <div class="campaign">
             <div class="campaign__content">
-                <img src="<?php echo getenv("path_to_public") . '/assets/images/uploads/' . $data['image_name'] ?>" alt="<?= $data["title"]?>">
+                <img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?=$data["campaign"]['image_name'] ?>" alt="<?= $data["campaign"]["title"]?>">
                 <div class="campaign__content__description">
-                    <?= $data["description"]?>
+                    <?= $data["campaign"]["description"]?>
                 </div>
             </div>
             <ul class="campaign__details">
-                <li><img src="https://picsum.photos/128/128" alt="profile_picture"></li>
-                <li>By Author</li>
-                <?php if($data['event_date'] != "0000-00-00"){?>
-                    <li>Event date: <?= $data['event_date']?></li>
+                <li><img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?=$data["user"]["photo"]?>" alt="<?=$data["user"]["username"]?>"></li>
+                <li>By <?=$data["user"]["username"]?></li>
+                <?php if($data["campaign"]['event_date'] != "0000-00-00"){?>
+                    <li>Event date: <?= $data["campaign"]['event_date']?></li>
                 <?php }?>
                 
                 <li>
