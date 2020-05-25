@@ -170,6 +170,7 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
         lon = report.location.split(",")[0];
         lat = report.location.split(",")[1];
         json = await GetLocationJson(lon, lat);
+        console.log(json);
         // function(json){
         switch (report.type){
             case 1:
@@ -181,7 +182,6 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
             {
                 cities.get(json.address.city).numberWrongCateg += 1;
                 suburbs.get(json.address.suburb).numberWrongCateg += 1;
-
             }
         }
     }
