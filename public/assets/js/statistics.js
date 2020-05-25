@@ -172,6 +172,12 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
         json = await GetLocationJson(lon, lat);
         console.log(json);
         // function(json){
+        if (typeof json.address.city === "undefined"){
+            json.address.city = "unknown";
+        };
+        if (typeof json.address.suburb === "undefined"){
+            json.address.suburb = "unknown";
+        };
         switch (report.type){
             case 1:
             {
