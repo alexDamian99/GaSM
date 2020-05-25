@@ -235,7 +235,8 @@ async function loadStatisticsData() {
             ];
             TimePeriodStats(res, arrayForDataTableMonth, arrayForDataTableYear, arrayForDataTableDay);
             await LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCities);
-
+            console.log(arrayForDataTableSuburbs);
+            console.log(arrayForDataTableCities);
 
             google.charts.load('current', {
                 'packages': ['corechart']
