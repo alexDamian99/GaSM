@@ -48,15 +48,15 @@ class MapWithDefault extends Map {
 }
 
 
+function Get(yourUrl){
+    var Httpreq = new XMLHttpRequest(); // a new request
+    Httpreq.open("GET",yourUrl,false);
+    Httpreq.send(null);
+    return Httpreq.responseText;          
+}
+
 async function GetLocationJson(lon, lat) {
-    return fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat)
-        .then(res => {
-            if (res.status == 200) {
-                return res.json();
-            } else {
-                throw new Error(res.status);
-            }
-        });
+    return JSON.parse(Get('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat));
 }
 
 
@@ -166,10 +166,11 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
     let suburbs = new MapWithDefault(MapValueFactory.CreateMapValue, MapValueFactory.CreateMapValue);
     
     for (let report of res) {
-        let lon, lat;
+        let lon, lat, json;
         lon = report.location.split(",")[0];
         lat = report.location.split(",")[1];
-        let json = await GetLocationJson(lon, lat);
+        json = await GetLocationJson(lon, lat);
+        // function(json){
         switch (report.type){
             case 1:
             {
