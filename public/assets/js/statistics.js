@@ -56,7 +56,7 @@ function Get(yourUrl){
 }
 
 async function GetLocationJson(lon, lat) {
-    return JSON.parse(Get('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat));
+    return JSON.parse(Get('https://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat));
 }
 
 
