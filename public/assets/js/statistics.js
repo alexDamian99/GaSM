@@ -160,6 +160,7 @@ function TimePeriodStats(res, arrayForDataTableMonth, arrayForDataTableYear, arr
     arrayForDataTableDay.reverse();
 }
 
+
 async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCities){
     let cities = new MapWithDefault(MapValueFactory.CreateMapValue, MapValueFactory.CreateMapValue);
     let suburbs = new MapWithDefault(MapValueFactory.CreateMapValue, MapValueFactory.CreateMapValue);
@@ -169,7 +170,14 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
         lon = report.location.split(",")[0];
         lat = report.location.split(",")[1];
         json = await GetLocationJson(lon, lat);
+        console.log(json);
         // function(json){
+        if (typeof json.address.city === "undefined"){
+            json.address.city = "unknown";
+        };
+        if (typeof json.address.suburb === "undefined"){
+            json.address.suburb = "unknown";
+        };
         switch (report.type){
             case 1:
             {
@@ -180,7 +188,6 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
             {
                 cities.get(json.address.city).numberWrongCateg += 1;
                 suburbs.get(json.address.suburb).numberWrongCateg += 1;
-
             }
         }
     }
@@ -210,6 +217,7 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
         }
     }
 }
+
 
 
 async function loadStatisticsData() {
