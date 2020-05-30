@@ -1,5 +1,13 @@
 <?php
 
+include_once '../app/core/jwt/jwt_params.php';
+include_once '../app/core/jwt/php-jwt-master/src/BeforeValidException.php';
+include_once '../app/core/jwt/php-jwt-master/src/ExpiredException.php';
+include_once '../app/core/jwt/php-jwt-master/src/SignatureInvalidException.php';
+include_once '../app/core/jwt/php-jwt-master/src/JWT.php';
+
+use \Firebase\JWT\JWT;
+
 class ReportController extends Controller
 {
 
@@ -54,10 +62,11 @@ class ReportController extends Controller
         $result = $this->model->getActiveReport($id);
         if (!$result) {
             return $this->notFoundResponse();
+        } else {
+            $response['status_code_header'] = 'HTTP/1.1 200 OK';
+            $response['body'] = json_encode($result);
+            return $response;
         }
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode($result);
-        return $response;
     }
 
     private function createReport()
@@ -65,28 +74,57 @@ class ReportController extends Controller
         $input = (array) json_decode(file_get_contents('php://input'), TRUE);
         if (!$this->validateReport($input)) {
             return $this->unprocessableEntityResponse();
+        } else {
+            $user = 'Anonymous';
+            if (isset($input['jwt'])) {
+                try {
+                    $decodedJwt = JWT::decode($input['jwt'], JWT_KEY, array('HS256'));
+                    $user = $decodedJwt->data->username;
+                } catch (Exception $e) {
+                    return $this->unauthorizedResponse();
+                }
+            }
+
+            date_default_timezone_set('Europe/Bucharest');
+            $date = date('Y-m-d H:i:s');
+
+            $this->model->doReport($input['type'], $input['location'], $date, $user);
+            $response['status_code_header'] = 'HTTP/1.1 201 Created';
+            $response['body'] = null;
+            return $response;
         }
-        $this->model->doReport($input['type'], $input['location'], $input['date'], $input['user']);
-        $response['status_code_header'] = 'HTTP/1.1 201 Created';
-        $response['body'] = null;
-        return $response;
     }
 
     private function deleteReport($id)
     {
-        $result = $this->model->getActiveReport($id);
-        if (!$result) {
-            return $this->notFoundResponse();
-        }
-        $this->model->deleteReport($id);
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = null;
-        return $response;
+        $input = (array) json_decode(file_get_contents('php://input'));
+        if (isset($input['jwt'])) {
+            try {
+                $decodedJwt = JWT::decode($input['jwt'], JWT_KEY, array('HS256'));
+                $user = $decodedJwt->data;
+                if ($user->id_comp == null) {
+                    return $this->unauthorizedResponse();
+                } else {
+                    $result = $this->model->getActiveReport($id);
+                    if (!$result) {
+                        return $this->notFoundResponse();
+                    } else {
+                        $this->model->deleteReport($id);
+                        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+                        $response['body'] = null;
+                        return $response;
+                    }
+                }
+            } catch (Exception $e) {
+                return $this->unauthorizedResponse();
+            }
+        } else
+            return $this->unauthorizedResponse();
     }
 
     private function validateReport($input)
     {
-        if (!isset($input['type']) || !isset($input['location']) || !isset($input['date']) || !isset($input['user']))
+        if (!isset($input['type']) || !isset($input['location']))
             return false;
         return true;
     }
@@ -103,6 +141,13 @@ class ReportController extends Controller
     private function notFoundResponse()
     {
         $response['status_code_header'] = 'HTTP/1.1 404 Not Found';
+        $response['body'] = null;
+        return $response;
+    }
+
+    private function unauthorizedResponse()
+    {
+        $response['status_code_header'] = 'HTTP/1.1 401 Unauthorized';
         $response['body'] = null;
         return $response;
     }
