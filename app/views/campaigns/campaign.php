@@ -39,14 +39,14 @@
 
         <div class="campaign">
             <div class="campaign__content">
-                <img src="<?php echo getenv("path_to_public") . '/assets/images/uploads/' . $data["campaign"]['image_name'] ?>" alt="<?= $data["campaign"]["title"]?>">
+                <img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?=$data["campaign"]['image_name'] ?>" alt="<?= $data["campaign"]["title"]?>">
                 <div class="campaign__content__description">
                     <?= $data["campaign"]["description"]?>
                 </div>
             </div>
             <ul class="campaign__details">
-                <li><img src="<?=getenv('path_to_public')?>/assets/images/user.png" alt="<?=$data["user"]?>"></li>
-                <li>By <?=$data["user"]?></li>
+                <li><img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?=$data["user"]["photo"]?>" alt="<?=$data["user"]["username"]?>"></li>
+                <li>By <?=$data["user"]["username"]?></li>
                 <?php if($data["campaign"]['event_date'] != "0000-00-00"){?>
                     <li>Event date: <?= $data["campaign"]['event_date']?></li>
                 <?php }?>

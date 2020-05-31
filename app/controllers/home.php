@@ -5,6 +5,7 @@ class Home extends Controller{
     private $model;
     public function __construct(){
         parent::__construct();
+        $_SESSION['previous'] = 'home';
         $this->model = $this->model("CampaignModel");
     }
     

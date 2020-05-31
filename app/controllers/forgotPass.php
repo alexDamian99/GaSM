@@ -8,7 +8,7 @@ class ForgotPass extends Controller
     public function __construct()
     {
         parent::__construct();
-
+        $_SESSION['previous'] = 'forgotPass';
         $this->model = $this->model('LoginModel');
     }
 

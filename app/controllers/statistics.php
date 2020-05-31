@@ -7,6 +7,9 @@ class Statistics extends Controller
 
     public function __construct()
     {
+        parent::__construct();
+        $_SESSION['previous'] = 'statistics';
+        
         $this->model = $this->model('StatisticsModel');
         $this->view('statistics/statistics', []);
     }

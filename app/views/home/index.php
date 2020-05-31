@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>GASM</title>
 
-    <script src="../public/assets/js/index.js"></script>
+    <script src="<?=getenv("path_to_public")?>/assets/js/index.js"></script>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
 
         <section class="facts">
             <div class="facts__fact">
-                <img src="../public/assets/images/recycle_fact1.svg" alt="man_throwing_garbage">
+                <img src="<?=getenv("path_to_public")?>/assets/images/recycle_fact1.svg" alt="man_throwing_garbage">
                 <div class="facts__fact__content">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="facts__fact">
-                <img src="../public/assets/images/eco_logo.svg" alt="recycle_logo">
+                <img src="<?=getenv("path_to_public")?>/assets/images/eco_logo.svg" alt="recycle_logo">
                 <div class="facts__fact__content">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -61,7 +61,7 @@
             <div class="campaigns__headers">
                 <?php foreach ($data as $campaign) { ?>
                     <a href="<?php echo getenv('path_to_public') . '/campaigns/id/' . $campaign["id"]; ?>">
-                        <div class="campaigns__headers__head" style="background-image: url(<?php echo getenv("path_to_public") . '/assets/images/uploads/' . $campaign['image_name'] ?>);">
+                        <div class="campaigns__headers__head" style="background-image: url(https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?= $campaign['image_name'] ?>);">
                             <p><?= $campaign['title'] ?><p>
                         </div>
                     </a>
@@ -85,7 +85,7 @@
                     </form>
                 </div>
                 <div class="trash-finder__result">
-                    <img src="assets/images/recycle_bin.svg" alt="recycle_bin">
+                    <img src="<?=getenv("path_to_public")?>/assets/images/recycle_bin.svg" alt="recycle_bin">
                     <p>USE THE GREEN RECYCLE BIN</p>
                 </div>
             </div>

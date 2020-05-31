@@ -3,8 +3,8 @@
 
 <head>
     <?php include('../app/views/templates/head_header.php'); ?>
-    <link rel="stylesheet" type="text/css" href="assets/css/profile.css">
-    <script type="text/javascript" src="assets/js/profile.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?=getenv("path_to_public")?>/assets/css/profile.css">
+    <script type="text/javascript" src="<?=getenv("path_to_public")?>/assets/js/profile.js"></script>
 </head>
 
 <body>
@@ -13,7 +13,7 @@
     <main>
         <div class="profile_container">
             <div class="profile_container__picture_container">
-                <img src="<?php echo $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture" class="profile_container__profile_picture">
+                <img src="<?= $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture" class="profile_container__profile_picture">
                 <div class="image_opacer">
                     <a href="./edit_profile">Edit profile</a>
                 </div>

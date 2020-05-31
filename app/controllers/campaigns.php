@@ -4,6 +4,8 @@ session_start();
 class Campaigns extends Controller{
     private $model;
     public function __construct(){
+        parent::__construct();
+        $_SESSION['previous'] = 'campaigns';
         $this->model = $this->model("CampaignModel");
     }
 
@@ -27,11 +29,11 @@ class Campaigns extends Controller{
             $view = 'campaigns/campaign';
             
             $campaign_info = $this->model->getCampaignById($params[0]);
-            $username = $this->model->getUserById($campaign_info['user_id']);
+            $user = $this->model->getUserById($campaign_info['user_id']);
             if(empty($campaign_info)){//if the id is wrong
                 $this->view('404');
             }else{
-                $this->view($view, ["campaign" => $campaign_info, "user" => $username]);
+                $this->view($view, ["campaign" => $campaign_info, "user" => $user]);
             }
             
         }

@@ -153,10 +153,16 @@ select {
     background-image: url('../images/gplaypattern.png');
     border-radius: 25%;
     height: 7em;
-    width: 6em;
+    width: 6.5em;
+    padding: 3px;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+}
+
+#recycle-form {
+    display: none;
+    padding: 1em;
 }
 
 @media screen and (max-width: 700px) {
