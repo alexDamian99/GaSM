@@ -136,7 +136,6 @@ class ProfileModel
         $stmt->close();
         return $activeEvents;
     }
-
     
     public function getPhoto($username)
     {
@@ -156,11 +155,50 @@ class ProfileModel
         return $image;
     }
     
+    public function countUsers() {
+        $query = "select count(*) from users";
+        $get_stmt = $this->conn->prepare($query);
+        $get_stmt->execute();
+        $result = mysqli_fetch_array($get_stmt->get_result())[0];
+        $get_stmt->close();
+        return $result;
+    }
+
+    public function getNUsers($offset, $length=9) {
+        $query = "select id, username, name, email, id_comp, photo 
+                    from users order by id desc limit $offset, $length";
+        $get_stmt = $this->conn->prepare($query);
+        if(!$get_stmt->execute()){
+            array_push($this->errors, $get_stmt->error);
+            return;
+        }
+        $found_users = $get_stmt->get_result();
+        $results = [];
+        foreach ($found_users as $u) {
+            $results[] = $u;
+        }
+        $get_stmt->close();
+        return $results;
+    }
+
+    public function deleteUser($id) {
+        $delete_stmt = $this->conn->prepare('delete from users where id = ?');
+        $delete_stmt->bind_param("i", $id);
+        if(!$delete_stmt->execute()) {
+            array_push($this->errors, $delete_stmt->error);
+            echo $delete_stmt->error;
+            $delete_stmt->close();
+            return false;
+        }
+        $delete_stmt->close();
+        return true;
+    }
 
     public function getErrors()
     {
         return $this->errors;
     }
+
     public function getSuccess()
     {
         return $this->success;

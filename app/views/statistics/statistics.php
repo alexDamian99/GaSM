@@ -26,8 +26,14 @@
         </div>
 
         <div class="export_div">
-        <button class="btn btn-green" onclick="download_csv()">Export CSV</button>
-        <button class="btn btn-green" id="download_pdf" >Export PDF</button>
+            <?php if(isset($data['pdf']) && $data['pdf'] == 1) {?>
+                <button class="btn btn-green" id="download_pdf" >Export PDF</button>
+            <?php }?>
+            <?php if(isset($data['pdf']) && $data['html'] == 1) {?>
+            <?php }?>
+            <?php if(isset($data['pdf']) && $data['csv'] == 1) {?>
+                <button class="btn btn-green" onclick="download_csv()">Export CSV</button>
+            <?php }?>
         </div>
     </main>
 
