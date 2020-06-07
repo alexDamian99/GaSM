@@ -45,8 +45,8 @@
                 </div>
             </div>
             <ul class="campaign__details">
-                <li><img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?=$data["user"]["photo"]?>" alt="<?=$data["user"]["username"]?>"></li>
-                <li>By <?=$data["user"]["username"]?></li>
+                <li><img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?=(!empty($data["campaign"]["photo"]))?$data["campaign"]["photo"]:"default_photo.png"?>" alt="<?=$data["campaign"]["username"]?>"></li>
+                <li>By <?=$data["campaign"]["username"]?></li>
                 <?php if($data["campaign"]['event_date'] != "0000-00-00"){?>
                     <li>Event date: <?= $data["campaign"]['event_date']?></li>
                 <?php }?>

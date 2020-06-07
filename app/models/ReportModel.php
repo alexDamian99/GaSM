@@ -186,4 +186,32 @@ class ReportModel
         }
         $this->conn->query($sql);
     }
+
+    public function getNReports($offset, $length=9) {
+        $query = "select id, type, location, date, user 
+                    from reports order by id desc limit $offset, $length";
+        $get_stmt = $this->conn->prepare($query);
+        if(!$get_stmt->execute()){
+            array_push($this->errors, $get_stmt->error);
+            return;
+        }
+        $found_campaigns = $get_stmt->get_result();
+        $results = [];
+        foreach ($found_campaigns as $c) {
+            $c['likes'] = $this->getLikes($c['id']);
+            $c['dislikes'] = $this->getDislikes($c['id']);
+            $results[] = $c;
+        }
+        $get_stmt->close();
+        return $results;
+    }
+
+    public function countReports() {
+        $query = "select count(*) from reports";
+        $get_stmt = $this->conn->prepare($query);
+        $get_stmt->execute();
+        $result = mysqli_fetch_array($get_stmt->get_result())[0];
+        $get_stmt->close();
+        return $result;
+    }
 }

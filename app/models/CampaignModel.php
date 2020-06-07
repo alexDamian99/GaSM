@@ -77,7 +77,8 @@ class CampaignModel {
     }
 
     public function getNCampaigns($offset, $length=9) {
-        $query = "select * from campaigns order by event_date desc limit $offset, $length";
+        $query = "select c.id, c.title, c.description, c.location, c.event_date, c.image_name, u.username 
+                    from campaigns c join users u on c.user_id = u.id order by c.id desc limit $offset, $length";
         $get_stmt = $this->conn->prepare($query);
         if(!$get_stmt->execute()){
             array_push($this->errors, $get_stmt->error);
@@ -88,6 +89,7 @@ class CampaignModel {
         foreach ($found_campaigns as $c) {
             $results[] = $c;
         }
+        $get_stmt->close();
         return $results;
     }
 
@@ -95,7 +97,9 @@ class CampaignModel {
         $query = "select count(*) from campaigns";
         $get_stmt = $this->conn->prepare($query);
         $get_stmt->execute();
-        return mysqli_fetch_array($get_stmt->get_result())[0];
+        $result = mysqli_fetch_array($get_stmt->get_result())[0];
+        $get_stmt->close();
+        return $result;
     }
 
     public function searchCampaigns($key) {
@@ -110,26 +114,34 @@ class CampaignModel {
     }
 
     public function getCampaignById($id) {
-        $query = "select * from campaigns where id = ?";
+        $query = "select c.id, c.title, c.description, c.location, c.event_date, c.image_name, u.username, u.photo 
+                  from campaigns c join users u on c.user_id = u.id where c.id = ?";
         $get_stmt = $this->conn->prepare($query);
         $get_stmt->bind_param("i", $id);
         if(!$get_stmt->execute()) {
             array_push($this->errors, $get_stmt->error);
+            $get_stmt->close();
             return;
         }
-        return mysqli_fetch_assoc($get_stmt->get_result());
+        $result = mysqli_fetch_assoc($get_stmt->get_result());
+        $get_stmt->close();
+        return $result;
     }
 
+    public function deleteCampaign($id) {
+        $delete_stmt = $this->conn->prepare('delete from campaigns where id = ?');
+        $delete_stmt->bind_param("i", $id);
+        if(!$delete_stmt->execute()) {
+            array_push($this->errors, $delete_stmt->error);
+            echo $delete_stmt->error;
+            $delete_stmt->close();
+            return false;
+        }
+        $delete_stmt->close();
+        return true;
+    }
+    
     public function getErrors() {
         return $this->errors;
     }
-
-    public function getUserById($user_id) {
-        $getStmt = $this->conn->prepare('SELECT * FROM users where id=?');
-        $getStmt->bind_param('i', $user_id);
-        $getStmt->execute();
-        $user = mysqli_fetch_assoc($getStmt->get_result());
-        return $user;
-    }
-
 }

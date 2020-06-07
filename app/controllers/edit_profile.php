@@ -14,7 +14,6 @@ class Edit_profile extends Controller
 
     public function index()
     {
-        
         $default_photo = 'default_photo.png';
 
         if (isset($_SESSION["username"])){
