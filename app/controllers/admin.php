@@ -122,6 +122,6 @@ class Admin extends Controller {
         if(isset($_SESSION['admin'])) {
             unset($_SESSION['admin']);
         }
-        header('Location:' . getenv("path_to_public"));
+        header('Location:/');
     }
 }
