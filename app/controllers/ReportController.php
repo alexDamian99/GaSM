@@ -102,7 +102,7 @@ class ReportController extends Controller
             try {
                 $decodedJwt = JWT::decode($input['jwt'], JWT_KEY, array('HS256'));
                 $user = $decodedJwt->data;
-                if ($user->id_comp == null) {
+                if ($user->id_comp == null || $user->verified == 0) {
                     return $this->unauthorizedResponse();
                 } else {
                     $result = $this->model->getActiveReport($id);
