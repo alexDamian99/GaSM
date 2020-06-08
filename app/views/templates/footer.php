@@ -13,15 +13,15 @@
                 <span>Helpful links</span>
                 <ul>
                     <li>
-                        <a href="#">Why to recycle</a>
+                        <a href="https://www.wikiwand.com/en/Recycling">Why to recycle</a>
                     </li>
 
                     <li>
-                        <a href="#">How to recycle</a>
+                        <a href="https://www.wikihow.com/Recycle">How to recycle</a>
                     </li>
 
                     <li>
-                        <a href="#">Recycle impact</a>
+                        <a href="http://greeningforward.org/environmental-issues/waste/recycle/recycling-facts/#:~:text=Recycling%20is%20very%20important%20as,the%20affects%20caused%20by%20deforestation.">Recycle impact</a>
                     </li>
                 </ul>
             </div>
@@ -29,7 +29,7 @@
             <div id="footer-vision">
                 <span>Our vison</span>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in arcu augue. Nulla enim mauris, aliquet ut lorem aliquet, vestibulum elementum est.
+                    Our vision is a green city with citizens contributing to local administration with insights for companies that manage the garbage.
                 </p>
             </div>
         </div>
