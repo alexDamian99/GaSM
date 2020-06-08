@@ -131,7 +131,7 @@ class CampaignModel {
     }
 
     public function getCampaignById($id) {
-        $query = "select c.id, c.title, c.description, c.location, c.event_date, c.image_name, u.username, u.photo 
+        $query = "select c.id, c.title, c.description, c.location, c.event_date, c.image_name, u.name, u.photo 
                   from campaigns c join users u on c.user_id = u.id where c.id = ?";
         $get_stmt = $this->conn->prepare($query);
         $get_stmt->bind_param("i", $id);
