@@ -374,9 +374,12 @@ function download_csv() {
 function download_html(filename, text) {
     let head = document.querySelector("head");
     let main = document.querySelector("main");
-    let content;
-    content = head.innerHTML;
+    let content = "<html>";
+    content += head.innerHTML;
+    content += "<body>";
     content += main.innerHTML;
+    content += "</body>";
+    content += "</html>";
 
     var hiddenElement = document.createElement('a');
     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(content);
