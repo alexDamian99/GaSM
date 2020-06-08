@@ -20,9 +20,11 @@
     <main>
         <section id="intro">
             <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
-                <button class="btn btn-green">Learn more</button>
+                <h2>GaSM</h2>
+                <span>
+                Effective, efficient, friendly. <br> 
+                The new way of helping the administration and every citizen manage the public trash in a better way.
+                </span>
             </div>
         </section>
 
@@ -31,24 +33,21 @@
             <div class="facts__fact">
                 <img src="<?= getenv("path_to_public") ?>/assets/images/recycle_fact1.svg" alt="man_throwing_garbage">
                 <div class="facts__fact__content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
+                    <p>
+                   Recycling or composting rates for three categories of materials, including paper and paperboard, yard trimmings, and food:
+In 2017, the rate of paper and paperboard recycling was 65.9 percent (44.2 million tons), down slightly from 66.6 percent in 2015 (45.3 million tons), and up from 42.8 percent in 2000.
+The rate of yard trimmings composted in 2017 was 69.4 percent (24.4 million tons), up from 61.3 percent (21.3 million tons) in 2015.
+The rate of yard trimmings composted in 2000 was 51.7 percent.
+In 2017, the rate of food and other composting was 6.3 percent (2.6 million tons), up from 5.3 percent in 2015 (2.1 million tons). The rate of food composting was 2.2 percent in the year 2000.
                     </p>
                 </div>
             </div>
             <div class="facts__fact">
                 <img src="<?= getenv("path_to_public") ?>/assets/images/eco_logo.svg" alt="recycle_logo">
                 <div class="facts__fact__content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
+                    <p>
+                    In percentage of total MSW generation, recycling (including composting) did not exceed 15 percent until 1990. Growth in the recycling rate was significant over the next 15 years, spanning until 2005. The recycling rate grew more slowly over the last few years. The 2017 recycling rate was 35.2 percent.
+The recycling (as a percentage of generation) of the below materials in MSW has mostly increased over the last 47 years.
                     </p>
                 </div>
             </div>
@@ -85,18 +84,9 @@
                 <p>SEARCH. FIND. RECYCLE.</p>
             </div>
             <div>
-                <div class="trash-finder__search">
-                    <form action="" class="search-bar">
-                        <label>
-                            <span>I want to recycle</span>
-                            <input type="text" class="search-bar__input">
-                        </label>
-                        <button class="btn btn-green" type="submit">Where should I throw it?</button>
-                    </form>
-                </div>
                 <div class="trash-finder__result">
                     <img src="<?= getenv("path_to_public") ?>/assets/images/recycle_bin.svg" alt="recycle_bin">
-                    <p>USE THE GREEN RECYCLE BIN</p>
+                    <p>USE THE SPECIFIC RECYCLE BIN</p>
                 </div>
             </div>
 
