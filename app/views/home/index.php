@@ -47,7 +47,7 @@
 
         <section class="report">
             <div class="report__writing">
-                <img src="assets/images/warning.svg">
+                <img src="assets/images/warning.svg" alt="warningSign">
                 <p>Do you wish to report something?</p>
             </div>
             <a class="btn btn-yellow" href="<?= getenv('path_to_public') ?>/report">Report here</a>
