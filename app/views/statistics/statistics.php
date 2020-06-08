@@ -40,9 +40,10 @@
             <?php if(isset($data['pdf']) && $data['pdf'] == 1) {?>
                 <button class="btn btn-green" id="download_pdf" >Export PDF</button>
             <?php }?>
-            <?php if(isset($data['pdf']) && $data['html'] == 1) {?>
+            <?php if(isset($data['html']) && $data['html'] == 1) {?>
+                <button class="btn btn-green" onclick="download_html()">Export HTML</button>
             <?php }?>
-            <?php if(isset($data['pdf']) && $data['csv'] == 1) {?>
+            <?php if(isset($data['csv']) && $data['csv'] == 1) {?>
                 <button class="btn btn-green" onclick="download_csv()">Export CSV</button>
             <?php }?>
         </div>
