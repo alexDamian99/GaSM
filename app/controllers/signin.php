@@ -34,9 +34,7 @@ class SignIn extends Controller
                 if (isset($_POST["remember"])) {
                     setcookie("username", $username, time() + (3600 * 24 * 30)); // add cookie for 30 days
                 } else {
-                    if (isset($_SESSION["username"])) {
-                        setcookie("username", $username, time() - (3600 * 24 * 30));
-                    }
+                    setcookie("username", $username, time() - (3600 * 24 * 30));
                 }
 
                 $id_comp = $this->model->getIdComp($username);
@@ -56,15 +54,15 @@ class SignIn extends Controller
             }
         }
     }
-    
-    public function logout() {
-        if(isset($_SESSION['username'])){
+
+    public function logout()
+    {
+        if (isset($_SESSION['username'])) {
             unset($_SESSION['username']);
         }
-        if(isset($_SESSION['id_comp'])){
+        if (isset($_SESSION['id_comp'])) {
             unset($_SESSION['id_comp']);
         }
         header("Location:/"); //redirect to home
     }
-
 }
