@@ -181,10 +181,12 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
                 cities.get(json.address.city).numberDecongestions += 1;
                 suburbs.get(json.address.suburb).numberDecongestions += 1;
             }
+            break;
             case 2: {
                 cities.get(json.address.city).numberWrongCateg += 1;
                 suburbs.get(json.address.suburb).numberWrongCateg += 1;
             }
+            break;
         }
     }
     let citiesSorted = new Map([...cities].sort((a, b) => {
