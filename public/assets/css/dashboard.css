@@ -45,7 +45,11 @@ input[type="submit"] {
 
 .wrapper {
     display: flex;
-    justify-content: space-between;   
+    justify-content: space-between;
+}
+
+.table-wrapper {
+    overflow-x: auto;
 }
 
 .wrapper .col {
@@ -55,6 +59,27 @@ input[type="submit"] {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
+
+table td, th {
+    padding: 10px 20px;
+}
+
+table tr {
+    background: #fff;
+    border-bottom: 10px solid #f9f9f9;
+}
+
+thead th {
+    text-align: left;
+    background-color: #f9f9f9;
+}
+
+table {
+    width: 100%;
+    white-space: nowrap;
+    border-collapse: collapse;
+    margin-bottom: 35px;
+}
 @media screen and (max-width: 1100px) {
     .wrapper .col {
         padding: 10px 25px;

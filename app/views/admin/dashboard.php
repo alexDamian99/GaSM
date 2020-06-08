@@ -33,6 +33,7 @@
         </nav>
         <nav id="mobile-navbar">
             <ul id="mobile-navbar-buttons">
+                <li><a href="<?= getenv("path_to_public") ?>/admin">Dashboard</a></li>
                 <li><a href="<?= getenv("path_to_public") ?>/admin/campaigns">Campaigns</a></li>
                 <li><a href="<?= getenv("path_to_public") ?>/admin/users">Users</a></li>
                 <li><a href="<?= getenv("path_to_public") ?>/admin/reports">Reports</a></li>
@@ -74,6 +75,27 @@
                         <input class="btn btn-green" type="submit">
                     </form>
                 </div>
+            </div>
+        </section>
+        <section class="container">
+            <h2>Companies</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <th>Company id</th>
+                        <th>Employee username</th>
+                        <th>Verified</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach($data['companyUsers'] as $companyUser) {?>
+                            <tr>        
+                                <td><?=$companyUser['id_comp']?></td>
+                                <td><?=$companyUser['username']?></td>
+                                <td><input <?=($companyUser['verified'] == 1? "checked": "")?> onclick="verifyUser('<?=$companyUser['username']?>')" type="checkbox"/></td>
+                            </tr>
+                        <?php }?>
+                    </tbody>
+                </table>
             </div>
         </section>
     </main>

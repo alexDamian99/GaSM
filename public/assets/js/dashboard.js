@@ -16,4 +16,21 @@ window.addEventListener("load", () => {
         xmlH.open("POST", "statistics");
         xmlH.send(data);
     });
-})
+});
+
+function verifyUser(userName) {
+    let xmlH = new XMLHttpRequest();
+    let data = new FormData();
+    data.append('username', userName);
+    xmlH.onreadystatechange = () => {
+        if(xmlH.readyState == 4) {
+            if( xmlH.status == 200) {
+                alert("Succesfully verified user!");
+            } else {
+                alert("Failed to verify user!");
+            }
+        }
+    }
+    xmlH.open("POST", "edit_profile/verify");
+    xmlH.send(data);
+}

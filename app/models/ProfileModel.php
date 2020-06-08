@@ -194,6 +194,26 @@ class ProfileModel
         return true;
     }
 
+    public function getCompanyUsers() {
+        $query = "select * from users where id_comp is not null";
+        $getStmt = $this->conn->prepare($query);
+        $getStmt->execute();
+        $foundUsers = $getStmt->get_result();
+        $results = [];
+        foreach ($foundUsers as $u) {
+            $results[] = $u;
+        }
+        $getStmt->close();
+        return $results;
+    }
+
+    public function verifyUser($username) {
+        $query = "update users set verified=case when verified = 1 then 0 when verified = 0 then 1 end where username = ?";
+        $update_stmt = $this->conn->prepare($query);
+        $update_stmt->bind_param("s", $username);
+        $update_stmt->execute();
+    }
+
     public function getErrors()
     {
         return $this->errors;

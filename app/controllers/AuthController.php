@@ -56,6 +56,7 @@ class AuthController extends Controller
                 'data' => array(
                     'username' => $username,
                     'id_comp' => $this->model->getIdComp($username),
+                    'id' => $this->model->getUserId($username),
                     'verified' => $this->model('ReportModel')->getVerified($username)
                 )
             );

@@ -39,6 +39,17 @@ class LoginModel
         return $id_comp;
     }
 
+    public function getUserId($username)
+    {
+        $query = "Select id from users where username = ?";
+        $getStmt = $this->conn->prepare($query);
+        $getStmt->bind_param("s", $username);
+        $getStmt->execute();
+        $id = mysqli_fetch_assoc($getStmt->get_result())['id'];
+        $getStmt->close();
+        return $id;
+    }
+
     public function getRegister($username, $password, $name, $email, $id_comp)
     {
         // check if username or email does not already exist in db
