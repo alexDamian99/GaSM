@@ -85,21 +85,18 @@ if ($data[2]) {
                 <a class="<?php if ($page <= 1) {
                                 echo "disabled";
                             } ?>"
-                    href="<?php $query['pg'] = $page - 1;
-                                                                            echo getenv('path_to_public') . "/campaigns$search" . "?" . http_build_query($query) ?>">
-                    << /a> <?php for ($i = $start_page; $i <= $stop_page; $i++) { ?> <a
-                            class="<?= ($page == $i) ? "page-active" : '' ?>"
-                            href="<?php $query['pg'] = $i;
-                                                                                                                                            echo getenv('path_to_public') . "/campaigns$search" . "?" . http_build_query($query) ?>">
+                    href="<?php $query['pg'] = $page - 1; echo getenv('path_to_public') . "/campaigns$search" . "?" . http_build_query($query) ?>">
+                    < </a> 
+                    <?php for ($i = $start_page; $i <= $stop_page; $i++) { ?> 
+                        <a class="<?= ($page == $i) ? "page-active" : '' ?>"
+                            href="<?php $query['pg'] = $i; echo getenv('path_to_public') . "/campaigns$search" . "?" . http_build_query($query) ?>">
                             <?= $i ?>
                         </a>
 
                         <?php } ?>
                         <a class="<?php if ($page >= $total_pages) {
                             echo "disabled";
-                        } ?>"
-                            href="<?php $query['pg'] = $page + 1;
-                                                                                    echo getenv('path_to_public') . "/campaigns$search" . "?" . http_build_query($query) ?>">></a>
+                        } ?>" href="<?php $query['pg'] = $page + 1; echo getenv('path_to_public') . "/campaigns$search" . "?" . http_build_query($query) ?>">></a>
             </div>
         </div>
     </main>
