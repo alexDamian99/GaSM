@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <h1 class="text">
-                    My profile details
+                    Welcome <?=$_SESSION['username']?>
                 </h1>
                 <label>
                     <span class="text">Name</span>
