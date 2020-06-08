@@ -111,12 +111,13 @@ function TimePeriodStats(res, arrayForDataTableMonth, arrayForDataTableYear, arr
                 months.get(month).numberDecongestions += 1;
                 days.get(day).numberDecongestions += 1;
                 years.get(year).numberDecongestions += 1;
-
+                break;
             }
             case 2: {
                 months.get(month).numberWrongCateg += 1;
                 days.get(day).numberWrongCateg += 1;
                 years.get(year).numberWrongCateg += 1;
+                break;
             }
         }
     }
