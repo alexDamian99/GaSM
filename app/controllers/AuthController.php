@@ -56,13 +56,14 @@ class AuthController extends Controller
                 'data' => array(
                     'username' => $username,
                     'id_comp' => $this->model->getIdComp($username),
-                    'id' => $this->model->getUserId($username)
+                    'id' => $this->model->getUserId($username),
+                    'verified' => $this->model('ReportModel')->getVerified($username)
                 )
             );
 
             $jwt = JWT::encode($token, JWT_KEY);
 
-            $response['status_code_header'] = 'HTTP/1.1 201 Created';
+            $response['status_code_header'] = 'HTTP/1.1 200 OK';
             $response['body'] = json_encode(['jwt' => $jwt]);
             return $response;
         } else {

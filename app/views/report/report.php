@@ -27,43 +27,44 @@
         </div>
         <script src="<?= getenv("path_to_public") ?>/assets/js/report-map.js"></script>
 
-        <div class="report">
-            <button id="report-btn" onclick="extend('recycle-form', 'arrow3')">
-                <span>Mark a new recycle point</span>
-                <i id="arrow3" class="arrow down"></i>
-            </button>
+        <?php
+        if (isset($_SESSION['id_comp'])) {
+            echo
+                '<div class="report">
+                <button id="report-btn" onclick="extend(\'recycle-form\', \'arrow3\')">
+                    <span>Mark a new recycle point</span>
+                    <i id="arrow3" class="arrow down"></i>
+                </button>
 
-            <form id="recycle-form" action="" method="POST">
-                <label class="input-location">
-                    <span>Location</span> <br />
-                    <input id="location-input" class="input" type="text" name="location-recycle" placeholder="Lat, Lon"
-                        required />
-                    <a href="#" onclick="getLocation()"><i class="fa fa-map-marker" style="font-size:24px"></i></a>
-                </label>
+                <form id="recycle-form" action="" method="POST">
+                    <label class="input-location">
+                        <span>Location</span> <br />
+                        <input id="location-input-recycling" class="input" type="text" name="location-recycle" placeholder="Lat, Lon"
+                            required />
+                        <a href="#" onclick="getLocation(\'recycling\')"><i class="fa fa-map-marker" style="font-size:24px"></i></a>
+                    </label>
 
-                <br />
-                <label>
-                    <span>Garbage type</span> <br />
-                    <select name="type-recycle">
-                        <option value="organic">Organic</option>
-                        <option value="paper">Paper</option>
-                        <option value="plastic">Plastic</option>
-                        <option value="glass">Glass</option>
-                        <option value="metal">Metal</option>
-                        <option value="mixed">Mixed</option>
-                    </select>
-                </label>
+                    <br />
+                    <label>
+                        <span>Garbage type</span> <br />
+                        <select name="type-recycle">
+                            <option value="organic">Organic</option>
+                            <option value="paper">Paper</option>
+                            <option value="plastic">Plastic</option>
+                            <option value="glass">Glass</option>
+                            <option value="metal">Metal</option>
+                            <option value="mixed">Mixed</option>
+                        </select>
+                    </label>';
 
-                <?php
-                foreach ($data['recycle_points'] as $recyclePoint)
-                    echo '<script>addPointToMap(' . $recyclePoint['location'] . ', ' . $recyclePoint['id'] . ', "' . $recyclePoint['type'] . '")</script>';
-                ?>
-
-                <br />
-
+            echo '<br />
                 <button type="submit" class="send" name="submit-recycle">Send</button>
-            </form>
-        </div>
+                </form>
+                </div>';
+        }
+        foreach ($data['recycle_points'] as $recyclePoint)
+            echo '<script>addPointToMap(' . $recyclePoint['location'] . ', ' . $recyclePoint['id'] . ', "' . $recyclePoint['type'] . '")</script>';
+        ?>
 
         <div class="report">
             <button id="report-btn" onclick="extend('report-form', 'arrow1')">
@@ -74,9 +75,10 @@
             <form id="report-form" action="" method="POST">
                 <label class="input-location">
                     <span>Location</span> <br />
-                    <input id="location-input" class="input" type="text" name="location-report" placeholder="Lat, Lon"
-                        required />
-                    <a href="#" onclick="getLocation()"><i class="fa fa-map-marker" style="font-size:24px"></i></a>
+                    <input id="location-input-report" class="input" type="text" name="location-report"
+                        placeholder="Lat, Lon" required />
+                    <a href="#" onclick="getLocation('report')"><i class="fa fa-map-marker"
+                            style="font-size:24px"></i></a>
                 </label>
 
                 <br />
@@ -142,7 +144,7 @@
                                     <i id="dislike-btn" class="fa fa-thumbs-down ' . $btn_dislike_class . '" 
                                         data-id="' . $activeReport['id'] . '" ' . $dislike_permission . '>' . $dislikes . '</i>
                                 </div>';
-                    if (isset($_SESSION['id_comp']))
+                    if (isset($_SESSION['id_comp']) && $data['verified'] == 1)
                         echo '<form action="" method="POST">
                                     <input type="text" hidden value="' . $activeReport['id'] . '" name="report_id">
                                     <button type="submit" class="send" name="done">Done</button>
