@@ -61,7 +61,7 @@ class AuthController extends Controller
 
             $jwt = JWT::encode($token, JWT_KEY);
 
-            $response['status_code_header'] = 'HTTP/1.1 201 Created';
+            $response['status_code_header'] = 'HTTP/1.1 200 OK';
             $response['body'] = json_encode(['jwt' => $jwt]);
             return $response;
         } else {
