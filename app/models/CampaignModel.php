@@ -9,7 +9,7 @@ class CampaignModel {
         $this->conn = Database::getInstance()->getConn();
     }
 
-    public function insertCampaign($title, $description, $location, $date, $image = 'default.jpg') {
+    public function insertCampaign($title, $description, $location, $date, $image = 'default.jpg', $user_id = -1) {
         $query = "insert into campaigns(user_id, title, description, event_date, image_name, location) values (?, ?, ?, ?, ?, ?)";    
         $banner_image_uploaded = true;
         $filename = 'default.jpg';
@@ -62,13 +62,13 @@ class CampaignModel {
         }else{
             //uploading the rest of content to the database
             $insert_stmt = $this->conn->prepare($query);
-
-            $stmt= $this->conn->prepare("Select * from users where username like ?");
-            $stmt->bind_param("s", $_SESSION["username"]);
-            $stmt->execute();
-            $user_id = mysqli_fetch_assoc($stmt->get_result())['id'];
-
-            $insert_stmt->bind_param("isssss", $user_id, $title, $description, $date, $filename, $location);
+            if($user_id == -1) {
+                $stmt= $this->conn->prepare("Select * from users where username like ?");
+                $stmt->bind_param("s", $_SESSION["username"]);
+                $stmt->execute();
+                $user_id = mysqli_fetch_assoc($stmt->get_result())['id'];
+            }
+            $insert_stmt->bind_param("isssss", intval($user_id), $title, $description, $date, $filename, $location);
             if(!$insert_stmt->execute()){
                 array_push($this->errors, "Failed to create campaign: " . $insert_stmt->error);
             }
@@ -79,6 +79,23 @@ class CampaignModel {
     public function getNCampaigns($offset, $length=9) {
         $query = "select c.id, c.title, c.description, c.location, c.event_date, c.image_name, u.username 
                     from campaigns c join users u on c.user_id = u.id order by c.id desc limit $offset, $length";
+        $get_stmt = $this->conn->prepare($query);
+        if(!$get_stmt->execute()){
+            array_push($this->errors, $get_stmt->error);
+            return;
+        }
+        $found_campaigns = $get_stmt->get_result();
+        $results = [];
+        foreach ($found_campaigns as $c) {
+            $results[] = $c;
+        }
+        $get_stmt->close();
+        return $results;
+    }
+
+    public function getAllCampaigns() {
+        $query = "select c.id, c.title, c.description, c.location, c.event_date, c.image_name, u.username 
+                    from campaigns c join users u on c.user_id = u.id order by c.id desc";
         $get_stmt = $this->conn->prepare($query);
         if(!$get_stmt->execute()){
             array_push($this->errors, $get_stmt->error);

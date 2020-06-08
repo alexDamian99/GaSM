@@ -2,6 +2,7 @@
 // https://developer.okta.com/blog/2019/03/08/simple-rest-api-php
 
 require_once('../app/controllers/ReportController.php');
+require_once('../app/controllers/CampaignController.php');
 require_once('../app/controllers/AuthController.php');
 
 header("Access-Control-Allow-Origin: *");
@@ -29,15 +30,24 @@ class Api extends Controller
         }
 
         $requestMethod = $_SERVER['REQUEST_METHOD'];
-
         $controller = new ReportController($requestMethod, $reportId);
+        $controller->processRequest();
+    }
+
+    public function campaigns($params) 
+    {
+        $campaignId = null;
+        if(isset($params[0])) {
+            $campaignId = intval($params[0]);
+        }
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
+        $controller = new CampaignController($requestMethod, $campaignId);
         $controller->processRequest();
     }
 
     public function auth()
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
-
         $controller = new AuthController($requestMethod);
         $controller->processRequest();
     }
