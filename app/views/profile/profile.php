@@ -24,29 +24,30 @@
 
             <ul class="profile_container__menu">
                 <li><button class="button" onclick="showReports()">My reports </button></li>
-                <li><button class="button" onclick="showEvents()"> Events </button></li>
+                <li><button class="button" onclick="showEvents()"> My Campaigns </button></li>
             </ul>
 
             <ul class="profile_container__feed">
-                <div id="profile_container__feed__reports">
-                    <?php
-                    foreach ($data[0] as $activeReport) {
-                        echo '<li>';
-                        echo $activeReport['location'];
-                        echo $activeReport['type'];
-                        echo '</li>';
-                    }
+                <div  id="profile_container__feed__reports">
+                    <?php 
+                        foreach ($data[0] as $activeReport){ ?>
+                            <li>
+                                <a href="https://gasm-tw.herokuapp.com/report/<?=$activeReport['id']?>"> Report </a>
+                            </li>
+                        <?php   }
                     ?>
                 </div>
 
-                <div id="profile_container__feed__events">
-                    <?php
-                    foreach ($data[1] as $activeEvent) {
-                        echo '<li>';
-                        echo $activeEvent['title'];
-                        echo $activeEvent['location'];
-                        echo '</li>';
-                    }
+                <div  id="profile_container__feed__events">
+                    <?php 
+                        foreach ($data[1] as $activeEvent){
+                            ?>
+                            <li>
+                                <h3> <?=$activeEvent['title']?> </h3>
+                                <span> <?=$activeEvent['description']?> </span> <br><br>
+                                <a href="https://gasm-tw.herokuapp.com/report/<?=$activeReport['id']?>"> Campaign link </a>
+                            </li>
+                    <?php   }
                     ?>
                 </div>
             </ul>
