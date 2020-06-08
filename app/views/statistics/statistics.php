@@ -6,10 +6,14 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL,fetch"></script>
+    <script
+        src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL,fetch">
+    </script>
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
     <script type="text/javascript" src="assets/js/statistics.js" defer></script>
-    <link rel="stylesheet" type="text/css" href="<?=getenv("path_to_public")?>/assets/css/statistics.css">
+    <link rel="stylesheet" type="text/css" href="<?= getenv("path_to_public") ?>/assets/css/statistics.css">
+    <title>GaSM | Statistics</title>
+    <meta name="description" content="View statistics">
 </head>
 
 <body>
@@ -31,24 +35,25 @@
         <div class="stats_row">
             <div class="stats_row__chart" id="chart_div_cities"></div>
         </div>
-        
+
         <div class="stats_row">
             <div class="stats_row__chart" id="chart_div_suburbs"></div>
         </div>
 
         <div class="export_div">
-            <?php if(isset($data['pdf']) && $data['pdf'] == 1) {?>
-                <button class="btn btn-green" id="download_pdf" >Export PDF</button>
-            <?php }?>
-            <?php if(isset($data['html']) && $data['html'] == 1) {?>
-                <button class="btn btn-green" onclick="download_html()">Export HTML</button>
-            <?php }?>
-            <?php if(isset($data['csv']) && $data['csv'] == 1) {?>
-                <button class="btn btn-green" onclick="download_csv()">Export CSV</button>
-            <?php }?>
+            <?php if (isset($data['pdf']) && $data['pdf'] == 1) { ?>
+            <button class="btn btn-green" id="download_pdf">Export PDF</button>
+            <?php } ?>
+            <?php if (isset($data['html']) && $data['html'] == 1) { ?>
+            <button class="btn btn-green" onclick="download_html()">Export HTML</button>
+            <?php } ?>
+            <?php if (isset($data['csv']) && $data['csv'] == 1) { ?>
+            <button class="btn btn-green" onclick="download_csv()">Export CSV</button>
+            <?php } ?>
         </div>
     </main>
 
     <?php include('../app/views/templates/footer.php'); ?>
 </body>
+
 </html>

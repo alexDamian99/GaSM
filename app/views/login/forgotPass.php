@@ -8,7 +8,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="<?php echo getenv("path_to_public"); ?>/assets/js/register.js"></script>
-    <title>GaSM | Recover account</title>
+    <title>GaSM | </title>
+    <meta name="description" content="Recover account">
+
 </head>
 
 <body>
