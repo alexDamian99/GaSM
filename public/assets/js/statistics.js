@@ -374,8 +374,8 @@ function download_csv() {
 }
 
 
-function download_html(filename, text) {
-    let html = document.querySelector("html");
+function download_html() {
+    let html = document.getElementsByTagName("html");
 
     let content = html.innerHTML;
     var hiddenElement = document.createElement('a');
