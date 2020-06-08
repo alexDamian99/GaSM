@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 include_once '../app/core/jwt/jwt_params.php';
 include_once '../app/core/jwt/php-jwt-master/src/BeforeValidException.php';
@@ -8,36 +8,35 @@ include_once '../app/core/jwt/php-jwt-master/src/JWT.php';
 
 use \Firebase\JWT\JWT;
 
-class ReportController extends Controller
-{
+class CampaignController extends Controller {
 
     private $requestMethod;
-    private $reportId;
+    private $campaignId;
 
     private $model;
 
-    public function __construct($requestMethod, $reportId)
+    public function __construct($requestMethod, $campaignId)
     {
         $this->requestMethod = $requestMethod;
-        $this->reportId = $reportId;
-        $this->model = $this->model('ReportModel');
+        $this->campaignId = $campaignId;
+        $this->model = $this->model('CampaignModel');
     }
 
     public function processRequest()
     {
         switch ($this->requestMethod) {
             case 'GET':
-                if ($this->reportId) {
-                    $response = $this->getReport($this->reportId);
+                if ($this->campaignId) {
+                    $response = $this->getCampaign($this->campaignId);
                 } else {
-                    $response = $this->getAllReports();
+                    $response = $this->getAllCampaigns();
                 };
                 break;
             case 'POST':
-                $response = $this->createReport();
+                $response = $this->createCampaign();
                 break;
             case 'DELETE':
-                $response = $this->deleteReport($this->reportId);
+                $response = $this->deleteCampaign($this->campaignId);
                 break;
             default:
                 $response = $this->notFoundResponse();
@@ -49,17 +48,17 @@ class ReportController extends Controller
         }
     }
 
-    private function getAllReports()
+    private function getAllCampaigns()
     {
-        $result = $this->model->getActiveReports();
+        $result = $this->model->getAllCampaigns();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
     }
 
-    private function getReport($id)
+    private function getCampaign($id)
     {
-        $result = $this->model->getActiveReport($id);
+        $result = $this->model->getCampaignById($id);
         if (!$result) {
             return $this->notFoundResponse();
         } else {
@@ -69,47 +68,49 @@ class ReportController extends Controller
         }
     }
 
-    private function createReport()
+    private function createCampaign()
     {
         $input = (array) json_decode(file_get_contents('php://input'), TRUE);
-        if (!$this->validateReport($input)) {
+        if (!$this->validateCampaign($input)) {
             return $this->unprocessableEntityResponse();
         } else {
-            $user = 'Anonymous';
             if (isset($input['jwt'])) {
                 try {
                     $decodedJwt = JWT::decode($input['jwt'], JWT_KEY, array('HS256'));
-                    $user = $decodedJwt->data->username;
+                    $userId = $decodedJwt->data->id;
+                    $this->model->insertCampaign($input['title'], $input['description'], 
+                                        (isset($input['location'])?$input['location']:''),
+                                        (isset($input['date'])?$input['date']:'0000-00-00'), 
+                                        "default.jpg",
+                                        $userId
+                                    );
+                    $response['status_code_header'] = 'HTTP/1.1 201 Created';
+                    $response['body'] = null;
+                    return $response;
                 } catch (Exception $e) {
                     return $this->unauthorizedResponse();
                 }
+            }  else {
+                return $this->unauthorizedResponse();
             }
-
-            date_default_timezone_set('Europe/Bucharest');
-            $date = date('Y-m-d H:i:s');
-
-            $this->model->doReport($input['type'], $input['location'], $date, $user);
-            $response['status_code_header'] = 'HTTP/1.1 201 Created';
-            $response['body'] = null;
-            return $response;
         }
     }
 
-    private function deleteReport($id)
+    private function deleteCampaign($id)
     {
         $input = (array) json_decode(file_get_contents('php://input'));
         if (isset($input['jwt'])) {
             try {
                 $decodedJwt = JWT::decode($input['jwt'], JWT_KEY, array('HS256'));
                 $user = $decodedJwt->data;
-                if ($user->id_comp == null || $user->verified == 0) {
+                if ($user->id_comp == null) {
                     return $this->unauthorizedResponse();
                 } else {
-                    $result = $this->model->getActiveReport($id);
+                    $result = $this->model->getCampaignById($id);
                     if (!$result) {
                         return $this->notFoundResponse();
                     } else {
-                        $this->model->deleteReport($id);
+                        $this->model->deleteCampaign($id);
                         $response['status_code_header'] = 'HTTP/1.1 200 OK';
                         $response['body'] = null;
                         return $response;
@@ -122,9 +123,9 @@ class ReportController extends Controller
             return $this->unauthorizedResponse();
     }
 
-    private function validateReport($input)
+    private function validateCampaign($input)
     {
-        if (!isset($input['type']) || !isset($input['location']))
+        if (!isset($input['title']) || !isset($input['description']))
             return false;
         return true;
     }

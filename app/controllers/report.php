@@ -22,12 +22,16 @@ class Report extends Controller
         $dislikedReports = $this->model->getDislikedReports($username);
         $likes = $this->model->getTotalLikes();
         $dislikes = $this->model->getTotalDislikes();
+        $verified = 0;
+        if($username !== '') {
+            $verified = $this->model->getVerified($username);
+        }
 
         $this->view('report/report', [
             'recycle_points' => $reyclePoints,
             'active_reports' => $activeReports,
             'liked_reports' => $likedReports, 'disliked_reports' => $dislikedReports,
-            'likes' => $likes, 'dislikes' => $dislikes
+            'likes' => $likes, 'dislikes' => $dislikes, 'verified' => $verified
         ]);
 
         if (isset($_POST['submit-report'])) {

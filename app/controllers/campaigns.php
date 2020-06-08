@@ -29,11 +29,10 @@ class Campaigns extends Controller{
             $view = 'campaigns/campaign';
             
             $campaign_info = $this->model->getCampaignById($params[0]);
-            $user = $this->model->getUserById($campaign_info['user_id']);
             if(empty($campaign_info)){//if the id is wrong
                 $this->view('404');
             }else{
-                $this->view($view, ["campaign" => $campaign_info, "user" => $user]);
+                $this->view($view, ["campaign" => $campaign_info]);
             }
             
         }

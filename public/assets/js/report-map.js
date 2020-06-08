@@ -41,8 +41,8 @@ map.on('click', function(evt) {
 var temp_marker = null;
 var vectorSource = new ol.source.Vector();
 
-function getLocation() {
-    let locationField = document.getElementById('location-input');
+function getLocation(type) {
+    let locationField = document.getElementById('location-input-' + type);
     map.on('click', function(evt) {
         let loc = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326')
         let lon = loc[0].toFixed(6);
@@ -86,6 +86,7 @@ function addPointToMap(lat, lon, report_id, report_type) {
             src: 'assets/images/placeholders/placeholder_' + placeholderType + '.png'
         })
     });
+
     marker.setStyle(markerStyle);
 
     vectorSource = new ol.source.Vector({

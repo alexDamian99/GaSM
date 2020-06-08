@@ -9,7 +9,7 @@ class CampaignModel {
         $this->conn = Database::getInstance()->getConn();
     }
 
-    public function insertCampaign($title, $description, $location, $date, $image = 'default.jpg') {
+    public function insertCampaign($title, $description, $location, $date, $image = 'default.jpg', $user_id = -1) {
         $query = "insert into campaigns(user_id, title, description, event_date, image_name, location) values (?, ?, ?, ?, ?, ?)";    
         $banner_image_uploaded = true;
         $filename = 'default.jpg';
@@ -62,13 +62,13 @@ class CampaignModel {
         }else{
             //uploading the rest of content to the database
             $insert_stmt = $this->conn->prepare($query);
-
-            $stmt= $this->conn->prepare("Select * from users where username like ?");
-            $stmt->bind_param("s", $_SESSION["username"]);
-            $stmt->execute();
-            $user_id = mysqli_fetch_assoc($stmt->get_result())['id'];
-
-            $insert_stmt->bind_param("isssss", $user_id, $title, $description, $date, $filename, $location);
+            if($user_id == -1) {
+                $stmt= $this->conn->prepare("Select * from users where username like ?");
+                $stmt->bind_param("s", $_SESSION["username"]);
+                $stmt->execute();
+                $user_id = mysqli_fetch_assoc($stmt->get_result())['id'];
+            }
+            $insert_stmt->bind_param("isssss", intval($user_id), $title, $description, $date, $filename, $location);
             if(!$insert_stmt->execute()){
                 array_push($this->errors, "Failed to create campaign: " . $insert_stmt->error);
             }
@@ -77,7 +77,8 @@ class CampaignModel {
     }
 
     public function getNCampaigns($offset, $length=9) {
-        $query = "select * from campaigns order by event_date desc limit $offset, $length";
+        $query = "select c.id, c.title, c.description, c.location, c.event_date, c.image_name, u.username 
+                    from campaigns c join users u on c.user_id = u.id order by c.id desc limit $offset, $length";
         $get_stmt = $this->conn->prepare($query);
         if(!$get_stmt->execute()){
             array_push($this->errors, $get_stmt->error);
@@ -88,6 +89,24 @@ class CampaignModel {
         foreach ($found_campaigns as $c) {
             $results[] = $c;
         }
+        $get_stmt->close();
+        return $results;
+    }
+
+    public function getAllCampaigns() {
+        $query = "select c.id, c.title, c.description, c.location, c.event_date, c.image_name, u.username 
+                    from campaigns c join users u on c.user_id = u.id order by c.id desc";
+        $get_stmt = $this->conn->prepare($query);
+        if(!$get_stmt->execute()){
+            array_push($this->errors, $get_stmt->error);
+            return;
+        }
+        $found_campaigns = $get_stmt->get_result();
+        $results = [];
+        foreach ($found_campaigns as $c) {
+            $results[] = $c;
+        }
+        $get_stmt->close();
         return $results;
     }
 
@@ -95,7 +114,9 @@ class CampaignModel {
         $query = "select count(*) from campaigns";
         $get_stmt = $this->conn->prepare($query);
         $get_stmt->execute();
-        return mysqli_fetch_array($get_stmt->get_result())[0];
+        $result = mysqli_fetch_array($get_stmt->get_result())[0];
+        $get_stmt->close();
+        return $result;
     }
 
     public function searchCampaigns($key) {
@@ -110,26 +131,34 @@ class CampaignModel {
     }
 
     public function getCampaignById($id) {
-        $query = "select * from campaigns where id = ?";
+        $query = "select c.id, c.title, c.description, c.location, c.event_date, c.image_name, u.name, u.photo 
+                  from campaigns c join users u on c.user_id = u.id where c.id = ?";
         $get_stmt = $this->conn->prepare($query);
         $get_stmt->bind_param("i", $id);
         if(!$get_stmt->execute()) {
             array_push($this->errors, $get_stmt->error);
+            $get_stmt->close();
             return;
         }
-        return mysqli_fetch_assoc($get_stmt->get_result());
+        $result = mysqli_fetch_assoc($get_stmt->get_result());
+        $get_stmt->close();
+        return $result;
     }
 
+    public function deleteCampaign($id) {
+        $delete_stmt = $this->conn->prepare('delete from campaigns where id = ?');
+        $delete_stmt->bind_param("i", $id);
+        if(!$delete_stmt->execute()) {
+            array_push($this->errors, $delete_stmt->error);
+            echo $delete_stmt->error;
+            $delete_stmt->close();
+            return false;
+        }
+        $delete_stmt->close();
+        return true;
+    }
+    
     public function getErrors() {
         return $this->errors;
     }
-
-    public function getUserById($user_id) {
-        $getStmt = $this->conn->prepare('SELECT * FROM users where id=?');
-        $getStmt->bind_param('i', $user_id);
-        $getStmt->execute();
-        $user = mysqli_fetch_assoc($getStmt->get_result());
-        return $user;
-    }
-
 }

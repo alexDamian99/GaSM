@@ -13,7 +13,7 @@ class Database
         //     'password' => '',
         //     'db' => 'gasm'
         // ];
-        
+
         // $this->conn = new mysqli($CONFIG["servername"], $CONFIG["username"], $CONFIG["password"], $CONFIG["db"]);
         $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
@@ -42,5 +42,3 @@ class Database
         return $this->conn;
     }
 }
-
-

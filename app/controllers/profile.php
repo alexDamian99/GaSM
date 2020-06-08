@@ -19,7 +19,7 @@ class Profile extends Controller
             $image = $this->model->getPhoto($username);
             $activeReports = $this->model->getActiveReportsFor($_SESSION["username"]);
             $activeCampaigns = $this->model->getActiveCampaignsFor($_SESSION["username"]);
-            $_SESSION["profile_photo"] = "https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/" . $image;
+            $_SESSION["profile_photo"] = "https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/" . ((!empty($image))?$image:"default_photo.png");
             $this->view('profile/profile', [$activeReports, $activeCampaigns]);
         } else {
             header("Location: " . getenv('path_to_public') . "/signin"); //redirect to signin
