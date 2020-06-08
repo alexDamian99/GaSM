@@ -45,7 +45,7 @@
                             <li>
                                 <h3> <?=$activeEvent['title']?> </h3>
                                 <span> <?=$activeEvent['description']?> </span> <br><br>
-                                <a href="https://gasm-tw.herokuapp.com/campaigns/id/<?=$activeReport['id']?>"> Campaign link </a>
+                                <a href="https://gasm-tw.herokuapp.com/campaigns/id/<?=$activeEvent['id']?>"> Campaign link </a>
                             </li>
                     <?php   }
                     ?>
