@@ -192,11 +192,11 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
         }
     }
     let citiesSorted = new Map([...cities].sort((a, b) => {
-        return sum(a.numberDecongestions, a.numberWrongCateg) - sum(b.numberDecongestions, b.numberWrongCateg);
+        return (a.numberDecongestions + a.numberWrongCateg) - (b.numberDecongestions + b.numberWrongCateg);
     }
     ));
     let suburbsSorted = new Map([...suburbs].sort((a, b) => {
-        return sum(a.numberDecongestions, a.numberWrongCateg) - sum(b.numberDecongestions, b.numberWrongCateg);
+        return (a.numberDecongestions + a.numberWrongCateg) - (b.numberDecongestions + b.numberWrongCateg);
     }
     ));
 
