@@ -167,8 +167,8 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
     
     for (let report of res) {
         let lon, lat, json;
-        lon = report.location.split(",")[0];
-        lat = report.location.split(",")[1];
+        lat = report.location.split(",")[0];
+        lon = report.location.split(",")[1];
         json = await GetLocationJson(lon, lat);
         console.log(json);
         // function(json){
