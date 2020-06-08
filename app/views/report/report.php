@@ -144,7 +144,7 @@
                                     <i id="dislike-btn" class="fa fa-thumbs-down ' . $btn_dislike_class . '" 
                                         data-id="' . $activeReport['id'] . '" ' . $dislike_permission . '>' . $dislikes . '</i>
                                 </div>';
-                    if (isset($_SESSION['id_comp']))
+                    if (isset($_SESSION['id_comp']) && $data['verified'] == 1)
                         echo '<form action="" method="POST">
                                     <input type="text" hidden value="' . $activeReport['id'] . '" name="report_id">
                                     <button type="submit" class="send" name="done">Done</button>

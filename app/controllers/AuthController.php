@@ -55,7 +55,8 @@ class AuthController extends Controller
                 'ext' => JWT_EXP,
                 'data' => array(
                     'username' => $username,
-                    'id_comp' => $this->model->getIdComp($username)
+                    'id_comp' => $this->model->getIdComp($username),
+                    'verified' => $this->model('ReportModel')->getVerified($username)
                 )
             );
 
