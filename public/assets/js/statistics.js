@@ -379,6 +379,6 @@ function download_html(filename, text) {
     var hiddenElement = document.createElement('a');
     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(content);
     hiddenElement.target = '_blank';
-    hiddenElement.download = 'statistics.csv';
+    hiddenElement.download = 'statistics.html';
     hiddenElement.click();
 }
