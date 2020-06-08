@@ -40,6 +40,7 @@
         </nav>
         <nav id="mobile-navbar">
             <ul id="mobile-navbar-buttons">
+                <li><a href="<?= getenv("path_to_public") ?>/admin">Dashboard</a></li>
                 <li><a href="<?= getenv("path_to_public") ?>/admin/campaigns">Campaigns</a></li>
                 <li><a href="<?= getenv("path_to_public") ?>/admin/users">Users</a></li>
                 <li><a href="<?= getenv("path_to_public") ?>/admin/reports">Reports</a></li>

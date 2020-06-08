@@ -11,11 +11,13 @@ class Admin extends Controller {
             $userCount = $this->model('ProfileModel')->countUsers();
             $campaignCount = $this->model('CampaignModel')->countCampaigns();
             $reportCount = $this->model('ReportModel')->countReports();
+            $companyUsers = $this->model('ProfileModel')->getCompanyUsers();
             $this->view('admin/dashboard', 
                 ["types" => $types, 
                 "reportCount" => $reportCount, 
                 "userCount" => $userCount, 
-                "campaignCount" => $campaignCount]);
+                "campaignCount" => $campaignCount,
+                "companyUsers" => $companyUsers]);
         } else {
             header("Location: " . getenv('path_to_public') . "/admin/login"); //redirect to login
         }

@@ -68,4 +68,15 @@ class Edit_profile extends Controller
         
         
     }
+
+    public function verify() {
+        print_r($_POST);
+        if(isset($_POST['username']) && !empty($_POST['username'])) {
+            $this->model->verifyUser($_POST['username']);
+            echo "ok";
+        }
+        else {
+            echo "not ok";
+        }
+    }
 }
