@@ -29,8 +29,7 @@
                     <?php 
                         foreach ($data[0] as $activeReport){
                             echo '<li>';
-                                echo $activeReport['location'];
-                                echo $activeReport['type'];
+                                echo `<a href="https://gasm-tw.herokuapp.com/report/$activeReport['id']"> Report </a>`;
                             echo '</li>';
                         }
                     ?>
@@ -40,8 +39,9 @@
                     <?php 
                         foreach ($data[1] as $activeEvent){
                             echo '<li>';
-                                echo $activeEvent['title'];
-                                echo $activeEvent['location'];
+                                echo `<h3> $activeEvent['title'] </h3>`;
+                                echo `<span> $activeEvent['description'] </span>`;
+                                echo `<a href="https://gasm-tw.herokuapp.com/campaigns/id/$activeEvent['id']"> Campaign link </a>`;
                             echo '</li>';
                         }
                     ?>
