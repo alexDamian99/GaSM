@@ -87,7 +87,7 @@ $stop_page = ($page + 1 > $total_pages) ? $page : (($page + 2 >= $total_pages) ?
                                 echo "disabled";
                             } ?>"
                     href="<?= getenv('path_to_public') . "/admin/" . strtolower($data['type']) . "/" . ($page - 1) ?>">
-                    << /a> <?php for ($i = $start_page; $i <= $stop_page; $i++) { ?> <a
+                    <</a> <?php for ($i = $start_page; $i <= $stop_page; $i++) { ?> <a
                             class="<?= ($page == $i) ? "page-active" : '' ?>"
                             href="<?= getenv('path_to_public') . "/admin/" . strtolower($data['type']) . "/" . $i ?>">
                             <?= $i ?>
