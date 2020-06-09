@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="<?= getenv("path_to_public") ?>/assets/js/register.js"></script>
     <title>GaSM | Recover account</title>
+    <meta name="description" content="Recover account">
 </head>
 
 <body>

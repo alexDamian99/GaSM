@@ -1,10 +1,10 @@
 loadStatisticsData();
 
 
-class MapValueFactory{
-    static CreateMapValue(){
+class MapValueFactory {
+    static CreateMapValue() {
         return new MapValue();
-    } 
+    }
 }
 
 class MapValue {
@@ -48,11 +48,11 @@ class MapWithDefault extends Map {
 }
 
 
-function Get(yourUrl){
+function Get(yourUrl) {
     var Httpreq = new XMLHttpRequest(); // a new request
-    Httpreq.open("GET",yourUrl,false);
+    Httpreq.open("GET", yourUrl, false);
     Httpreq.send(null);
-    return Httpreq.responseText;          
+    return Httpreq.responseText;
 }
 
 async function GetLocationJson(lon, lat) {
@@ -106,19 +106,18 @@ function TimePeriodStats(res, arrayForDataTableMonth, arrayForDataTableYear, arr
         let year = reportDate.getFullYear().toString();
 
 
-        switch (report.type){
-            case 1:
-            {
+        switch (report.type) {
+            case 1: {
                 months.get(month).numberDecongestions += 1;
                 days.get(day).numberDecongestions += 1;
                 years.get(year).numberDecongestions += 1;
-                
+                break;
             }
-            case 2:
-            {
+            case 2: {
                 months.get(month).numberWrongCateg += 1;
                 days.get(day).numberWrongCateg += 1;
                 years.get(year).numberWrongCateg += 1;
+                break;
             }
         }
     }
@@ -161,10 +160,10 @@ function TimePeriodStats(res, arrayForDataTableMonth, arrayForDataTableYear, arr
     arrayForDataTableDay.reverse();
 }
 
-async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCities){
+async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCities) {
     let cities = new MapWithDefault(MapValueFactory.CreateMapValue, MapValueFactory.CreateMapValue);
     let suburbs = new MapWithDefault(MapValueFactory.CreateMapValue, MapValueFactory.CreateMapValue);
-    
+
     for (let report of res) {
         let lon, lat, json;
         lat = report.location.split(",")[0];
@@ -172,47 +171,45 @@ async function LocationStats(res, arrayForDataTableSuburbs, arrayForDataTableCit
         json = await GetLocationJson(lon, lat);
         console.log(json);
         // function(json){
-        if (typeof json.address.city === "undefined"){
+        if (typeof json.address.city === "undefined") {
             json.address.city = "unknown";
         };
-        if (typeof json.address.suburb === "undefined"){
+        if (typeof json.address.suburb === "undefined") {
             json.address.suburb = "unknown";
         };
-        switch (report.type){
-            case 1:
-            {
+        switch (report.type) {
+            case 1: {
                 cities.get(json.address.city).numberDecongestions += 1;
                 suburbs.get(json.address.suburb).numberDecongestions += 1;
             }
-            case 2:
-            {
+            break;
+            case 2: {
                 cities.get(json.address.city).numberWrongCateg += 1;
                 suburbs.get(json.address.suburb).numberWrongCateg += 1;
             }
+            break;
         }
     }
     let citiesSorted = new Map([...cities].sort((a, b) => {
         return (a.numberDecongestions + a.numberWrongCateg) - (b.numberDecongestions + b.numberWrongCateg);
-    }
-    ));
+    }));
     let suburbsSorted = new Map([...suburbs].sort((a, b) => {
         return (a.numberDecongestions + a.numberWrongCateg) - (b.numberDecongestions + b.numberWrongCateg);
-    }
-    ));
+    }));
 
     let counter = 0;
-    for (let entry of citiesSorted){
+    for (let entry of citiesSorted) {
         arrayForDataTableCities.push([entry[0], entry[1].numberDecongestions, entry[1].numberWrongCateg]);
         counter++;
-        if(counter === 7){
+        if (counter === 7) {
             break;
         }
-    } 
+    }
     counter = 0;
-    for (let entry of suburbsSorted){
+    for (let entry of suburbsSorted) {
         arrayForDataTableSuburbs.push([entry[0], entry[1].numberDecongestions, entry[1].numberWrongCateg]);
         counter++;
-        if(counter === 7){
+        if (counter === 7) {
             break;
         }
     }
@@ -376,3 +373,14 @@ function download_csv() {
     xhr.send();
 }
 
+
+function download_html() {
+    let html = document.documentElement.innerHTML;
+
+    let content = html.innerHTML;
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(content);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'statistics.html';
+    hiddenElement.click();
+}

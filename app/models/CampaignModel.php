@@ -147,6 +147,7 @@ class CampaignModel {
 
     public function deleteCampaign($id) {
         $delete_stmt = $this->conn->prepare('delete from campaigns where id = ?');
+        
         $delete_stmt->bind_param("i", $id);
         if(!$delete_stmt->execute()) {
             array_push($this->errors, $delete_stmt->error);
