@@ -83,7 +83,7 @@ class ForgotPass extends Controller
         $token = '';
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 8; $i++) {
             $token .= $characters[rand(0, $charactersLength - 1)];
         }
 
