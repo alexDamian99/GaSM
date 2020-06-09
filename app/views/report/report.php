@@ -21,6 +21,7 @@
 
 <body>
     <?php include('../app/views/templates/header.php'); ?>
+    <?php include('../app/views/templates/head_header.php'); ?>
 
     <main>
         <div id="map" class="map">
