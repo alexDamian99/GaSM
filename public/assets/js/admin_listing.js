@@ -14,6 +14,6 @@ function deleteElement(type, id) {
             document.close();
         }
     }
-    xmlH.open("delete", `${type.toLowerCase()}/${id}`);
+    xmlH.open("delete", `/admin/${type.toLowerCase()}/${id}`);
     xmlH.send();
 }
