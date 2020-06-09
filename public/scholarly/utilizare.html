@@ -37,6 +37,8 @@
 
     <section id="home">
         <h3>Pagina principala</h3>
+        <p>Pagina principala ofera niste informatii generale vizitatorilor, dar si primele 3 campanii.</p>
+        <img src="images/home.jpg" alt="homepage"/>
     </section>
 
     <section id="inregistrare">
@@ -95,42 +97,30 @@
     </section>
 
     <section id="campanii">
-        <!-- review? -->
         <h3>Campanii</h3>
         <section id="prezentare">
-            <!-- review? -->
             <h3>Prezentare Campanii</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
+                Pagina de prezentare a campaniilor contine maxim 9 campanii. 
+                Acestea sunt ordonate dupa id descrescator, deci cele mai recente vor fi primele.
+                In partea de jos a paginii, avem si niste butoane care se ocupa de paginarea campaniilor.
+                <img src="images/afisare_campanii.jpg" alt="cautare"/>
             </p>
             <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
-            </p>
-        </section>
-        <section id="cautare">
-            <!-- review? -->
-            <h3>Cautare campanie</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                In aceasta pagina, avem si o sectiune de cautare, dupa continutul din titlu si descriere.
+                <img src="images/cautare_campanii.jpg" alt="cautare"/>
             </p>
         </section>
         <section id="creare">
-            <!-- review? -->
             <h3>Creare campanie</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                Pentru a crea o campanie, campurile title si description sunt obligatorii. 
+                Avem posibilitatea si de a insera o imagine(banner) dar si o locatie si o data.
+                Validarea acestora se face atat in front-end, cat si pe backend.
+                <img src="images/formular_campanie.jpg" alt="formular"/>
+                Daca un utilizator care nu e logat incearca sa intre pe aceasta pagina, acesta va fi redirectionat catre pagina de logare.
+                Mesajele de succes/eroare vor fi afisate intr-un chenar, deasupra formularului de creare a campaniei.
+                <img src="images/succes_campagin.jpg" alt="succes"/>
             </p>
         </section>
     </section>
@@ -186,39 +176,25 @@
             </p>
         </section>
         <section id="lista-campanii">
-            <!-- review? -->
             <h3>Lista campanii</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+            In lista de campanii, putem sa stergem campanii la alegere, dar si sa vizualizam pagina campaniei.
+            <img src="images/admin_campanii.jpg" alt="admin_campanii"/>
             </p>
         </section>
         <section id="lista-raportari">
-            <!-- review? -->
             <h3>Lista raportari</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                Pentru lista de rapoarte, putem sa vizualizam datele relevante unui raport, si avem si optiunea de stergere.
+                <img src="images/admin_raportari.jpg" alt="admin_raportari"/>
             </p>
         </section>
         <section id="lista-utilizatori">
-            <!-- review? -->
             <h3>Lista Utilizatori</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                Lista de utilizatori ne ofera posibilitatea stergerii unui utilizator. 
+                Cand stergem un utilizator, vom vedea un mesaj care ne avertizeaza ca ii vom sterge si campaniile aferente lui.
+                <img src="images/admin_utilizatori.jpg" alt="admin_utilizatori"/>
             </p>
         </section>
     </section>

@@ -71,7 +71,7 @@
 						<a href="<?=getenv("path_to_public")?>/campaigns/id/<?= $campaign['id'] ?>">
 						<p class="campaigns__headers__head__title">
 							<?= $campaign['title'] ?>
-						</p>
+                        </p>
 						</a>
 					</div>
 				<?php } ?>

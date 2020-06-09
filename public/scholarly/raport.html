@@ -289,16 +289,21 @@
                 </p>
             </section>
             <section id="campanii">
-                <!-- review? -->
                 <h3>Campanii</h3>
-                <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
-                </p>
-                <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
-                </p>
+                <ul>
+                    <li>
+                        GET /api/campaigns <br/> Returneaza o lista cu informatii despre toate campaniile.
+                    </li>
+                    <li>
+                        GET /api/campaigns/{id} <br/> Returneaza informatii despre campania cu id-ul dat ca parametru.
+                    </li>
+                    <li>
+                        POST /api/campaigns <br/> Creaza o noua campanie pe baza informatiilor din body.
+                    </li>
+                    <li>
+                        DELETE /api/campaigns/{id} <br/> Sterge campania data prin id. Este necesar ca body-ul sa contina un token jwt, care sa ateste faptul ca utilizatorul este logat in sistem.
+                    </li>
+                </ul>
             </section>
         </section>
 
