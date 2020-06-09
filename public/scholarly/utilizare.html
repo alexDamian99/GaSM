@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Gasm TW 2020 Informatica Iasi</title>
     <link rel="stylesheet" href="css/scholarly.min.css">
+    <link rel="stylesheet" href="css/scholarly.css">
     <script src="js/scholarly.min.js"></script>
 </head>
 
@@ -37,8 +38,12 @@
 
     <section id="home">
         <h3>Pagina principala</h3>
-        <p>Pagina principala ofera niste informatii generale vizitatorilor, dar si primele 3 campanii.</p>
-        <img src="images/home.jpg" alt="homepage"/>
+        <p>Pagina principala ofera niste informatii generale vizitatorilor,
+            <img class="aimg" src="images/home.jpg" alt="homepage"/>
+             dar si primele 3 campanii.
+             <img class="aimg" src="images/home2.jpg" alt="homepage2"/></p>
+        
+        
     </section>
 
     <section id="inregistrare">
@@ -104,11 +109,11 @@
                 Pagina de prezentare a campaniilor contine maxim 9 campanii. 
                 Acestea sunt ordonate dupa id descrescator, deci cele mai recente vor fi primele.
                 In partea de jos a paginii, avem si niste butoane care se ocupa de paginarea campaniilor.
-                <img src="images/afisare_campanii.jpg" alt="cautare"/>
+                <img class="aimg" src="images/afisare_campanii.jpg" alt="afisare"/>
             </p>
             <p>
                 In aceasta pagina, avem si o sectiune de cautare, dupa continutul din titlu si descriere.
-                <img src="images/cautare_campanii.jpg" alt="cautare"/>
+                <img class="aimg" src="images/cautare_campanii.jpg" alt="cautare"/>
             </p>
         </section>
         <section id="creare">
@@ -117,10 +122,10 @@
                 Pentru a crea o campanie, campurile title si description sunt obligatorii. 
                 Avem posibilitatea si de a insera o imagine(banner) dar si o locatie si o data.
                 Validarea acestora se face atat in front-end, cat si pe backend.
-                <img src="images/formular_campanie.jpg" alt="formular"/>
+                <img class="aimg" src="images/formular_campanie.jpg" alt="formular"/>
                 Daca un utilizator care nu e logat incearca sa intre pe aceasta pagina, acesta va fi redirectionat catre pagina de logare.
                 Mesajele de succes/eroare vor fi afisate intr-un chenar, deasupra formularului de creare a campaniei.
-                <img src="images/succes_campagin.jpg" alt="succes"/>
+                <img class="aimg" src="images/succes_campagin.jpg" alt="succes"/>
             </p>
         </section>
     </section>
@@ -162,31 +167,31 @@
         <h3>Administrator</h3>
         <p>
             Interfata de admin este accesibila doar prin logare. Incercarea de a o accesa din url /admin/campaigns rezulta intr-o redirectionare catre pagina de logare.
-            <img src="images/admin_login.jpg" alt="Admin login"/>
+            <img class="aimg" src="images/admin_login.jpg" alt="Admin login"/>
         </p>
         <section id="dashboard">
             <h3>Dashboard</h3>
             <p>
                In dashboard, avem afisat numarul de campanii, utilizatori si de raportari. 
                Avem si posibilitatea de a schimba modul de exportare a statisticilor,
-               <img src="images/admin_modificare_export.jpg" alt="admin_modificare_export"/>
+               <img class="aimg" src="images/admin_modificare_export.jpg" alt="admin_modificare_export"/>
                
                dar si verificarea unor utilizatori(angajati ai unor companii).
-               <img src="images/admin_verificare_utlizatori" alt="admin_verificare_utilizatori"/>
+               <img class="aimg" src="images/admin_verificare_utlizatori.jpg" alt="admin_verificare_utilizatori"/>
             </p>
         </section>
         <section id="lista-campanii">
             <h3>Lista campanii</h3>
             <p>
             In lista de campanii, putem sa stergem campanii la alegere, dar si sa vizualizam pagina campaniei.
-            <img src="images/admin_campanii.jpg" alt="admin_campanii"/>
+            <img class="aimg" src="images/admin_campanii.jpg" alt="admin_campanii"/>
             </p>
         </section>
         <section id="lista-raportari">
             <h3>Lista raportari</h3>
             <p>
                 Pentru lista de rapoarte, putem sa vizualizam datele relevante unui raport, si avem si optiunea de stergere.
-                <img src="images/admin_raportari.jpg" alt="admin_raportari"/>
+                <img class="aimg" src="images/admin_raportari.jpg" alt="admin_raportari"/>
             </p>
         </section>
         <section id="lista-utilizatori">
@@ -194,7 +199,6 @@
             <p>
                 Lista de utilizatori ne ofera posibilitatea stergerii unui utilizator. 
                 Cand stergem un utilizator, vom vedea un mesaj care ne avertizeaza ca ii vom sterge si campaniile aferente lui.
-                <img src="images/admin_utilizatori.jpg" alt="admin_utilizatori"/>
             </p>
         </section>
     </section>
