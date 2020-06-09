@@ -8,7 +8,6 @@ function deleteElement(type, id) {
     let xmlH = new XMLHttpRequest();
     xmlH.onreadystatechange = () => {
         if(xmlH.readyState == 4 && xmlH.status == 200) {
-            console.log(xmlH.response);
             document.open();
             document.write(xmlH.response);
             document.close();
