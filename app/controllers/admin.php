@@ -42,7 +42,7 @@ class Admin extends Controller {
         if(isset($_SESSION['admin']) && $_SESSION['admin']) {
             $campaignCount = $this->model->countCampaigns();
             if($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-                $this->model->deleteCampaign($params[0]);
+                $code = $this->model->deleteCampaign($params[0]);
                 $page = 1;
             } else {
                 $page = 1;
@@ -122,6 +122,6 @@ class Admin extends Controller {
         if(isset($_SESSION['admin'])) {
             unset($_SESSION['admin']);
         }
-        header('Location:' . getenv("path_to_public"));
+        header('Location:/');
     }
 }

@@ -4,53 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="<?php echo getenv("path_to_public");?>/assets/css/campaign.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo getenv("path_to_public"); ?>/assets/css/campaign.css">
 
-    
+
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
-        function myFunction() {
-            var x = document.getElementById("mobile-navbar");
-            if (x.className === "responsive-navbar") {
-                x.className = "";
-            } else {
-                x.className += "responsive-navbar";
-            }
+    function myFunction() {
+        var x = document.getElementById("mobile-navbar");
+        if (x.className === "responsive-navbar") {
+            x.className = "";
+        } else {
+            x.className += "responsive-navbar";
         }
+    }
     </script>
     <title>GASM</title>
+    <meta name="description" content="A campaign">
+
 </head>
 
 <body>
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/ro_RO/sdk.js#xfbml=1&version=v6.0&appId=1716299771943026&autoLogAppEvents=1"></script>
+        src="https://connect.facebook.net/ro_RO/sdk.js#xfbml=1&version=v6.0&appId=1716299771943026&autoLogAppEvents=1">
+    </script>
 
-    
+
     <?php include('../app/views/templates/header.php'); ?>
     <main>
         <div id="intro">
             <div>
-                <p><?php print_r($data["campaign"]["title"]);?></p>
+                <p><?php print_r($data["campaign"]["title"]); ?></p>
             </div>
         </div>
-        
+
 
         <div class="campaign">
             <div class="campaign__content">
-                <img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?=$data["campaign"]['image_name'] ?>" alt="<?= $data["campaign"]["title"]?>">
+                <img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?= $data["campaign"]['image_name'] ?>"
+                    alt="<?= $data["campaign"]["title"] ?>">
                 <div class="campaign__content__description">
-                    <?= $data["campaign"]["description"]?>
+                    <?= $data["campaign"]["description"] ?>
                 </div>
             </div>
             <ul class="campaign__details">
-                <li><img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?=(!empty($data["campaign"]["photo"]))?$data["campaign"]["photo"]:"default_photo.png"?>" alt="<?=$data["campaign"]["name"]?>"></li>
-                <li>By <?=$data["campaign"]["name"]?></li>
-                <?php if($data["campaign"]['event_date'] != "0000-00-00"){?>
-                    <li>Event date: <?= $data["campaign"]['event_date']?></li>
-                <?php }?>
-                
+                <li><img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?= (!empty($data["campaign"]["photo"])) ? $data["campaign"]["photo"] : "default_photo.png" ?>"
+                        alt="<?= $data["campaign"]["name"] ?>"></li>
+                <li>By <?= $data["campaign"]["name"] ?></li>
+                <?php if ($data["campaign"]['event_date'] != "0000-00-00") { ?>
+                <li>Event date: <?= $data["campaign"]['event_date'] ?></li>
+                <?php } ?>
+
                 <li>
                     <p>Help us make the world a better place</p>
                     <ul class="social-share">

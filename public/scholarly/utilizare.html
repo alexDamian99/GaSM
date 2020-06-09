@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Gasm TW 2020 Informatica Iasi</title>
     <link rel="stylesheet" href="css/scholarly.min.css">
+    <link rel="stylesheet" href="css/scholarly.css">
     <script src="js/scholarly.min.js"></script>
 </head>
 
@@ -37,31 +38,40 @@
 
     <section id="home">
         <h3>Pagina principala</h3>
+        <p>Pagina principala ofera niste informatii generale vizitatorilor,
+            <img class="aimg" src="images/home.jpg" alt="homepage"/>
+             dar si primele 3 campanii.
+             <img class="aimg" src="images/home2.jpg" alt="homepage2"/></p>
+        
+        
     </section>
 
     <section id="inregistrare">
         <h3>Inregistrare</h3>
         <section id="login">
-
             <h3>Login</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+            <p> <a href="./images/signin.JPG">Pagina Login</a> </p>
+            <p> Utilizatorul are posibilitatea de a se conecta la contul personal prin introducerea username-ului si a parolei. Daca cele doua corespund datelor din baza de date, utilizatorul este redirectat catre pagina principala, altfel este nevoi sa incerce
+                din nou conectarea, username-ul ramanand salvat in formular. Acesta are posibilitatea de a-si pastra contul in formular pentru viitoarele conectari. De pe aceasta pagina, utilizatorul poate ajunge la pagina principala, apasand pe imaginea
+                GaSM, din partea de sus, isi poate crea un cont, daca nu are unul sau isi poate recupera parola.
             </p>
         </section>
         <section id="register">
             <h3>Register</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
+            <p> <a href="./images/register-personal.JPG">Pagina Register (personal) </a> </p>
+            <p> <a href="./images/register-company.JPG">Pagina Register (companie) </a> </p>
+            <p> Inregistrare utilizatorului pe site presupune alegerea unui tip de cont, personal sau de companie. Pentru crearea contului sunt necesare introducerea numelui, email-ului (obligatoriu sa fie valid si unic in baza de date), username-ului (trebuie
+                sa fie unic in baza de date), parolei (minim formata din 6 caractere, litere si numere) si prin introducerea id-ului companiei (daca este cazul), care va fi verificat de un admin pentru a primii toate beneficiile. De pe aceasta pagina,
+                utilizatorul poate ajunge la pagina principala, apasand pe imaginea GaSM, din partea de sus sau se poate autentifica daca are deja un cont existent.
             </p>
+        </section>
+        <section id="forgot-pass">
+            <h3>Forgot Password</h3>
+            <p> <a href="./images/forgot-pass-email.JPG">Pagina Forgot Password 1 (email)</a> </p>
+            <p> <a href="./images/forgot-pass-token.JPG">Pagina Forgot Password 2 (token)</a> </p>
+            <p> <a href="./images/forgot-pass-password.JPG">Pagina Forgot Password 3 (parola noua)</a> </p>
             <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                Recuperarea parolei se face prin introducearea unui email valid, existent in baza de date, care va primi un token. Dupa introducerea unui token valid, utilizatorul isi va actualiza parola cu o noua parola valida.
             </p>
         </section>
     </section>
@@ -95,71 +105,66 @@
     </section>
 
     <section id="campanii">
-        <!-- review? -->
         <h3>Campanii</h3>
         <section id="prezentare">
-            <!-- review? -->
             <h3>Prezentare Campanii</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
+                Pagina de prezentare a campaniilor contine maxim 9 campanii. 
+                Acestea sunt ordonate dupa id descrescator, deci cele mai recente vor fi primele.
+                In partea de jos a paginii, avem si niste butoane care se ocupa de paginarea campaniilor.
+                <img class="aimg" src="images/afisare_campanii.jpg" alt="afisare"/>
             </p>
             <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
-            </p>
-        </section>
-        <section id="cautare">
-            <!-- review? -->
-            <h3>Cautare campanie</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                In aceasta pagina, avem si o sectiune de cautare, dupa continutul din titlu si descriere.
+                <img class="aimg" src="images/cautare_campanii.jpg" alt="cautare"/>
             </p>
         </section>
         <section id="creare">
-            <!-- review? -->
             <h3>Creare campanie</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                Pentru a crea o campanie, campurile title si description sunt obligatorii. 
+                Avem posibilitatea si de a insera o imagine(banner) dar si o locatie si o data.
+                Validarea acestora se face atat in front-end, cat si pe backend.
+                <img class="aimg" src="images/formular_campanie.jpg" alt="formular"/>
+                Daca un utilizator care nu e logat incearca sa intre pe aceasta pagina, acesta va fi redirectionat catre pagina de logare.
+                Mesajele de succes/eroare vor fi afisate intr-un chenar, deasupra formularului de creare a campaniei.
+                <img class="aimg" src="images/succes_campagin.jpg" alt="succes"/>
             </p>
         </section>
     </section>
 
     <section id="rapoarte">
-        <!-- review? -->
         <h3>Rapoarte</h3>
         <section id="puncte-reciclare">
-            <!-- review? -->
             <h3>Puncte de reciclare</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                <p> <a href="./images/harta.JPG">Harta vizuala </a> </p>
+                Doar angajatii companiilor au posibilitatea de a adauga noi puncte de reciclare a hartiei, plasticului, metalului etc. Acestia trebuie sa selecteze locatia (de pe harta) si tipul de gunoi, iar pe harta vor aparea pin-uri cu locurile respective, impreuna
+                cu informatii despre tipul de gunoi si id.
             </p>
         </section>
-        <section id="Editare Profil">
-            <!-- review? -->
-            <h3>Register</h3>
+
+        <section id="raport">
+            <h3>Raportare</h3>
+            <p> <a href="./images/report.JPG">Formular raportare </a> </p>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
+                Raportarea se realizeaza de catre orice utilizator, atat inregistrat, cat si neinregistrat. Acesta selecteaza locatia unde doreste sa faca raportarea (utilizand interfata vizuala a hartii), avand posibilitatea de a marca locurile unde nu s-a respectat
+                colectarea selectiva si locurile unde gunoiul trebuie colectat. Raportul va fi inregistrat si afisat atat vizual pe harta, cat si in lista cu rapoarte active sub forma text.
             </p>
+        </section>
+
+        <section id="active-reports">
+            <h3>Rapoarte active</h3>
+            <p> <a href="./images/active-reports.JPG">Lista raporturi active </a> </p>
             <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                O lista cu rapoartele active este disponibila pentru toti utilizatorii, atat vizual pe harta, cat si in format text. Angajatii companiilor de salubritate au posibilitatea de a sterge un raport.
+            </p>
+        </section>
+
+        <section id="votare">
+            <h3>Sistem votare</h3>
+            <p>
+                Utilizatorii autentificati au posibilitatea de a vota (pozitiv sau negativ) rapoartele active, pentru a ajunta angajatii in vederea rezolvarii acestora.
             </p>
         </section>
     </section>
@@ -169,94 +174,41 @@
     </section>
 
     <section id="admin">
-        <!-- review? -->
         <h3>Administrator</h3>
+        <p>
+            Interfata de admin este accesibila doar prin logare. Incercarea de a o accesa din url /admin/campaigns rezulta intr-o redirectionare catre pagina de logare.
+            <img class="aimg" src="images/admin_login.jpg" alt="Admin login"/>
+        </p>
         <section id="dashboard">
-            <!-- review? -->
             <h3>Dashboard</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+               In dashboard, avem afisat numarul de campanii, utilizatori si de raportari. 
+               Avem si posibilitatea de a schimba modul de exportare a statisticilor,
+               <img class="aimg" src="images/admin_modificare_export.jpg" alt="admin_modificare_export"/>
+               
+               dar si verificarea unor utilizatori(angajati ai unor companii).
+               <img class="aimg" src="images/admin_verificare_utlizatori.jpg" alt="admin_verificare_utilizatori"/>
             </p>
         </section>
         <section id="lista-campanii">
-            <!-- review? -->
             <h3>Lista campanii</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+            In lista de campanii, putem sa stergem campanii la alegere, dar si sa vizualizam pagina campaniei.
+            <img class="aimg" src="images/admin_campanii.jpg" alt="admin_campanii"/>
             </p>
         </section>
         <section id="lista-raportari">
-            <!-- review? -->
             <h3>Lista raportari</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                Pentru lista de rapoarte, putem sa vizualizam datele relevante unui raport, si avem si optiunea de stergere.
+                <img class="aimg" src="images/admin_raportari.jpg" alt="admin_raportari"/>
             </p>
         </section>
         <section id="lista-utilizatori">
-            <!-- review? -->
             <h3>Lista Utilizatori</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
-            </p>
-        </section>
-    </section>
-
-    <section id="api">
-        <h3>API</h3>
-        <section id="auth">
-            <!-- review? -->
-            <h3>Autentificare</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
-            </p>
-        </section>
-        <section id="report">
-            <!-- review? -->
-            <h3>report</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
-            </p>
-        </section>
-        <section id="campanii">
-            <!-- review? -->
-            <h3>Campanii</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                Lista de utilizatori ne ofera posibilitatea stergerii unui utilizator. 
+                Cand stergem un utilizator, vom vedea un mesaj care ne avertizeaza ca ii vom sterge si campaniile aferente lui.
             </p>
         </section>
     </section>

@@ -207,7 +207,7 @@
             <section id="active-reports">
                 <h3>Rapoarte active</h3>
                 <p>
-                    O lista cu rapoartele active este disponibila pentru toti utilizatorii, atat vizual pe harta, cat si in format text. Angajatii companiilor de salubritate au posibilitatea de sterge un raport, in mod asincron, fara a reimprospata pagina.
+                    O lista cu rapoartele active este disponibila pentru toti utilizatorii, atat vizual pe harta, cat si in format text. Angajatii companiilor de salubritate au posibilitatea de a sterge un raport, in mod asincron, fara a reimprospata pagina.
                 </p>
             </section>
 
@@ -269,30 +269,6 @@
                     Pagina de utilizatori, ne prezinta o lista cu toti utilizatorii(companii sau normali). Daca stergem un utilizator, vom sterge si campaniile aferente acestuia. Afisarea utilizatorilor este paginata, cate 10 pe o pagina.
                 </p>
             </section>
-            <section id="lista-raportari">
-                <!-- review? -->
-                <h3>Lista raportari</h3>
-                <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
-                </p>
-                <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
-                </p>
-            </section>
-            <section id="lista-utilizatori">
-                <!-- review? -->
-                <h3>Lista Utilizatori</h3>
-                <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
-                </p>
-                <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
-                </p>
-            </section>
         </section>
 
         <section id="api">
@@ -325,16 +301,21 @@
                 </p>
             </section>
             <section id="campanii">
-                <!-- review? -->
                 <h3>Campanii</h3>
-                <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
-                </p>
-                <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
-                </p>
+                <ul>
+                    <li>
+                        GET /api/campaigns <br/> Returneaza o lista cu informatii despre toate campaniile.
+                    </li>
+                    <li>
+                        GET /api/campaigns/{id} <br/> Returneaza informatii despre campania cu id-ul dat ca parametru.
+                    </li>
+                    <li>
+                        POST /api/campaigns <br/> Creaza o noua campanie pe baza informatiilor din body.
+                    </li>
+                    <li>
+                        DELETE /api/campaigns/{id} <br/> Sterge campania data prin id. Este necesar ca body-ul sa contina un token jwt, care sa ateste faptul ca utilizatorul este logat in sistem.
+                    </li>
+                </ul>
             </section>
         </section>
 
@@ -346,6 +327,7 @@
             <h3>Stefan</h3>
             <ul>
                 <li>Am creat footer-ul.</li>
+                <li>Am creat scheletul pentru arhitectura MVC.</li>
                 <li>Am creat paginile de login, register, forgot password, report impreuna cu controllerele si modelele aferente, plus script-urile pentru comunicarea asincrona si diverse functionalitati pe partea de client.</li>
                 <li>Am creat API-ul Rest al aplicatiei, cu intrarile de autentificare si raportare.</li>
             </ul>
@@ -392,6 +374,11 @@
         <p>Prezentarea video pentru fiecare componenta.</p>
         <section id="video-stefan">
             <h3>Prezentare Stefan</h3>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=5AmxyJjN36o">Prezentare Signin</a></li>
+                <li><a href="https://www.youtube.com/watch?v=TbG-vJJ8PAs">Prezentare Register</a></li>
+                <li><a href="https://www.youtube.com/watch?v=6Vz9m5GPybI">Prezentare Report</a></li>
+            </ul>
         </section>
         <section id="video-andrei">
             <h3>Prezentare Andrei</h3>
@@ -401,6 +388,11 @@
         </section>
         <section id="video-alex">
             <h3>Prezentare Alex</h3>
+            <ul>
+                <li><a href="https://youtu.be/XLqnw7TJCVA">Prezentare Administrator</a></li>
+                <li><a href="https://youtu.be/MNQCRh_ulPo">Prezentare creare campanii</a></li>
+                <li><a href="https://youtu.be/q5PYKZuxPIc">Prezentare pagina principala si campanii</a></li>
+            </ul>
         </section>
     </section>
     <section id="Hosting">
@@ -424,7 +416,7 @@
             <li><a href="https://codewithawa.com/posts/like-dislike-system-with-php-and--mysql">Like/Dislike System</a> </li>
             <li><a href="https://developer.okta.com/blog/2019/03/08/simple-rest-api-php">API Rest</a> </li>
             <li><a href="https://www.youtube.com/watch?v=kNJT3tJioww">JWT</a> </li>
-            <li><a href="https://www.w3schools.com/php/php_ajax_php.asp">Ajaxt</a> </li>
+            <li><a href="https://www.w3schools.com/php/php_ajax_php.asp">Ajax</a> </li>
         </ul>
     </section>
 

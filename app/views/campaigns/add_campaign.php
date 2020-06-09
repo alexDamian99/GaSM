@@ -4,21 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="<?php echo getenv("path_to_public");?>/assets/css/add_campaign.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo getenv("path_to_public"); ?>/assets/css/add_campaign.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
-        function myFunction() {
-            let x = document.getElementById("mobile-navbar");
-            if (x.className === "responsive-navbar") {
-                x.className = "";
-            } else {
-                x.className += "responsive-navbar";
-            }
+    function myFunction() {
+        let x = document.getElementById("mobile-navbar");
+        if (x.className === "responsive-navbar") {
+            x.className = "";
+        } else {
+            x.className += "responsive-navbar";
         }
+    }
     </script>
-    <script src ="<?=getenv('path_to_public')?>/assets/js/add_campaign.js"></script>
+    <script src="<?= getenv('path_to_public') ?>/assets/js/add_campaign.js"></script>
     <title>GASM</title>
+    <meta name="description" content="Add a new campaign">
+
 </head>
 
 <body>
@@ -41,7 +43,8 @@
                 </div>
                 <div>
                     <div class="col25"><label for="description">Description</label></div>
-                    <div class="col75"><textarea id="description" rows="10" required name="description"></textarea></div>
+                    <div class="col75"><textarea id="description" rows="10" required name="description"></textarea>
+                    </div>
                 </div>
                 <div>
                     <div class="col25"><label for="location">Location</label></div>
@@ -55,7 +58,8 @@
                     <div class="col75">
                         <label for="campaign-banner">Click here to upload an image for your campaign</label>
                     </div>
-                    <div class="col75"><input type="file" id="campaign-banner" accept = "image/*" hidden name="banner"></div>
+                    <div class="col75"><input type="file" id="campaign-banner" accept="image/*" hidden name="banner">
+                    </div>
                 </div>
                 <div>
                     <input class="btn btn-green" type="submit" value="Submit" name="submit">
@@ -63,9 +67,9 @@
             </form>
         </div>
     </main>
-    
+
     <?php include('../app/views/templates/footer.php'); ?>
-    
+
 </body>
 
 </html>

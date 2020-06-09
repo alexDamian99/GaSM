@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=getenv('path_to_public')?>/assets/css/template.css">
-    <link rel="stylesheet" href="<?=getenv('path_to_public')?>/assets/css/dashboard.css">
-    <script src ="<?=getenv('path_to_public')?>/assets/js/index.js"></script>
-    <script src ="<?=getenv('path_to_public')?>/assets/js/dashboard.js"></script>
+    <link rel="stylesheet" href="<?= getenv('path_to_public') ?>/assets/css/template.css">
+    <link rel="stylesheet" href="<?= getenv('path_to_public') ?>/assets/css/dashboard.css">
+    <script src="<?= getenv('path_to_public') ?>/assets/js/index.js"></script>
+    <script src="<?= getenv('path_to_public') ?>/assets/js/dashboard.js"></script>
     <title>GaSM | Admin Dashboard</title>
+    <meta name="description" content="Admin page.">
 </head>
+
 <body>
     <header>
         <nav id="navbar">
@@ -47,29 +50,35 @@
             <div class="wrapper">
                 <div class="col">
                     <h2>Campaigns</h2>
-                    <p>Total number of campaigns: <?=$data['campaignCount']?></p>
+                    <p>Total number of campaigns: <?= $data['campaignCount'] ?></p>
                 </div>
                 <div class="col">
                     <h2>Users</h2>
-                    <p>Total number of users: <?=$data['userCount']?></p>
+                    <p>Total number of users: <?= $data['userCount'] ?></p>
                 </div>
                 <div class="col">
                     <h2>Reports</h2>
-                    <p>Total number of reports: <?=$data['reportCount']?></p>
+                    <p>Total number of reports: <?= $data['reportCount'] ?></p>
                 </div>
                 <div class="col">
                     <h2>Export type </h2>
                     <form method="POST" id="exportType">
                         <label>
-                            <input type="checkbox" <?=(isset($data['types']['html']) && $data['types']['html'] == 1)?"checked":''?> name="exportHTML">
+                            <input type="checkbox"
+                                <?= (isset($data['types']['html']) && $data['types']['html'] == 1) ? "checked" : '' ?>
+                                name="exportHTML">
                             HTML
                         </label>
                         <label>
-                            <input type="checkbox" <?=(isset($data['types']['pdf']) && $data['types']['pdf'] == 1)?"checked":''?> name="exportPDF">
+                            <input type="checkbox"
+                                <?= (isset($data['types']['pdf']) && $data['types']['pdf'] == 1) ? "checked" : '' ?>
+                                name="exportPDF">
                             PDF
                         </label>
                         <label>
-                            <input type="checkbox" <?=(isset($data['types']['csv']) && $data['types']['csv'] == 1)?"checked":''?> name="exportCSV">
+                            <input type="checkbox"
+                                <?= (isset($data['types']['csv']) && $data['types']['csv'] == 1) ? "checked" : '' ?>
+                                name="exportCSV">
                             CSV
                         </label>
                         <input class="btn btn-green" type="submit">
@@ -87,17 +96,19 @@
                         <th>Verified</th>
                     </thead>
                     <tbody>
-                        <?php foreach($data['companyUsers'] as $companyUser) {?>
-                            <tr>        
-                                <td><?=$companyUser['id_comp']?></td>
-                                <td><?=$companyUser['username']?></td>
-                                <td><input <?=($companyUser['verified'] == 1? "checked": "")?> onclick="verifyUser('<?=$companyUser['username']?>')" type="checkbox"/></td>
-                            </tr>
-                        <?php }?>
+                        <?php foreach ($data['companyUsers'] as $companyUser) { ?>
+                        <tr>
+                            <td><?= $companyUser['id_comp'] ?></td>
+                            <td><?= $companyUser['username'] ?></td>
+                            <td><input <?= ($companyUser['verified'] == 1 ? "checked" : "") ?>
+                                    onclick="verifyUser('<?= $companyUser['username'] ?>')" type="checkbox" /></td>
+                        </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
         </section>
     </main>
 </body>
+
 </html>
