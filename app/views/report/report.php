@@ -147,7 +147,7 @@
                     if (isset($_SESSION['id_comp']) && $data['verified'] == 1)
                         echo '<div>
                                     <input type="text" hidden value="' . $activeReport['id'] . '" name="report_id">
-                                    <button onClick="deleteElement(' . $activeReport['id'] . ')" class="send" name="done">Done</button>
+                                    <button onClick="deleteReport(' . $activeReport['id'] . ')" class="send" name="done">Done</button>
                                 </div>';
                     echo '</li>';
                 }

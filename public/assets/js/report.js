@@ -86,7 +86,7 @@ function newDislike(elem) {
     xmlhttp.send();
 }
 
-function deleteElement(report_id) {
+function deleteReport(report_id) {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
