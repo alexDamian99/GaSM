@@ -3,18 +3,21 @@
 
 <head>
     <?php include('../app/views/templates/head_header.php'); ?>
-    <link rel="stylesheet" type="text/css" href="<?=getenv("path_to_public")?>/assets/css/edit_profile.css">
+    <link rel="stylesheet" type="text/css" href="<?= getenv("path_to_public") ?>/assets/css/edit_profile.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>GaSM | Edit Profile</title>
+    <meta name="description" content="Edit your profile">
 </head>
 
 <body>
     <?php include('../app/views/templates/header.php'); ?>
     <main>
         <div class="profile_container">
-            
+
             <form class="form" method="POST" enctype="multipart/form-data">
                 <div class="profile_container__picture_container">
-                    <img src= "<?= $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture" class="profile_container__profile_picture"> 
+                    <img src="<?= $_SESSION["profile_photo"] ?>" alt="profile_container__profile_picture"
+                        class="profile_container__profile_picture">
                     <div class="image_opacer">
                         <label>
                             <span>Upload photo</span>
@@ -23,11 +26,11 @@
                     </div>
                 </div>
                 <h1 class="text">
-                    My profile details
+                    Welcome <?= $_SESSION['username'] ?>
                 </h1>
                 <label>
                     <span class="text">Name</span>
-                    <input type="text" maxLength="64" name="input_name" id="input_name"  placeholder="New name">
+                    <input type="text" maxLength="64" name="input_name" id="input_name" placeholder="New name">
                 </label>
                 <label>
                     <span class="text">Email</span>
@@ -40,18 +43,18 @@
                 <button type="submit" name="submit_edit_profile" id="submit_edit_profile" class="button">Save</button>
 
                 <span class="display-errors"> <?php if (isset($_SESSION['error'])) {
-                                                echo $_SESSION['error'];
-                                                unset($_SESSION["error"]);
-                                            } ?> </span>
+                                                    echo $_SESSION['error'];
+                                                    unset($_SESSION["error"]);
+                                                } ?> </span>
                 <span class="display-success"> <?php if (isset($_SESSION['success'])) {
-                                                echo $_SESSION['success'];
-                                                unset($_SESSION["success"]);
-                                            } ?> </span>
-                 <span class="display-debug"> <?php if (isset($_SESSION['debug'])) {
-                                                echo $_SESSION['debug'];
-                                                unset($_SESSION["debug"]);
-                                            } ?> </span>
-                                            
+                                                    echo $_SESSION['success'];
+                                                    unset($_SESSION["success"]);
+                                                } ?> </span>
+                <span class="display-debug"> <?php if (isset($_SESSION['debug'])) {
+                                                    echo $_SESSION['debug'];
+                                                    unset($_SESSION["debug"]);
+                                                } ?> </span>
+
             </form>
         </div>
     </main>
