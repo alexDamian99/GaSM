@@ -4,6 +4,7 @@ session_start();
 class Report extends Controller
 {
     private $model;
+    private $username, $reyclePoints, $activeReports, $likedReports, $dislikedReports, $likes, $dislikes, $verified;
 
     public function __construct()
     {
@@ -14,59 +15,25 @@ class Report extends Controller
 
     public function index()
     {
-        $username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+        $this->username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 
-        $reyclePoints = $this->model->getRecyclePoints();
-        $activeReports = $this->model->getActiveReports();
-        $likedReports = $this->model->getLikedReports($username);
-        $dislikedReports = $this->model->getDislikedReports($username);
-        $likes = $this->model->getTotalLikes();
-        $dislikes = $this->model->getTotalDislikes();
-        $verified = 0;
-        if($username !== '') {
-            $verified = $this->model->getVerified($username);
+        $this->reyclePoints = $this->model->getRecyclePoints();
+        $this->activeReports = $this->model->getActiveReports();
+        $this->likedReports = $this->model->getLikedReports($this->username);
+        $this->dislikedReports = $this->model->getDislikedReports($this->username);
+        $this->likes = $this->model->getTotalLikes();
+        $this->dislikes = $this->model->getTotalDislikes();
+        $this->verified = 0;
+        if ($this->username !== '') {
+            $this->verified = $this->model->getVerified($this->username);
         }
 
         $this->view('report/report', [
-            'recycle_points' => $reyclePoints,
-            'active_reports' => $activeReports,
-            'liked_reports' => $likedReports, 'disliked_reports' => $dislikedReports,
-            'likes' => $likes, 'dislikes' => $dislikes, 'verified' => $verified
+            'recycle_points' => $this->reyclePoints,
+            'active_reports' => $this->activeReports,
+            'liked_reports' => $this->likedReports, 'disliked_reports' => $this->dislikedReports,
+            'likes' => $this->likes, 'dislikes' => $this->dislikes, 'verified' => $this->verified
         ]);
-
-        if (isset($_POST['submit-report'])) {
-            // create report
-            $type = $_POST['type-report'];
-            if ($type == 'garbage-full')
-                $type = 1;
-            else if ($type == 'garbage-not-sorted')
-                $type = 2;
-            $location = $_POST['location-report'];
-            date_default_timezone_set('Europe/Bucharest');
-            $date = date('Y-m-d H:i:s');
-            $user = isset($_SESSION['username']) ? $_SESSION['username'] : 'Anonymous';
-            $this->model->doReport($type, $location, $date, $user);
-
-            $this->redirect('report');
-        }
-
-        if (isset($_POST['submit-recycle'])) {
-            // add a new recycle point
-            $type = $_POST['type-recycle'];
-            $location = $_POST['location-recycle'];
-
-            $this->model->addRecyclePoint($type, $location);
-
-            $this->redirect('report');
-        }
-
-        if (isset($_POST['done'])) {
-            // mark a report as done (delete)
-            $id = $_POST['report_id'];
-            $this->model->deleteReport($id);
-
-            $this->redirect('report');
-        }
     }
 
     public function newAction($params)
@@ -84,5 +51,41 @@ class Report extends Controller
         $dislikes = $this->model->getDislikes($report_id);
 
         echo $likes . " " . $dislikes;
+    }
+
+    public function deleteReport($params)
+    {
+        $report_id = $params[0];
+        $this->model->deleteReport($report_id);
+
+        $this->index();
+    }
+
+    public function addNewRecyclePoint($params)
+    {
+        $type = $params[0];
+        $location = $params[1];
+
+        $this->model->addRecyclePoint($type, $location);
+
+        $this->index();
+    }
+
+    public function addNewReport($params)
+    {
+        $type = $params[0];
+        $location = $params[1];
+
+        if ($type == 'garbage-full')
+            $type = 1;
+        else if ($type == 'garbage-not-sorted')
+            $type = 2;
+        date_default_timezone_set('Europe/Bucharest');
+        $date = date('Y-m-d H:i:s');
+        $user = isset($_SESSION['username']) ? $_SESSION['username'] : 'Anonymous';
+
+        $this->model->doReport($type, $location, $date, $user);
+
+        $this->index();
     }
 }

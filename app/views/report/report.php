@@ -36,7 +36,7 @@
                     <i id="arrow3" class="arrow down"></i>
                 </button>
 
-                <form id="recycle-form" action="" method="POST">
+                <div id="recycle-form">
                     <label class="input-location">
                         <span>Location</span> <br />
                         <input id="location-input-recycling" class="input" type="text" name="location-recycle" placeholder="Lat, Lon"
@@ -47,7 +47,7 @@
                     <br />
                     <label>
                         <span>Garbage type</span> <br />
-                        <select name="type-recycle">
+                        <select id="type-recycle" name="type-recycle">
                             <option value="organic">Organic</option>
                             <option value="paper">Paper</option>
                             <option value="plastic">Plastic</option>
@@ -58,8 +58,8 @@
                     </label>';
 
             echo '<br />
-                <button type="submit" class="send" name="submit-recycle">Send</button>
-                </form>
+                <button onClick="addNewRecyclePoint()" class="send" name="submit-recycle">Send</button>
+                </div>
                 </div>';
         }
         foreach ($data['recycle_points'] as $recyclePoint)
@@ -72,7 +72,7 @@
                 <i id="arrow1" class="arrow down"></i>
             </button>
 
-            <form id="report-form" action="" method="POST">
+            <div id="report-form">
                 <label class="input-location">
                     <span>Location</span> <br />
                     <input id="location-input-report" class="input" type="text" name="location-report"
@@ -84,7 +84,7 @@
                 <br />
                 <label>
                     <span>Type</span> <br />
-                    <select name="type-report">
+                    <select id="type-report" name="type-report">
                         <option value="garbage-full">Garbage must be collected</option>
                         <option value="garbage-not-sorted">Waste sorting is not respected</option>
                     </select>
@@ -92,8 +92,8 @@
 
                 <br />
 
-                <button type="submit" class="send" name="submit-report">Send</button>
-            </form>
+                <button onclick="addNewReport()" class="send" name="submit-report">Send</button>
+            </div>
         </div>
 
         <div class="report">
@@ -145,10 +145,10 @@
                                         data-id="' . $activeReport['id'] . '" ' . $dislike_permission . '>' . $dislikes . '</i>
                                 </div>';
                     if (isset($_SESSION['id_comp']) && $data['verified'] == 1)
-                        echo '<form action="" method="POST">
+                        echo '<div>
                                     <input type="text" hidden value="' . $activeReport['id'] . '" name="report_id">
-                                    <button type="submit" class="send" name="done">Done</button>
-                                </form>';
+                                    <button onClick="deleteElement(' . $activeReport['id'] . ')" class="send" name="done">Done</button>
+                                </div>';
                     echo '</li>';
                 }
                 ?>
