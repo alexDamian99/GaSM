@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Gasm TW 2020 Informatica Iasi</title>
+    <link rel="stylesheet" href="css/scholarly.css">
+    <script src="js/scholarly.min.js"></script>
+</head>
+
+<body prefix="schema: http://schema.org">
+    <header>
+        <div class="banner">
+            <img src="scholarly-html.svg" width="227" height="50" alt="Scholarly HTML logo">
+            <div class="status">Scholarly html</div>
+        </div>
+        <h1>Garbage Smart Monitor | Raport</h1>
+    </header>
+    <div role="contentinfo">
+        <dl>
+            <dt>Echipa</dt>
+            <dd>
+                Beleuz Stefan &amp; Ianau Andrei Ioan &amp; Damian Alexandru
+            </dd>
+            <dt>Pagina github</dt>
+            <dd>
+                <a href="https://github.com/alexDamian99/GaSM">Garbage Smart Monitor</a>
+            </dd>
+            <dt>Licenta</dt>
+            <dd>
+                <a href="https://opensource.org/licenses/MIT">MIT</a>
+            </dd>
+        </dl>
+    </div>
+    <section id="cerinta" role="doc-abstract">
+        <h2>Cerinta</h2>
+        <p>
+            Să se creeze o aplicație Web capabilă, pe baza unui API REST/GraphQL propriu, să gestioneze informațiile privitoare la colectarea, sortarea și reciclarea gunoiului – pe categorii: menajer, hârtie, plastic etc. – la nivelul cetățeanului, personalului autorizat
+            și factorilor de decizie. Se va oferi suport pentru raportarea de către utilizatori a locurilor unde s-a acumulat o cantitate substanțială de gunoi, în vederea descongestionării. Pe unitate de timp (zi, săptămână, lună), vor fi generate rapoarte
+            numerice și grafice – disponibile în formatele HTML, CSV și PDF – referitoare la situația actuală la nivel de cartier/localitate, evidențiindu-se zonele cele mai curate/mizere. Interacțiunea cu utilizatorul va respecta principiile designului
+            Web responsiv. Sistemul va oferi suport și pentru inițierea unor campanii de sensibilizare a locuitorilor privitoare la colectarea selectivă a gunoiului și a raportării incidentelor vizând depozitarea neadecvată a acestuia.
+        </p>
+    </section>
+
+    <section id="diagrama-uml" role="uml">
+        <h2>UML</h2>
+        <img src="" alt="uml-diagram" />
+    </section>
+
+    <section id="structure">
+        <h2>Structura</h2>
+        <p>
+            Proiectul este creat folosind arhitectura MVC. Am ales aceasta arhitectura deoarece:
+            <ul>
+                <li>Ne-a permis impartirea proiectului in mai multe module la care am lucrat individual, in acelasi timp.</li>
+                <li>Integrarea modulelor a fost destul de usoara.</li>
+                <li>Am evitat codul duplicat.</li>
+                <li>Depistarea si rezolvarea usoara a bug-urilor.</li>
+            </ul>
+        </p>
+
+        <section id="home">
+            <h3>Pagina principala</h3>
+            <p>
+                Pagina principala conține mai multe informații generale despre reciclare. De asemenea, contine si o scurta prezentare a primelor 3 campanii(cele mai recente), dar si un buton pentru a raporta diferite evenimente. Pe pagina principala, avem mai multe desene
+                ce ilustreaza reciclarea.
+            </p>
+        </section>
+
+        <section id="inregistrare">
+            <h3>Inregistrare</h3>
+            <section id="login">
+                <h3>Login</h3>
+                <p>
+                    Utilizatorul introducere credentialele, respectiv username-ul si parola, pentru a se conecta la contul personal. Acestea ajung la controller printr-un request de tip POST, care apeleaza modelul pentru a interactiona cu baza de date. Se verifica existenta
+                    si corectitudinea username-ului (care este unic) si a parolei (hash-ul salvat in baza de date). Daca totul este in regula, se creaza o sesiune cu username-ul curent si id-ul companiei (daca este vorba despre un cont de companie) si
+                    utilizatorul este redirectat spre pagina principala. In plus, utilizatorul are posibilitatea de a-si pastra username-ul in formularul de logare, prin bifarea optiunii "Remember me", care va salva un cookie cu username-ul introdus.
+                </p>
+            </section>
+
+            <section id="register">
+                <h3>Register</h3>
+                <p>
+                    Inregistrare utilizatorului pe site presupune alegerea unui tip de cont, personal sau de companie. Pentru crearea contului sunt necesare introducerea numelui, email-ului (obligatoriu sa fie valid si unic in baza de date), username-ului (trebuie sa fie
+                    unic in baza de date), parolei (minim formata din 6 caractere, litere si numere) si prin introducerea id-ului companiei (daca este cazul), care va fi verificat de un admin pentru a primii toate beneficiile. Verificarea unicitatii si
+                    corectitudinii email-ului si a username-ului se face folosind suita de tehnologii Ajax (printr-un request GET catre controller care verifica prin intermediul modelului datele trimise in baza de date si intoarce un raspuns pozitiv sau
+                    negativ, dupa caz), utilizatorul fiind informat daca datele introduse sunt valide fara a trimite formularul de inregistrare. Verificarea sigurantei parolei se realizeaza in doi pasi: unul la nivel de client, pentru a oferi o informare
+                    vizuala utilizatorul cu privire la siguranta parolei introduse, si unul la nivel de server ce face o verificare suplimentare inainte de a calcula hash-ul parolei si de a o salva in baza de date.
+                </p>
+            </section>
+
+            <section id="forgot-pass">
+                <h3>Forgot Password</h3>
+                <p>
+                    Recuperarea parolei se face prin introducearea unui email valid, existent in baza de date, care va primi un token, de 8 caractere, generat aleator. Token-ul este pastrat in baza de date timp de o ora, dupa care este sters. Dupa introducerea unui token
+                    valid, utilizatorul isi va actualiza parola cu o noua parola valida.
+                </p>
+            </section>
+        </section>
+
+        <section id="utilizator">
+            <h3>Utilizator</h3>
+            <p>
+                Acest modul tine de detaliile fiecarui utilizator. 
+                Toata functionalitatea ce tine de backend pe partea de baza de date este implementata in modelul 
+                "ProfileModel", avand metode spcifice ce incapsuleaza comportamentul necesar anumitor functionalitati.
+                Acest modul este accesibil doar utilizarilor logati.
+            </p>
+            <section id="Profil">
+                <h3>Profil</h3>
+                <p>
+                    Pagina de vizualizare a profilului este folosita pentru ca utilizatorul sa aiba la indemana mai 
+                    usor campaniile sale dar si raportarile sale. 
+                    De asemenea, utilizatorul poate sa isi editeze profilul dand hover peste imaginea de profil si
+                     apasand pe "Edit profile".
+                </p>
+            </section>
+            <section id="Editare Profil">
+                <h3>Editare profil</h3>
+                <p>
+                    Pagina de editare a profilului este folosita de catre utilizator pentru a schimba imaginea de profil, 
+                    adresa, email-ul si nickname-ul.
+                </p>
+            </section>
+        </section>
+
+        <section id="statistici">
+            <h3>Statistici</h3>
+            <p>
+               Acest modul este folosit pentru vizualizarea datelor si anume: numarul de raportari per an (ultimii 6 ani), 
+               per luna (ultimele 12 luni), per zi (ultimele 7 zile) si per suburbii si per orase.
+            </p>
+            <p>
+                M-am folosit de api-ul <code>https://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat</code>
+                pentru a face rost de detaliile locatiei (oras si suburbie);
+                si de api-ul <code>https://www.gstatic.com/charts/loader.js</code> pentru a desena statisticile.
+                Am creat si api-ul "/statistics_data" pentru a lua din baza de date toate datele avand legatura cu 
+                raportarile.
+            </p>
+        </section>
+
+        <section id="campanii">
+            <h3>Campanii</h3>
+            <p>
+                Modulul de campanii este folosit la constientizarea utilizatorilor asupra efectelor nocive ale nerespectarii reciclarii, dar si pentru a promova diverse evenimente de sensibilizare a locuitorilor privitor la colectarea selectivă a gunoiului.
+            </p>
+            <p>
+                <ul>
+                    <li>Controller-ul de la campanii, are mai multe metode pentru gestionarea comportamentului.</li>
+                    <li>Metoda id, va fi apelata pentru path-ul campaigns/id/{numar} si va intoarce pagina unei campanii.</li>
+                    <li>Metoda index(), apelata la path-ul campaigns, ne va trimite catre view-ul de campanii, unde vor fi afisate primele 9 campanii, dar si o paginare pentru acestea. Daca trimitem ca si parametru de query pg=2, vom fi trimisi la urmatoarele
+                        9 campanii, daca exista.</li>
+                    <li>Metoda insert(), este apelata asincron la crearea unei campanii, din scriptul add_campaign.js.</li>
+                    <li>Metoda search este apelata atunci cand din view-ul campaigns/campaigns facem o cautare. Aceasta va trimite catre view-ul campaigns/campaigns, rezultatele cautarii.</li>
+                </ul>
+
+            </p>
+            <section id="pagina-campanie">
+                <h3>Pagina Campanie</h3>
+                <p>
+                    Pagina campaniei contine descrierea, detaliile despre autor si detalii legate de campanie. De asemenea, aceasta pagina contine si un banner, care poate fi incarcat la crearea campaniei. Daca nu incarcam nicio poza, vom avea un banner default.
+                </p>
+            </section>
+            <section id="prezentare">
+                <h3>Prezentare Campanii</h3>
+                <p>
+                    Aceasta pagina prezinta in mod paginat campaniile, ordonate in functie de cele mai recente. Pe fiecare pagina vor fi afisate maxim 9 campanii.
+                </p>
+                <p>
+                    De asemenea, pe aceasta pagina este prezenta si o bara de cautare, in functie de titlu si continut.
+                </p>
+            </section>
+            <section id="creare">
+                <h3>Creare campanie</h3>
+                <p>
+                    Aceasta pagina este accesibila doar utilizatorilor logati. Pentru crearea unei campanii, un utilizator va trebui sa introduca obligatoriu un titlu si o descriere. Optional, poate sa mai introduca o locatie, data si o imagine banner. In cazul in care campania
+                    este creata cu succes, utilizatorul va primi un mesaj in care i se transmite acest lucru. In caz contrar, va primi un mesaj cu detaliile erorii.
+                </p>
+            </section>
+        </section>
+
+        <section id="rapoarte">
+            <h3>Rapoarte</h3>
+            <section id="map">
+                <h3>Vizualizare harta</h3>
+                <p>
+                    Pentru reprezentarea vizuala a hartii si a actiunilor utilizatorilor am folosit OpenLayers (biblioteca JavaScript open-source).
+                </p>
+            </section>
+
+            <section id="puncte-reciclare">
+                <h3>Puncte de reciclare</h3>
+                <p>
+                    Punctele de reciclare pot fi adaugate pe harta ca markere, doar de catre angajatii companiilor inregistrate. Adaugarea unui nou punct se realizeaza asincron, utilizand Ajax.
+                </p>
+            </section>
+
+            <section id="raport">
+                <h3>Raportare</h3>
+                <p>
+                    Raportarea se realizeaza de catre orice utilizator, atat inregistrat, cat si neinregistrat. Acesta selecteaza locatia unde doreste sa faca raportarea (utilizand interfata vizuala a hartii), avand posibilitatea de a marca locurile unde nu s-a respectat
+                    colectarea selectiva si locurile unde gunoiul trebuie colectat. Adaugarea unui nou raport se realizeaza asincron, utilizand Ajax.
+                </p>
+            </section>
+
+            <section id="active-reports">
+                <h3>Rapoarte active</h3>
+                <p>
+                    O lista cu rapoartele active este disponibila pentru toti utilizatorii, atat vizual pe harta, cat si in format text. Angajatii companiilor de salubritate au posibilitatea de a sterge un raport, in mod asincron, fara a reimprospata pagina.
+                </p>
+            </section>
+
+            <section id="votare">
+                <h3>Sistem votare</h3>
+                <p>
+                    Utilizatorii autentificati au posibilitatea de a vota (pozitiv sau negativ) rapoartele active, pentru a ajunta angajatii in vederea rezolvarii acestora. Votarea se realizeaza asincron, fiecare utilizator conectat putand sa voteze fie pozitiv fie negativ
+                    o singura data, un raport.
+                </p>
+            </section>
+        </section>
+
+        <section id="statistici">
+            <h3>Statistici</h3>
+        </section>
+
+        <section id="admin">
+
+            <h3>Administrator</h3>
+            <p>
+                Interfata de admin ii ofera administratorului aplicației mai multe posibilități de a gestiona niste configurari interne.
+            </p>
+            <p>
+                <ul>
+                    <li>Controller-ul admin se ocupa de interfata admin. Acesta va fi folosit pentru path-ul /admin. </li>
+                    <li>View-urile sunt protejate din controller, unde se verifica daca persoana care doreste sa acceseze acel view este logata ca administrator. In cazul in care nu este logata, este redirectionata catre view-ul de logare pentru administrator.
+                    </li>
+                    <li>In acest controller, avem metode pentru fiecare sectiune: dashboard(metoda index), login, campaigns, users, reports si o metoda pentru logout.</li>
+                    <li>Metodele campaigns, users, reports se ocupa de cererile in care avem o stergere de campanie/user/report, si ofera date in mod paginat pentru view-ul admin/listing</li>
+                </ul>
+            </p>
+            <section id="dashboard">
+
+                <h3>Dashboard</h3>
+                <p>
+                    Dashboard ul, prezintă administratorului numarul curent de campanii, utilizatori si rapoarte. De asemenea, adminul poate sa controleze in ce mod se pot exporta statisticile, dar si ce angajați ai unor companii pot fi marcati ca ''verificati''. Daca un
+                    utilizator e marcat ca verificat, acesta va avea optiunea de a inchide, sau marca ca rezolvat, diferite raportari. Verificarea utilizatorilor si selectarea optiunilor de export se va face asincron.
+                </p>
+            </section>
+            <section id="lista-campanii">
+
+                <h3>Lista campanii</h3>
+                </p>
+                Pagina de campanii din admin, afiseaza un tabel care conține, pe fiecare rand, date despre campanii. Sunt prezente si 2 butoane, unul care iti deschide pagina campaniei, si unul care iti sterge campania. Stergerea campaniei se va face cu ajutorul unui
+                call ajax, cu metoda delete la campaign/id. Ca răspuns, o sa primesc campaniile care au mai ramas si le voi reafisa. Afisarea campaniilor este paginata.
+                </p>
+            </section>
+            <section id="lista-raportari">
+
+                <h3>Lista raportari</h3>
+                <p>
+                    Pagina de raportari contine o lista cu fiecare raport, si detaliile aferente acestuia. Avem si optiunea de a sterge un raport.
+                </p>
+            </section>
+            <section id="lista-utilizatori">
+
+                <h3>Lista Utilizatori</h3>
+                <p>
+                    Pagina de utilizatori, ne prezinta o lista cu toti utilizatorii(companii sau normali). Daca stergem un utilizator, vom sterge si campaniile aferente acestuia. Afisarea utilizatorilor este paginata, cate 10 pe o pagina.
+                </p>
+            </section>
+        </section>
+
+        <section id="api">
+            <h3>API</h3>
+            <section id="auth">
+                <h3>Autentificare</h3>
+                <p>
+                    Pentru autentificare este necesar un requst POST /api/auth, trimitand un body (in format json) care sa contina un username si o parola existente in baza de date. Daca datele trimise sunt corecte, se va trimite status code-ul 200 OK, urmat de un token
+                    JWT ce va fi necesar pentru viitoarele request-uri.
+                </p>
+            </section>
+            <section id="report">
+                <h3>Rapoarte</h3>
+                <p>
+                    <ul>
+                        <li>
+                            GET /api/report <br/> Returneaza o lista cu informatii despre toate rapoartele active.
+                        </li>
+                        <li>
+                            GET /api/report/{id} <br/> Returneaza informatii despre raportul cu id-ul dat ca parametru.
+                        </li>
+                        <li>
+                            POST /api/report <br/> Creaza un nou raport pe baza informatiilor din body.
+                        </li>
+                        <li>
+                            DELETE /api/report/{id} <br/> Sterge raportul dat prin id. Este necesar ca body-ul sa contina un token jwt, care sa ateste faptul ca utilizatorul este un angajat al unei companii de salubritate, ce are dreptul de a sterge un
+                            raport.
+                        </li>
+                    </ul>
+                </p>
+            </section>
+            <section id="campanii">
+                <h3>Campanii</h3>
+                <ul>
+                    <li>
+                        GET /api/campaigns <br/> Returneaza o lista cu informatii despre toate campaniile.
+                    </li>
+                    <li>
+                        GET /api/campaigns/{id} <br/> Returneaza informatii despre campania cu id-ul dat ca parametru.
+                    </li>
+                    <li>
+                        POST /api/campaigns <br/> Creaza o noua campanie pe baza informatiilor din body.
+                    </li>
+                    <li>
+                        DELETE /api/campaigns/{id} <br/> Sterge campania data prin id. Este necesar ca body-ul sa contina un token jwt, care sa ateste faptul ca utilizatorul este logat in sistem.
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+    </section>
+
+    <section id="progres">
+        <h2>Progres</h2>
+        <section id="stefan">
+            <h3>Stefan</h3>
+            <ul>
+                <li>Am creat footer-ul.</li>
+                <li>Am creat scheletul pentru arhitectura MVC.</li>
+                <li>Am creat paginile de login, register, forgot password, report impreuna cu controllerele si modelele aferente, plus script-urile pentru comunicarea asincrona si diverse functionalitati pe partea de client.</li>
+                <li>Am creat API-ul Rest al aplicatiei, cu intrarile de autentificare si raportare.</li>
+            </ul>
+            <h5>Link-uri:</h5>
+            <p><a href="https://github.com/alexDamian99/GaSM/tree/signin-register">Paginile de login si register</a> </p>
+            <p> <a href="https://github.com/alexDamian99/GaSM/tree/report">Pagina de report (primele versiuni)</a></p>
+            <p> <a href="https://github.com/alexDamian99/GaSM/tree/stefan">Progres general</a></p>
+        </section>
+        <section id="andrei">
+            <h3>Andrei</h3>
+            <ul>
+                <li>Pe partea de front-end am lucrat la pagina de profil, editare profil si statistici. Toate acestea sunt si mobile responsive.</li>
+                <li>Am implementat impreuna cu colegii de echipa structura MVC, de la tutorialul <a href="https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD">acesta</a>.</li>
+                <li>Pe partea de backend, am lucrat la controllerele de la profil, editare profil si statistici.</li>
+                <li>De asemenea am creat si view-urile necesare pentru profil, editare profil si statistici. Dupa ce am creat view-urile, 
+                    am creat si scripturi js pentru a implementa functionalitatea necesara(profile.js, statistics.js).</li>
+                <li>La partea de modele, am create modelul Profile, si am implementat functii cum ar fi getActiveReportsFor,changePhoto,changeName etc. 
+                </li>
+            </ul>
+            <p> <a href="https://github.com/alexDamian99/GaSM/tree/andrei">Progres general</a></p>
+
+            
+        </section>
+        <section id="alex">
+            <h3>Alex</h3>
+            <ul>
+                <li>Am creat bara de navigare html css, si am facut-o si responsive.</li>
+                <li>Pe partea de front-end am lucrat la pagina principala, pagina pentru campanii, pagina unei campanii, dar si la interfata de admin. Toate acestea sunt si mobile responsive.</li>
+                <li>Am implementat impreuna cu colegii de echipa structura MVC, de la tutorialul <a href="https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD">acesta</a>.</li>
+                <li>Pe partea de backend, am lucrat la controllerele de la campanii, homepage, si admin.</li>
+                <li>De asemenea am creat si view-urile necesare pentru campanii, pagina principala, si paginile din administrator. Dupa ce am creat view-urile, am creat si scripturi js pentru a face apeluri AJAX catre backend(add_campaign.js, dashboard.js,
+                    admin_listing.js).
+                </li>
+                <li>La partea de modele, am create modelul pentru campanii, si am adaugat diferite functii cum ar fi deleteUser, sau getNUsers la modelele ProfileModel si ReportModel, deoarece am avut nevoie de ele la partea de admin.
+                </li>
+                <li>Am lucrat si la partea de hosting pentru acest site. Aici m-am ocupat de Heroku, Amazon S3, si baza de date de pe heroku.</li>
+                <li>Impreuna cu colegii de echipa, am rezolvat si partea de integrare a diferitelor module.</li>
+            </ul>
+        </section>
+    </section>
+
+    <section id="prezentare">
+        <h2>Prezentare proiect</h2>
+        <p>Prezentarea video pentru fiecare componenta.</p>
+        <section id="video-stefan">
+            <h3>Prezentare Stefan</h3>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=5AmxyJjN36o">Prezentare Signin</a></li>
+                <li><a href="https://www.youtube.com/watch?v=TbG-vJJ8PAs">Prezentare Register</a></li>
+                <li><a href="https://www.youtube.com/watch?v=6Vz9m5GPybI">Prezentare Report</a></li>
+            </ul>
+        </section>
+        <section id="video-andrei">
+            <h3>Prezentare Andrei</h3>
+            <p>
+                <a href="https://youtu.be/VXjPYHJtgeU">Link catre video/</a>
+            </p>
+        </section>
+        <section id="video-alex">
+            <h3>Prezentare Alex</h3>
+            <ul>
+                <li><a href="https://youtu.be/XLqnw7TJCVA">Prezentare Administrator</a></li>
+                <li><a href="https://youtu.be/MNQCRh_ulPo">Prezentare creare campanii</a></li>
+                <li><a href="https://youtu.be/q5PYKZuxPIc">Prezentare pagina principala si campanii</a></li>
+            </ul>
+        </section>
+    </section>
+    <section id="Hosting">
+        <h2>Hosting</h2>
+        <p>Site-ul poate fi gasit la adresa: <a href="https://gasm-tw.herokuapp.com/">https://gasm-tw.herokuapp.com/</a></p>
+        <p>Acest proiect este gazduit pe heroku, si foloseste baza de date Mysql ClearDB. De asemenea, deoarece heroku nu permite upload-ul de fisiere(fisierele incarcate, sunt sterse dupa o anumita perioada de timp), am incarcat fisierele pe un bucket oferit
+            de Amazon S3(fisierele vor fi incarcate cu nume aleatorii). Incarcarea site-ul se face automat pe heroku, in momentul in care facem ceva modificari pe branch-ul master. Conectarea la baza de date o fac cu ajutorul mysql workbench. Am folosit
+            si Composer, pentru a gestiona diferitele biblioteci necesare utilizarii heroku si amazon s3.
+        </p>
+    </section>
+
+    <section id="audit">
+        <h2>Audit</h2>
+        <a href="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/audit.jpg">Web dev audit</a>
+    </section>
+    <section id="referinte">
+        <h2>Referinte</h2>
+        <ul>
+            <li><a href="https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD">MVC</a> </li>
+            <li> <a href="https://openlayers.org/en/latest/examples/">OpenLayers</a></li>
+            <li><a href="https://codewithawa.com/posts/like-dislike-system-with-php-and--mysql">Like/Dislike System</a> </li>
+            <li><a href="https://developer.okta.com/blog/2019/03/08/simple-rest-api-php">API Rest</a> </li>
+            <li><a href="https://www.youtube.com/watch?v=kNJT3tJioww">JWT</a> </li>
+            <li><a href="https://www.w3schools.com/php/php_ajax_php.asp">Ajax</a> </li>
+        </ul>
+    </section>
+
+</body>
+
+</html>
+<ul>
+    <li><a href="https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD">https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web">https://developer.mozilla.org/en-US/docs/Web</a></li>
+    <li><a href="https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_responsive_form">https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_responsive_form</a></li>
+    <li><a href="https://devcenter.heroku.com/articles/cleardb">https://devcenter.heroku.com/articles/cleardb</a></li>
+    <li><a href="https://devcenter.heroku.com/articles/getting-started-with-php">https://devcenter.heroku.com/articles/getting-started-with-php</a></li>
+    <li><a href="https://devcenter.heroku.com/articles/s3-upload-php">https://devcenter.heroku.com/articles/s3-upload-php</a></li>
+</ul>
+</section>
+</body>
+
+</html>

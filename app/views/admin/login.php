@@ -14,7 +14,7 @@
 <body>
     <main>
         <form action="<?= getenv("path_to_public") ?>/admin/login" method="POST" id="credentials">
-            <a class="logo-container" href="./index">
+            <a class="logo-container" href="<?= getenv("path_to_public") ?>">
                 <img id="logo" src="<?= getenv("path_to_public") ?>/assets/images/navbar_logo.png" alt="logo">
             </a>
             <h1>Admin sign in</h1>

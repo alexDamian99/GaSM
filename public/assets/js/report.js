@@ -84,5 +84,49 @@ function newDislike(elem) {
     };
     xmlhttp.open('POST', 'report/newAction/' + report_id + '/' + action, true);
     xmlhttp.send();
+}
 
+function deleteReport(report_id) {
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.open();
+            document.write(xmlhttp.response);
+            document.close();
+        }
+    }
+    xmlhttp.open('DELETE', 'report/deleteReport/' + report_id, true);
+    xmlhttp.send();
+}
+
+function addNewRecyclePoint() {
+    let type = document.getElementById("type-recycle").value;
+    let location = document.getElementById("location-input-recycling").value;
+
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.open();
+            document.write(xmlhttp.response);
+            document.close();
+        }
+    }
+    xmlhttp.open('POST', 'report/addNewRecyclePoint/' + type + '/' + location, true);
+    xmlhttp.send();
+}
+
+function addNewReport() {
+    let type = document.getElementById("type-report").value;
+    let location = document.getElementById("location-input-report").value;
+
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.open();
+            document.write(xmlhttp.response);
+            document.close();
+        }
+    }
+    xmlhttp.open('POST', 'report/addNewReport/' + type + '/' + location, true);
+    xmlhttp.send();
 }

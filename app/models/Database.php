@@ -23,6 +23,7 @@ class Database
         $db = substr($url["path"], 1);
 
         $this->conn = new mysqli($server, $username, $password, $db);
+
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }

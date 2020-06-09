@@ -150,16 +150,15 @@ header{
 .campaigns__headers__head > a{
     text-decoration:none;
     color:#01B469;
+    width: 300px;
 }
 .campaigns__headers__head > a:hover{
     color:#009054;
 }
 .campaigns__headers__head__title{
-    text-align:left;
+    width: 300px;
+    word-break: break-word;
 }
-
-  
-
 .search-bar{
     background: white;
     padding: 2em 3em 2em 3em;

@@ -66,19 +66,16 @@ if ($data[2]) {
             <p>Found <?= $data[1] ?> results for your search.</p>
             <?php } ?>
             <div class="campaigns__headers">
-
-                <?php
-                foreach ($campaigns as $campaign) { ?>
-                <div class="campaigns__headers__head">
-                    <img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?= $campaign['image_name'] ?>"
-                        alt="<?= $campaign['title'] ?>">
-                    <a href="<?= getenv("path_to_public") ?>/campaigns/id/<?= $campaign['id'] ?>">
-                        <p class="campaigns__headers__head__title">
-                            <?= $campaign['title'] ?>
+                <?php foreach($campaigns as $campaign){?>
+					<div class="campaigns__headers__head">
+						<img src="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/<?=$campaign['image_name']?>" alt="<?=$campaign['title']?>">
+						<a href="<?=getenv("path_to_public")?>/campaigns/id/<?= $campaign['id'] ?>">
+						<p class="campaigns__headers__head__title">
+							<?= $campaign['title'] ?>
                         </p>
-                    </a>
-                </div>
-                <?php } ?>
+						</a>
+					</div>
+				<?php } ?>
             </div>
 
             <div class="campaigns__pagination">
