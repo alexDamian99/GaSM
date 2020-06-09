@@ -28,7 +28,7 @@
         <script src="<?= getenv("path_to_public") ?>/assets/js/report-map.js"></script>
 
         <?php
-        if (isset($_SESSION['id_comp'])) {
+        if (isset($_SESSION['id_comp']) && $data['verified'] == 1) {
             echo
                 '<div class="report">
                 <button id="report-btn" onclick="extend(\'recycle-form\', \'arrow3\')">
