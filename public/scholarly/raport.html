@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Gasm TW 2020 Informatica Iasi</title>
-    <link rel="stylesheet" href="css/scholarly.min.css">
+    <link rel="stylesheet" href="css/scholarly.css">
     <script src="js/scholarly.min.js"></script>
 </head>
 
@@ -22,6 +22,10 @@
             <dt>Echipa</dt>
             <dd>
                 Beleuz Stefan &amp; Ianau Andrei Ioan &amp; Damian Alexandru
+            </dd>
+            <dt>Pagina github</dt>
+            <dd>
+                <a href="https://github.com/alexDamian99/GaSM">Garbage Smart Monitor</a>
             </dd>
             <dt>Licenta</dt>
             <dd>
@@ -47,11 +51,21 @@
     <section id="structure">
         <h2>Structura</h2>
         <p>
-            Aplicatia este structurata respectant arhitectura MVC (Model-View-Controller).
+            Proiectul este creat folosind arhitectura MVC. Am ales aceasta arhitectura deoarece:
+            <ul>
+                <li>Ne-a permis impartirea proiectului in mai multe module la care am lucrat individual, in acelasi timp.</li>
+                <li>Integrarea modulelor a fost destul de usoara.</li>
+                <li>Am evitat codul duplicat.</li>
+                <li>Depistarea si rezolvarea usoara a bug-urilor.</li>
+            </ul>
         </p>
 
         <section id="home">
             <h3>Pagina principala</h3>
+            <p>
+                Pagina principala conține mai multe informații generale despre reciclare. De asemenea, contine si o scurta prezentare a primelor 3 campanii(cele mai recente), dar si un buton pentru a raporta diferite evenimente. Pe pagina principala, avem mai multe desene
+                ce ilustreaza reciclarea.
+            </p>
         </section>
 
         <section id="inregistrare">
@@ -115,42 +129,41 @@
         </section>
 
         <section id="campanii">
-            <!-- review? -->
             <h3>Campanii</h3>
-            <section id="prezentare">
-                <!-- review? -->
-                <h3>Prezentare Campanii</h3>
+            <p>
+                Modulul de campanii este folosit la constientizarea utilizatorilor asupra efectelor nocive ale nerespectarii reciclarii, dar si pentru a promova diverse evenimente de sensibilizare a locuitorilor privitor la colectarea selectivă a gunoiului.
+            </p>
+            <p>
+                <ul>
+                    <li>Controller-ul de la campanii, are mai multe metode pentru gestionarea comportamentului.</li>
+                    <li>Metoda id, va fi apelata pentru path-ul campaigns/id/{numar} si va intoarce pagina unei campanii.</li>
+                    <li>Metoda index(), apelata la path-ul campaigns, ne va trimite catre view-ul de campanii, unde vor fi afisate primele 9 campanii, dar si o paginare pentru acestea. Daca trimitem ca si parametru de query pg=2, vom fi trimisi la urmatoarele
+                        9 campanii, daca exista.</li>
+                    <li>Metoda insert(), este apelata asincron la crearea unei campanii, din scriptul add_campaign.js.</li>
+                    <li>Metoda search este apelata atunci cand din view-ul campaigns/campaigns facem o cautare. Aceasta va trimite catre view-ul campaigns/campaigns, rezultatele cautarii.</li>
+                </ul>
+
+            </p>
+            <section id="pagina-campanie">
+                <h3>Pagina Campanie</h3>
                 <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
-                </p>
-                <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
+                    Pagina campaniei contine descrierea, detaliile despre autor si detalii legate de campanie. De asemenea, aceasta pagina contine si un banner, care poate fi incarcat la crearea campaniei. Daca nu incarcam nicio poza, vom avea un banner default.
                 </p>
             </section>
-            <section id="cautare">
-                <!-- review? -->
-                <h3>Cautare campanie</h3>
+            <section id="prezentare">
+                <h3>Prezentare Campanii</h3>
                 <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
+                    Aceasta pagina prezinta in mod paginat campaniile, ordonate in functie de cele mai recente. Pe fiecare pagina vor fi afisate maxim 9 campanii.
                 </p>
                 <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
+                    De asemenea, pe aceasta pagina este prezenta si o bara de cautare, in functie de titlu si continut.
                 </p>
             </section>
             <section id="creare">
-                <!-- review? -->
                 <h3>Creare campanie</h3>
                 <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
-                </p>
-                <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
+                    Aceasta pagina este accesibila doar utilizatorilor logati. Pentru crearea unei campanii, un utilizator va trebui sa introduca obligatoriu un titlu si o descriere. Optional, poate sa mai introduca o locatie, data si o imagine banner. In cazul in care campania
+                    este creata cu succes, utilizatorul va primi un mesaj in care i se transmite acest lucru. In caz contrar, va primi un mesaj cu detaliile erorii.
                 </p>
             </section>
         </section>
@@ -200,30 +213,48 @@
         </section>
 
         <section id="admin">
-            <!-- review? -->
+
             <h3>Administrator</h3>
+            <p>
+                Interfata de admin ii ofera administratorului aplicației mai multe posibilități de a gestiona niste configurari interne.
+            </p>
+            <p>
+                <ul>
+                    <li>Controller-ul admin se ocupa de interfata admin. Acesta va fi folosit pentru path-ul /admin. </li>
+                    <li>View-urile sunt protejate din controller, unde se verifica daca persoana care doreste sa acceseze acel view este logata ca administrator. In cazul in care nu este logata, este redirectionata catre view-ul de logare pentru administrator.
+                    </li>
+                    <li>In acest controller, avem metode pentru fiecare sectiune: dashboard(metoda index), login, campaigns, users, reports si o metoda pentru logout.</li>
+                    <li>Metodele campaigns, users, reports se ocupa de cererile in care avem o stergere de campanie/user/report, si ofera date in mod paginat pentru view-ul admin/listing</li>
+                </ul>
+            </p>
             <section id="dashboard">
-                <!-- review? -->
+
                 <h3>Dashboard</h3>
                 <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
-                </p>
-                <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
+                    Dashboard ul, prezintă administratorului numarul curent de campanii, utilizatori si rapoarte. De asemenea, adminul poate sa controleze in ce mod se pot exporta statisticile, dar si ce angajați ai unor companii pot fi marcati ca ''verificati''. Daca un
+                    utilizator e marcat ca verificat, acesta va avea optiunea de a inchide, sau marca ca rezolvat, diferite raportari. Verificarea utilizatorilor si selectarea optiunilor de export se va face asincron.
                 </p>
             </section>
             <section id="lista-campanii">
-                <!-- review? -->
+
                 <h3>Lista campanii</h3>
-                <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
                 </p>
+                Pagina de campanii din admin, afiseaza un tabel care conține, pe fiecare rand, date despre campanii. Sunt prezente si 2 butoane, unul care iti deschide pagina campaniei, si unul care iti sterge campania. Stergerea campaniei se va face cu ajutorul unui
+                call ajax, cu metoda delete la campaign/id. Ca răspuns, o sa primesc campaniile care au mai ramas si le voi reafisa. Afisarea campaniilor este paginata.
+                </p>
+            </section>
+            <section id="lista-raportari">
+
+                <h3>Lista raportari</h3>
                 <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
+                    Pagina de raportari contine o lista cu fiecare raport, si detaliile aferente acestuia. Avem si optiunea de a sterge un raport.
+                </p>
+            </section>
+            <section id="lista-utilizatori">
+
+                <h3>Lista Utilizatori</h3>
+                <p>
+                    Pagina de utilizatori, ne prezinta o lista cu toti utilizatorii(companii sau normali). Daca stergem un utilizator, vom sterge si campaniile aferente acestuia. Afisarea utilizatorilor este paginata, cate 10 pe o pagina.
                 </p>
             </section>
             <section id="lista-raportari">
@@ -316,6 +347,19 @@
         </section>
         <section id="alex">
             <h3>Alex</h3>
+            <ul>
+                <li>Am creat bara de navigare html css, si am facut-o si responsive.</li>
+                <li>Pe partea de front-end am lucrat la pagina principala, pagina pentru campanii, pagina unei campanii, dar si la interfata de admin. Toate acestea sunt si mobile responsive.</li>
+                <li>Am implementat impreuna cu colegii de echipa structura MVC, de la tutorialul <a href="https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD">acesta</a>.</li>
+                <li>Pe partea de backend, am lucrat la controllerele de la campanii, homepage, si admin.</li>
+                <li>De asemenea am creat si view-urile necesare pentru campanii, pagina principala, si paginile din administrator. Dupa ce am creat view-urile, am creat si scripturi js pentru a face apeluri AJAX catre backend(add_campaign.js, dashboard.js,
+                    admin_listing.js).
+                </li>
+                <li>La partea de modele, am create modelul pentru campanii, si am adaugat diferite functii cum ar fi deleteUser, sau getNUsers la modelele ProfileModel si ReportModel, deoarece am avut nevoie de ele la partea de admin.
+                </li>
+                <li>Am lucrat si la partea de hosting pentru acest site. Aici m-am ocupat de Heroku, Amazon S3, si baza de date de pe heroku.</li>
+                <li>Impreuna cu colegii de echipa, am rezolvat si partea de integrare a diferitelor module.</li>
+            </ul>
         </section>
     </section>
 
@@ -332,27 +376,43 @@
             <h3>Prezentare Alex</h3>
         </section>
     </section>
-
-    <section id="deploy">
-        <h2>Deploy</h2>
-        <p>Heroku & AWS S3</p>
+    <section id="Hosting">
+        <h2>Hosting</h2>
+        <p>Site-ul poate fi gasit la adresa: <a href="https://gasm-tw.herokuapp.com/">https://gasm-tw.herokuapp.com/</a></p>
+        <p>Acest proiect este gazduit pe heroku, si foloseste baza de date Mysql ClearDB. De asemenea, deoarece heroku nu permite upload-ul de fisiere(fisierele incarcate, sunt sterse dupa o anumita perioada de timp), am incarcat fisierele pe un bucket oferit
+            de Amazon S3(fisierele vor fi incarcate cu nume aleatorii). Incarcarea site-ul se face automat pe heroku, in momentul in care facem ceva modificari pe branch-ul master. Conectarea la baza de date o fac cu ajutorul mysql workbench. Am folosit
+            si Composer, pentru a gestiona diferitele biblioteci necesare utilizarii heroku si amazon s3.
+        </p>
     </section>
 
     <section id="audit">
         <h2>Audit</h2>
-        <img src="" alt="audit" />
+        <a href="https://proiect-tw-gasm.s3.eu-central-1.amazonaws.com/audit.jpg">Web dev audit</a>
     </section>
-
     <section id="referinte">
         <h2>Referinte</h2>
-        <a href="https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD">MVC</a> <br/>
-        <a href="https://openlayers.org/en/latest/examples/">OpenLayers</a> <br/>
-        <a href="https://codewithawa.com/posts/like-dislike-system-with-php-and--mysql">Like/Dislike System</a> <br/>
-        <a href="https://developer.okta.com/blog/2019/03/08/simple-rest-api-php">API Rest</a> <br/>
-        <a href="https://www.youtube.com/watch?v=kNJT3tJioww">JWT</a> <br/>
-        <a href="https://www.w3schools.com/php/php_ajax_php.asp">Ajaxt</a> <br/>
+        <ul>
+            <li><a href="https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD">MVC</a> </li>
+            <li> <a href="https://openlayers.org/en/latest/examples/">OpenLayers</a></li>
+            <li><a href="https://codewithawa.com/posts/like-dislike-system-with-php-and--mysql">Like/Dislike System</a> </li>
+            <li><a href="https://developer.okta.com/blog/2019/03/08/simple-rest-api-php">API Rest</a> </li>
+            <li><a href="https://www.youtube.com/watch?v=kNJT3tJioww">JWT</a> </li>
+            <li><a href="https://www.w3schools.com/php/php_ajax_php.asp">Ajaxt</a> </li>
+        </ul>
     </section>
 
+</body>
+
+</html>
+<ul>
+    <li><a href="https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD">https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web">https://developer.mozilla.org/en-US/docs/Web</a></li>
+    <li><a href="https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_responsive_form">https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_responsive_form</a></li>
+    <li><a href="https://devcenter.heroku.com/articles/cleardb">https://devcenter.heroku.com/articles/cleardb</a></li>
+    <li><a href="https://devcenter.heroku.com/articles/getting-started-with-php">https://devcenter.heroku.com/articles/getting-started-with-php</a></li>
+    <li><a href="https://devcenter.heroku.com/articles/s3-upload-php">https://devcenter.heroku.com/articles/s3-upload-php</a></li>
+</ul>
+</section>
 </body>
 
 </html>
