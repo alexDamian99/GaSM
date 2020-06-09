@@ -30,7 +30,7 @@ map.on('click', function(evt) {
     if (feature) {
         var coordinates = feature.getGeometry().getCoordinates();
         popup.setPosition(coordinates);
-        element_popup.innerHTML = feature.get('type') + '<br><br>' + 'Report id: ' + feature.get('id');
+        element_popup.innerHTML = feature.get('type') + '<br><br>' + 'ID: ' + feature.get('id');
         element_popup.style.display = 'flex';
     } else {
         element_popup.innerHTML = '';
