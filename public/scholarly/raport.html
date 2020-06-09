@@ -100,32 +100,44 @@
         </section>
 
         <section id="utilizator">
-            <!-- review? -->
             <h3>Utilizator</h3>
+            <p>
+                Acest modul tine de detaliile fiecarui utilizator. 
+                Toata functionalitatea ce tine de backend pe partea de baza de date este implementata in modelul 
+                "ProfileModel", avand metode spcifice ce incapsuleaza comportamentul necesar anumitor functionalitati.
+                Acest modul este accesibil doar utilizarilor logati.
+            </p>
             <section id="Profil">
-                <!-- review? -->
-                <h3>Register</h3>
+                <h3>Profil</h3>
                 <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
-                </p>
-                <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
+                    Pagina de vizualizare a profilului este folosita pentru ca utilizatorul sa aiba la indemana mai 
+                    usor campaniile sale dar si raportarile sale. 
+                    De asemenea, utilizatorul poate sa isi editeze profilul dand hover peste imaginea de profil si
+                     apasand pe "Edit profile".
                 </p>
             </section>
             <section id="Editare Profil">
-                <!-- review? -->
-                <h3>Register</h3>
+                <h3>Editare profil</h3>
                 <p>
-                    The document must be encoded in UTF-8 and transmitted with a media type of
-                    <code>text/html</code>.
-                </p>
-                <p>
-                    The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                    <code>title</code> element.
+                    Pagina de editare a profilului este folosita de catre utilizator pentru a schimba imaginea de profil, 
+                    adresa, email-ul si nickname-ul.
                 </p>
             </section>
+        </section>
+
+        <section id="statistici">
+            <h3>Statistici</h3>
+            <p>
+               Acest modul este folosit pentru vizualizarea datelor si anume: numarul de raportari per an (ultimii 6 ani), 
+               per luna (ultimele 12 luni), per zi (ultimele 7 zile) si per suburbii si per orase.
+            </p>
+            <p>
+                M-am folosit de api-ul <code>https://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat</code>
+                pentru a face rost de detaliile locatiei (oras si suburbie);
+                si de api-ul <code>https://www.gstatic.com/charts/loader.js</code> pentru a desena statisticile.
+                Am creat si api-ul "/statistics_data" pentru a lua din baza de date toate datele avand legatura cu 
+                raportarile.
+            </p>
         </section>
 
         <section id="campanii">
@@ -195,7 +207,7 @@
             <section id="active-reports">
                 <h3>Rapoarte active</h3>
                 <p>
-                    O lista cu rapoartele active este disponibila pentru toti utilizatorii, atat vizual pe harta, cat si in format text. Angajatii companiilor de salubritate au posibilitatea de sterge un raport, in mod asincron, fara a reimprospata pagina.
+                    O lista cu rapoartele active este disponibila pentru toti utilizatorii, atat vizual pe harta, cat si in format text. Angajatii companiilor de salubritate au posibilitatea de a sterge un raport, in mod asincron, fara a reimprospata pagina.
                 </p>
             </section>
 
@@ -315,6 +327,7 @@
             <h3>Stefan</h3>
             <ul>
                 <li>Am creat footer-ul.</li>
+                <li>Am creat scheletul pentru arhitectura MVC.</li>
                 <li>Am creat paginile de login, register, forgot password, report impreuna cu controllerele si modelele aferente, plus script-urile pentru comunicarea asincrona si diverse functionalitati pe partea de client.</li>
                 <li>Am creat API-ul Rest al aplicatiei, cu intrarile de autentificare si raportare.</li>
             </ul>
@@ -325,6 +338,18 @@
         </section>
         <section id="andrei">
             <h3>Andrei</h3>
+            <ul>
+                <li>Pe partea de front-end am lucrat la pagina de profil, editare profil si statistici. Toate acestea sunt si mobile responsive.</li>
+                <li>Am implementat impreuna cu colegii de echipa structura MVC, de la tutorialul <a href="https://www.youtube.com/playlist?list=PLfdtiltiRHWGXVHXX09fxXDi-DqInchFD">acesta</a>.</li>
+                <li>Pe partea de backend, am lucrat la controllerele de la profil, editare profil si statistici.</li>
+                <li>De asemenea am creat si view-urile necesare pentru profil, editare profil si statistici. Dupa ce am creat view-urile, 
+                    am creat si scripturi js pentru a implementa functionalitatea necesara(profile.js, statistics.js).</li>
+                <li>La partea de modele, am create modelul Profile, si am implementat functii cum ar fi getActiveReportsFor,changePhoto,changeName etc. 
+                </li>
+            </ul>
+            <p> <a href="https://github.com/alexDamian99/GaSM/tree/andrei">Progres general</a></p>
+
+            
         </section>
         <section id="alex">
             <h3>Alex</h3>
@@ -349,9 +374,17 @@
         <p>Prezentarea video pentru fiecare componenta.</p>
         <section id="video-stefan">
             <h3>Prezentare Stefan</h3>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=5AmxyJjN36o">Prezentare Signin</a></li>
+                <li><a href="https://www.youtube.com/watch?v=TbG-vJJ8PAs">Prezentare Register</a></li>
+                <li><a href="https://www.youtube.com/watch?v=6Vz9m5GPybI">Prezentare Report</a></li>
+            </ul>
         </section>
         <section id="video-andrei">
             <h3>Prezentare Andrei</h3>
+            <p>
+                https://youtu.be/VXjPYHJtgeU
+            </p>
         </section>
         <section id="video-alex">
             <h3>Prezentare Alex</h3>
@@ -378,7 +411,7 @@
             <li><a href="https://codewithawa.com/posts/like-dislike-system-with-php-and--mysql">Like/Dislike System</a> </li>
             <li><a href="https://developer.okta.com/blog/2019/03/08/simple-rest-api-php">API Rest</a> </li>
             <li><a href="https://www.youtube.com/watch?v=kNJT3tJioww">JWT</a> </li>
-            <li><a href="https://www.w3schools.com/php/php_ajax_php.asp">Ajaxt</a> </li>
+            <li><a href="https://www.w3schools.com/php/php_ajax_php.asp">Ajax</a> </li>
         </ul>
     </section>
 
