@@ -17,11 +17,21 @@
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/build/ol.js"></script>
 
     <script src="<?= getenv("path_to_public") ?>/assets/js/report.js"></script>
+
+    <script>
+    function myFunction() {
+        var x = document.getElementById("mobile-navbar");
+        if (x.className === "responsive-navbar") {
+            x.className = "";
+        } else {
+            x.className += "responsive-navbar";
+        }
+    }
+    </script>
 </head>
 
 <body>
     <?php include('../app/views/templates/header.php'); ?>
-    <?php include('../app/views/templates/head_header.php'); ?>
 
     <main>
         <div id="map" class="map">
