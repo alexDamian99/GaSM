@@ -42,26 +42,29 @@
     <section id="inregistrare">
         <h3>Inregistrare</h3>
         <section id="login">
-
             <h3>Login</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+            <p> <a href="./images/signin.JPG">Pagina Login</a> </p>
+            <p> Utilizatorul are posibilitatea de a se conecta la contul personal prin introducerea username-ului si a parolei. Daca cele doua corespund datelor din baza de date, utilizatorul este redirectat catre pagina principala, altfel este nevoi sa incerce
+                din nou conectarea, username-ul ramanand salvat in formular. Acesta are posibilitatea de a-si pastra contul in formular pentru viitoarele conectari. De pe aceasta pagina, utilizatorul poate ajunge la pagina principala, apasand pe imaginea
+                GaSM, din partea de sus, isi poate crea un cont, daca nu are unul sau isi poate recupera parola.
             </p>
         </section>
         <section id="register">
             <h3>Register</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
+            <p> <a href="./images/register-personal.JPG">Pagina Register (personal) </a> </p>
+            <p> <a href="./images/register-company.JPG">Pagina Register (companie) </a> </p>
+            <p> Inregistrare utilizatorului pe site presupune alegerea unui tip de cont, personal sau de companie. Pentru crearea contului sunt necesare introducerea numelui, email-ului (obligatoriu sa fie valid si unic in baza de date), username-ului (trebuie
+                sa fie unic in baza de date), parolei (minim formata din 6 caractere, litere si numere) si prin introducerea id-ului companiei (daca este cazul), care va fi verificat de un admin pentru a primii toate beneficiile. De pe aceasta pagina,
+                utilizatorul poate ajunge la pagina principala, apasand pe imaginea GaSM, din partea de sus sau se poate autentifica daca are deja un cont existent.
             </p>
+        </section>
+        <section id="forgot-pass">
+            <h3>Forgot Password</h3>
+            <p> <a href="./images/forgot-pass-email.JPG">Pagina Forgot Password 1 (email)</a> </p>
+            <p> <a href="./images/forgot-pass-token.JPG">Pagina Forgot Password 2 (token)</a> </p>
+            <p> <a href="./images/forgot-pass-password.JPG">Pagina Forgot Password 3 (parola noua)</a> </p>
             <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                Recuperarea parolei se face prin introducearea unui email valid, existent in baza de date, care va primi un token. Dupa introducerea unui token valid, utilizatorul isi va actualiza parola cu o noua parola valida.
             </p>
         </section>
     </section>
@@ -136,30 +139,37 @@
     </section>
 
     <section id="rapoarte">
-        <!-- review? -->
         <h3>Rapoarte</h3>
         <section id="puncte-reciclare">
-            <!-- review? -->
             <h3>Puncte de reciclare</h3>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                <p> <a href="./images/harta.JPG">Harta vizuala </a> </p>
+                Doar angajatii companiilor au posibilitatea de a adauga noi puncte de reciclare a hartiei, plasticului, metalului etc. Acestia trebuie sa selecteze locatia (de pe harta) si tipul de gunoi, iar pe harta vor aparea pin-uri cu locurile respective, impreuna
+                cu informatii despre tipul de gunoi si id.
             </p>
         </section>
-        <section id="Editare Profil">
-            <!-- review? -->
-            <h3>Register</h3>
+
+        <section id="raport">
+            <h3>Raportare</h3>
+            <p> <a href="./images/report.JPG">Formular raportare </a> </p>
             <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
+                Raportarea se realizeaza de catre orice utilizator, atat inregistrat, cat si neinregistrat. Acesta selecteaza locatia unde doreste sa faca raportarea (utilizand interfata vizuala a hartii), avand posibilitatea de a marca locurile unde nu s-a respectat
+                colectarea selectiva si locurile unde gunoiul trebuie colectat. Raportul va fi inregistrat si afisat atat vizual pe harta, cat si in lista cu rapoarte active sub forma text.
             </p>
+        </section>
+
+        <section id="active-reports">
+            <h3>Rapoarte active</h3>
+            <p> <a href="./images/active-reports.JPG">Lista raporturi active </a> </p>
             <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
+                O lista cu rapoartele active este disponibila pentru toti utilizatorii, atat vizual pe harta, cat si in format text. Angajatii companiilor de salubritate au posibilitatea de a sterge un raport.
+            </p>
+        </section>
+
+        <section id="votare">
+            <h3>Sistem votare</h3>
+            <p>
+                Utilizatorii autentificati au posibilitatea de a vota (pozitiv sau negativ) rapoartele active, pentru a ajunta angajatii in vederea rezolvarii acestora.
             </p>
         </section>
     </section>
@@ -210,46 +220,6 @@
         <section id="lista-utilizatori">
             <!-- review? -->
             <h3>Lista Utilizatori</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
-            </p>
-        </section>
-    </section>
-
-    <section id="api">
-        <h3>API</h3>
-        <section id="auth">
-            <!-- review? -->
-            <h3>Autentificare</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
-            </p>
-        </section>
-        <section id="report">
-            <!-- review? -->
-            <h3>report</h3>
-            <p>
-                The document must be encoded in UTF-8 and transmitted with a media type of
-                <code>text/html</code>.
-            </p>
-            <p>
-                The <code>head</code> must contain <code>&lt;meta charset="utf-8"&gt;</code> element and a
-                <code>title</code> element.
-            </p>
-        </section>
-        <section id="campanii">
-            <!-- review? -->
-            <h3>Campanii</h3>
             <p>
                 The document must be encoded in UTF-8 and transmitted with a media type of
                 <code>text/html</code>.
