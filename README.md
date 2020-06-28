@@ -1,5 +1,7 @@
 # GaSM
-Web Technologies project.
+Web Technologies project.  
+This project can be found at https://gasm-tw.herokuapp.com/  
+and instructions can be found at https://gasm-tw.herokuapp.com/scholarly/utilizare.html
 ## Link to general information about projects: 
 https://profs.info.uaic.ro/~busaco/teach/courses/web/web-projects.html
 
